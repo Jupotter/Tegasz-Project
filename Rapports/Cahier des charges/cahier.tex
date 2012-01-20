@@ -1,0 +1,197 @@
+\documentclass[a4paper]{report}
+\usepackage{graphicx}
+\usepackage[francais]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usepackage{alltt}
+
+     \textwidth 16cm
+      \textheight 25cm
+      \headsep 1.5cm
+      \topmargin -2cm
+\oddsidemargin 0cm
+
+\title{Lecteur audio} 
+\date{}
+\author{Mapplestore}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+
+
+
+\textsc{\LARGE P.R.O.J.E.T}\\[1.5cm]
+
+\textsc{\Large Tegasz}\\[0.5cm]
+
+\includegraphics[scale = 0.6]{name.jpg}\\  
+
+% Title
+\HRule \\[0.4cm]
+{ \huge \bfseries Cahier des charges}\\[0.4cm]
+
+\HRule \\[1.5cm]
+
+% Author and supervisor
+
+\begin{minipage}{0.4\textwidth}
+\begin{center} \large
+Maxime \textsc{Templ\'e}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+Julien \textsc{Garagnon}
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+Julien \textsc{Szkudlarek}
+\end{flushright}
+\end{minipage}
+
+\vfill
+
+% Bottom of the page
+{\large 12 mars 2012}
+
+\end{center}
+
+\end{titlepage}
+
+
+\tableofcontents
+
+\chapter{Pr\'eambule}
+
+\textit{Ce cahier des charges servira d'interm\'ediaire entre le jury et le groupe de projet.} \\
+Tegasz est r\'ealis\'e dans le cadre d'un travail de groupe pour EPITA. Le but principal de ce projet est de travailler en groupe et de r\'ealiser un programme d'un type librement choisi. Nous allons nous appuyer sur le contenu des cours enseignés à  EPITA et les compl\'eter par d'importantes recherches personnelles. La finalit\'e de ce projet est de le pr\'esenter devant un jury. Cette pr\'esentation se fera principalement au niveau technique du programme.\\
+Dans ce cahier des charges nous pr\'esenterons le projet en lui-m\^eme ainsi que les membres composant notre \'equipe de travail.
+
+\chapter {Pr\'esentation du projet}
+	\section{Developpement du projet}
+		\subsection{Introduction}
+Le groupe\textit{ Tegasz} est un groupe de projet form\'e en 2012 par trois  \'etudiants d'EPITA passionn\'es, dans le but de r\'ealiser pour la fin de l'année un travail de programmation in\'edit. Ce programme est un lecteur audio cod\'e dans la majeure partie en C et en caml. Le projet sera accompagn\'e d'un site web qui d\'ecrira tout au long de l'ann\'ee l'avancement du projet. Il sera mis à  jour r\'eguli\`erement apr\`es chaque \'evolution notable.
+Ce projet sera particuli\`erement diffcile à  r\'ealiser au niveau de la programmation:
+En effet, ce projet demande des notions particuli\`erement avanc\'ees dans le domaine du cryptage des fichiers audios. Par exemple, il faudra être capable de distinguer les en-tête de fichier de type .mp3, ou tout simplement être capable de lire un son, montrer sons avancement dans le temps, et pourquoi pas, afficher plusieurs informations sur la musique en cours.
+ C'est pourquoi nous allons commencer ce projet en progressant \'etape par \'etape.
+
+\newpage
+		\subsection{le march\'e des lecteurs audios}
+Nous nous intêressons principalement aux lecteurs audios libres, puisque c'est à  cela que nous esp\'erons arriver. voici quelques uns des logiciels disponibles sur le march\'e:
+
+			\subsubsection{The KMPlayer}
+
+Simple et \'epur\'e KMPlayer n'en est pas moins puissant. Ce lecteur Cor\'een a le vent en poupe et il se dit dans les forums qu'il commence à faire de l'ombre à VLC. Lecteur multimedia, KMPlayer est capable de lire pratiquement tous les formats audio et vid\'eo nativement. Il est dot\'e d'une tr\`es belle interface vraiment simple à  utiliser. A d\'ecouvrir... Il est gratuit et un patch français est disponible.
+
+\subsubsection{Amarok}
+
+Amarok est un lecteur audio. Il \'etait au d\'epart conçu uniquement pour Linux,mais la migration vers les plateformes Windows et Mac OS X est en cours. C'est\`a ce jour l'un des meilleurs lecteurs audio. 
+ Amarok peut lire quasiment n'importe quel type de fichiers audio (MP3, OGG, WMA, FLAC...), permet la cr\'eation de playlists ce qui le transforme en Jukebox, g\`ere l'\'edition des tags, grave les CD audio (à condition d'avoir K3B), r\'ecup\`ere les pochettes de disques ou les paroles d'un morceau, permet d'uploader votre musique vers de nombreux baladeurs (iPod, Creative NOMAD ou ZEN, Rio Karma...), affiche les infos Wikipedia sur le groupe que vous \'ecoutez... Bref, Amarok est un outil tr\`es puissant.
+Iil faut disposer d'un moteur de d\'ecodage tel que gstreamer ou xine pour faire fonctionner Amarok : Amarok est en quelque sorte une interface utilisateur. 
+
+\subsubsection{Splayer}
+
+lecteur multimedia extrêmement l\'eger, Splayer est compact, gratuit, facile à utiliser et capable de lire pratiquement tous les formats audio et vid\'eo sans avoir besoin de plugins suppl\'ementaires. Il est dot\'e d'une superbe interface que l'on appr\'ecie d'autant plus quand on utilise Splayer pour lire des vid\'eos. 
+
+\subsubsection{Windows Media Player}
+
+Le format WMA est la r\'eponse de Microsoft au MP3. Face au succ\`es du MP3 et l'engouement des internautes pour ce format, Microsoft a r\'eagi en mettant au point le Windows Media Audio codec en 1999. Les techniques de compression sont semblables à celles utilis\'ees par le standard MP3. Windows Media Player est fourni directement avec Windows depuis Windows 98. Pour obtenir la derni\`ere version, voyez les liens ci-dessous. Windows Media Player permet la lecture des CD audio, des fichiers MP3 et WMA et la visualisation de fichiers vid\'eo. Il est dot\'e d'un \'egaliseur 10 bandes, d'un gestionnaire de Playlists qui le transforme en Jukebox. Il permet la compression des fichiers Wave en WMA. On peut aussi proc\'eder à l'extraction des pistes audio d'un CD. Les fichiers obtenus sont directement encod\'es en WMA (on ne r\'ecup\`ere pas les wave). Il existe des skins et des plug-ins pour le transfert vers des baladeurs.
+
+\subsubsection{Winamp}
+
+Premier lecteur MP3 logiciel apparu sur le Web en 1997 et toujours tr\`es populaire. Aujourd'hui, Winamp est bien plus qu'un simple lecteur MP3. Il permet la lecture des CD audio, des fichiers MP3, OGG, AAC et WMA sans ajout de plug-ins et ceci pour ne parler que des formats les plus courants. Il peut d\'esormais ripper les pistes d'un CD audio pour les copier sur votre disque dur et graver des CD. Ces deux derni\`eres fonctionnalit\'es sont limit\'ees dans la version gratuite : on peut ripper en x6 et graver en x2 seulement mais c'est possible. Cette limitation ne nous semble pas un gros handicap dans la mesure o\`u il vaut mieux ripper \`a  vitesse lente pour obtenir une bonne qualit\'e d'extraction. Mais revenons \`a  Winamp... Il est dot\'e d'un \'egaliseur 10 bandes, d'un gestionnaire de Playlists qui le transforme en Jukebox et d'un minibrowser Web. 
+L'ajout de plug-ins \'etend encore les possibilit\'es de Winamp puisqu'on peut encoder en MP3 ou autre format, visualiser des vid\'eos au format DivX, lire des fichiers audio de type VQF, Monkey... A tester !
+
+\newpage
+	\section{Pr\'esentation des membres de l'\'equipe}
+		\subsection{Maxime Templ\'e}
+
+Il y a maintenant quatre ou cinq ans, j'ai d\'ecouvert les possibilit\'es que pouvaient donner l'informatique. Malgr\'e quelques notions de C et depuis six mois de CaML,et un projet en C\# je n'ai jamais eu l'occasion de m'investir pleinement dans le domaine du son li\'e à la programmation, mais je compte me servir de ce projet afin d'approfondir mes connaissances dans le domaine.
+
+		\subsection{Julien Garagnon}
+
+Troisième année a l'Epita, troisième spé, et enfin je commence le C. Après l'échec du projet cartographie, j'espère bien me rattraper avec cette fois ci un groupe soudé et motivé. n'ayant pratiquement aucune expérience concernant le son, que ça soit sa lecteur, sa production ou encore sa manipulation, ce projet promet de m'apporter de nombreuses connaissances sur le sujet, connaissances dont je suis toujours avide.
+
+		\subsection{Julien Szkudlarek}
+		Apr\`es un premier projet consistant à r\'ealiser une cartographie 3D avec un grand int\'erêt principalement li\'e à la visualisation, celui-ci sera donc un lecteur audio. Il s'annonce tout aussi passionnant car le principe même du projet est un outil tr\`es commun et de notre quotidien aujourd'hui. Il va \'egalement me permettre de pouvoir approfondir le C que je connais relativement peu. Pouvoir cr\'eer son propre lecteur audio est un objectif tr\`es stimulant d'autant plus que le sujet est plus libre que le pr\'ec\'edent ce qui va permettre une meilleure cr\'eativit\'e.
+\newpage
+
+
+\chapter{Planning et r\'epartition des tâches}
+\section{Organisation du travail} %bullshiiiiiit!!!!!!!!
+		\subsection{Travail hebdomadaire}
+
+Pour pouvoir r\'ealiser ce projet dans les temps, nous avons choisi de travailler en groupe au moins une fois par semaine, sur des plages d'horaires communes comme le Vendredi soir ou le jeudi matin. Le reste du travail sera r\'ealis\'e individuellement par chaque membre de l'\'equipe en suivant un planning et une r\'epartition organis\'ee des tâches d\'ecrite plus bas. Le but de ces r\'eunions hebdomadaires est tout simplement de mettre en commun nos id\'ees et de faire le point sur l'avanc\'ee du travail de chacun. Ainsi, chaque semaine un planning pour la semaine suivante sera \'etabli pour chaque membre de l'\'equipe.
+
+		\subsection{Communication entre les membres} %fake, trouver une autre idee
+
+Pour faciliter la communication entre nous, nous avons cr\'e\'e un forum de d\'eveloppement
+o\`u tous nos travaux seront post\'es au fur et \`a  mesure de leur r\'ealisation. Cela permettra d'une part, une meilleure gestion du travail, et d'autre part de voir l'avancement des travaux de chacun des membres. Skype sera aussi un des moyens principaux de communication.
+
+		\subsection{Chef de projet}
+
+La personne qui s'occupera tout au long de l'ann\'ee de la mise en place du projet
+et de l'organisation des travaux sera Maxime, choisi à l'unanimit\'e. Il sera notre chef de projet, c'est à dire le principal interm\'ediaire entre le jury et le groupe de projet lors des soutenances.
+
+\newpage
+\section{Description des tâches}
+
+		\subsection{Decryptage}
+		l'une des étapes la plus importante de la lecture d'un fichier audio, c'est bien entendu de comprendre ce qu'il y a d'écris dans le fichier. Il faut donc se pencher sur les spécifications du forma choisis, en l'occurrence, MPEG-1 layer 3, aussi appelé MP3. POur cela, nous aurons l'aide de la librairie FMOD, bien connue dans le milieu de l'audio, pour nous permettre d'obtenir un flux audio à partir d'un fichier d'entrée, flux que nous pourrons ensuite jouer voir même manipuler.
+		
+		\subsection{Lecture}
+		L'autre étape très importante de la lecture d'un fichier audio, est bien entendue de lire l'audio à l'utilisateur, c'est à dire demander au système d'utiliser ses ressources --- hauts parleurs, par exemple --- afin de retranscrire le flux audio numérique en onde acoustique. Bref, lire le son.
+		
+		\subsection{Interface graphique}
+	Sous ses airs simple, l'interface graphiques est tout de même une des pièces vitales de tout programme moderne. Si de nos jours un programme veux avoir du succès, il est obligé d'avoir une interface attrayante pour les utilisateurs. Nous allons donc pour cela créer une interface en utilisant GTK, tout en essayant de la garder simple, mais permettant d'utiliser toutes les fonctions du programme.
+		
+		\subsection{Gestion C/Caml}
+	Une des consignes impos\'ees pour le projet est de proposer une compatibilit\'e entre le C et le Caml. Il faudra donc impl\'ementer des fonctions dans les deux langages interagissant l'un avec l'autre. C'est un d\'efi car c'est la premi\`ere fois qu'il nous ai demand\'e de cr\'eer une sorte de dialogue entre deux langages comme le C et le Caml.
+	
+		\subsection{Site Web}
+	Afin de soutenir notre projet, nous devrons cr\'eer un site web qui refl\`ete au mieux l'esprit de notre lecteur audio, à savoir un design \'epur\'e et raffin\'e. Le site devra proposer un suivi du d\'eveloppement via un syst\`eme de news, le projet à t\'el\'echarger et un r\'ecapitulatif des comptes rendus des diff\'erentes soutenances. 
+
+
+
+
+\newpage
+\section{Planning des soutenances}
+\subsection{Soutenance 1}
+
+Pour cette premi\`ere soutenance, nous avons l'intention de principalement effectuer des recherches dans ce domaine et exp\'erimenter les diff\'erentes possibilit\'ees d'impl\'ementation d'un tel programme. Nous pr\'esenterons une \'ebauche de programme qui contiendra une grande partie des fonctions de base. Même si le logiciel ne poss\`edera pas toutes ses fonctions, il sera d\'ejà à peu pr\`es utilisable par quelqu'un d'averti.
+
+\subsection{Soutenance 2}
+
+Les librairies choisies à  la premi\`ere soutenance,  Nous continuerons sur notre lanc\'ee et ajouterons de nouvelles fonctionnalit\'es à notre programme. le programme sera pleinement utilisable, même s'il ne sera pas enti\`erement achev\'e.
+
+\subsection{Soutenance finale}
+Cette soutenance servira essentiellement \`a optimiser un maximum notre logiciel, à ajouter de nouveaux formats d\'ecriptables par notre lecteur, et enfin s'appuyer essentiellement sur le cot\'e ergonomique du projet, c'est à dire, am\'eliorer l'interface, l'accessibilit\'e, et la gestion de la lecture. Nous en profiterons, en cas de temps suppl\'ementaire, pour ajouter divers bonus que nous n'aurons pas d\'ecrit dans ce cahier des charges, mais  qui rendra notre logiciel beaucoup plus agr\'eable pour l'utilisateur.
+\newpage
+
+\section{Tableau bilan et r\'epartition des t\^aches}
+
+% exemple de tableau, pas exaustif du tout du tout
+
+
+\begin{tabular}{|*{4}{c|}}
+    \hline
+      		   		 & Maxime  & Julien G  & Julien S   \\
+    \hline
+     Decryptage 		& X  	        &              &   \\
+    \hline
+     Lecture        		&               & X            &    \\
+    \hline
+     Interface graphique      & X             &   	    &  \\
+    \hline
+     gestion C/Caml  	&               &             &  X \\
+    \hline
+     Site Web  		 &              &  X           &   \\
+    \hline
+\end{tabular}
+
+\end{document}
