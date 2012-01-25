@@ -1,4 +1,4 @@
-﻿/* 
+/* 
  * main.c: contains the program entry point.
  */ 
 
