@@ -1,4 +1,6 @@
 
+tegasz
+*.o
 *.aux
 *.gz
 *.log
