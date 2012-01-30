@@ -1,14 +1,20 @@
 
 PRG = tegasz
 OBJ = main.o
-CC = gcc
-CFLAGS = -O2 -Wall -W -Werror -pedantic -ansi
+INCDIR = ../fmod/inc
+LIBDIR = ../fmod/lib
 
+GCC = gcc
+CFLAG = -O2 -Wall -W -Werror -pedantic -ansi
 
 all : $(PRG)
+	@echo All
 
 $(PRG) : $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(PRG)
-	
+	@echo Linking
+	$(GCC) $(CFLAG) -L$(LIBDIR) $(OBJ) -o $(PRG)
+
 %.o : %.c
-	$(CC) $(CFLAGS) -c $<
+	@echo Compiling
+	$(GCC) $(CFLAG) -I$(INCDIR) -c $<
+
