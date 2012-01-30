@@ -1,7 +1,7 @@
 #Begin Makefile
 
 PRG = tegasz
-OBJ = main.o
+OBJ = main.o FMOD_Err_Check.o
 INCDIR = ../fmod/inc
 LIBDIR = ../fmod/lib
 LIB = ../fmod/lib/libfmodex.so
