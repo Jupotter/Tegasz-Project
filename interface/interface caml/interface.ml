@@ -1,8 +1,10 @@
+external play: string -> unit = "call_play" (*LAUUL*)
+
 let window =
   GMain.init ();
   let wnd = GWindow.window
     ~title:"TeGaSz"
-    ~position:`CENTER 
+    ~position:`CENTER
     ~resizable:false
     ~width:500 ~height:200 () in
   wnd#connect#destroy GMain.quit;
@@ -10,39 +12,40 @@ let window =
 
 (*========== VBOX (PRINCIPAL) ========== *)
 
-let vbox = GPack.vbox 
-  ~spacing:2 
+let vbox = GPack.vbox
+  ~spacing:2
   ~border_width:2
   ~packing:window#add ()
 
-let toolbar = GButton.toolbar   
-  ~orientation:`HORIZONTAL  
-  ~style:`ICONS 
-  ~packing:(vbox#pack ~expand:false) ()  
+let toolbar = GButton.toolbar
+  ~orientation:`HORIZONTAL
+  ~style:`ICONS
+  ~packing:(vbox#pack ~expand:false) ()
 
 (*========== BOUTONS MULTIMEDIAS ========= *)
 
 let bbox = GPack.button_box `HORIZONTAL
-  ~layout:`EDGE 
+  ~layout:`EDGE
   ~border_width:2
-  ~packing:(vbox#pack ~expand:false) () 
+  ~packing:(vbox#pack ~expand:false) ()
 
 
-let play = GButton.button
-~packing: bbox#add()
-~stock: `MEDIA_PLAY
-~label: ">" 
-(*fonction1#connect#clicked ~callback: fonction argument *)
+let play =
+  let btn = GButton.button
+    ~stock: `MEDIA_PLAY
+    ~label: ">"
+    ~packing: bbox#add() in
+  btn#connect#clicked ~callback: (fun() -> play "Audiotest.mp3")
 
 let stop = GButton.button
 ~packing: bbox#add()
 ~stock: `MEDIA_STOP
-~label: "[]" 
+~label: "[]"
 
 let next = GButton.button
 ~packing: bbox#add()
 ~stock: `MEDIA_NEXT
- ~label: ">>|" 
+ ~label: ">>|"
 (* fonction1#connect#clicked ~callback: fonction args*)
 
 let forward = GButton.button
@@ -55,7 +58,7 @@ let forward = GButton.button
 
 (*========== corps de l'interface ==========*)
 
-let hbox= 
+let hbox=
   GPack.hbox
     ~homogeneous:false
     ~spacing:4
@@ -63,7 +66,7 @@ let hbox=
     ~packing:vbox#add ()
 
 
-let view = GPack.vbox 
+let view = GPack.vbox
   ~packing:hbox#add ()
 
 
@@ -76,18 +79,18 @@ let cbox = GPack.button_box `VERTICAL
   (*========== PLAYLIST ==========*)
 
 
- let hide = GButton.button 
-~label:"Cacher" 
+ let hide = GButton.button
+~label:"Cacher"
 ~packing:cbox#add ()
 
   (*========== TOOLBAR ==========*)
 
-let item1 = GButton.tool_item ~packing:toolbar#insert () 
-let sep1 = GButton.separator_tool_item ~packing:toolbar#insert () 
+let item1 = GButton.tool_item ~packing:toolbar#insert ()
+let sep1 = GButton.separator_tool_item ~packing:toolbar#insert ()
 let item2 = GButton.tool_item ~packing:toolbar#insert ()
 let item3 = GButton.tool_item ~packing:toolbar#insert ()
 let item4 = GButton.tool_item ~packing:toolbar#insert ()
-let sep2 = GButton.separator_tool_item ~packing:toolbar#insert () 
+let sep2 = GButton.separator_tool_item ~packing:toolbar#insert ()
 let item5 = GButton.tool_item ~packing:toolbar#insert ()
 let item6 = GButton.tool_item ~packing:toolbar#insert ()
 
@@ -101,12 +104,10 @@ let edit = GButton.button
  ~label: "afficher la playlist "
 ~packing: item2#add ()
 
- 
-
 
 let help_button =
   let dlg = GWindow.message_dialog
-    
+
 ~message:"<b><big> AIDE  </big>\n\n\
   wesh si si bien la famille les poneys  </b>"
     ~parent:window
@@ -116,9 +117,9 @@ let help_button =
     ~position:`CENTER_ON_PARENT
     ~buttons:GWindow.Buttons.ok()
  in
-  let btn = GButton.button 
-~label: "Aide" 
-~packing:item3#add () 
+  let btn = GButton.button
+~label: "Aide"
+~packing:item3#add ()
   in
    GMisc.image ~stock:`HELP ~packing:btn#set_image ();
   btn#connect#clicked (fun () -> ignore (dlg#run ()); dlg#misc#hide ());
@@ -126,7 +127,7 @@ let help_button =
 
 let about_button =
   let dlg = GWindow.about_dialog
-    ~authors:["Julien Garagnon, Julien Szkudlareck,
+    ~authors:["Julien Garagnon, Julien Szkudlarek,
  Maxime TemplÃ©, "]
     ~copyright:"Copyright Â© 2011-2012 "
     ~license:"Public License."
@@ -136,11 +137,11 @@ let about_button =
     ~position:`CENTER_ON_PARENT
     ~parent:window
     ~destroy_with_parent:true () in
-  let btn = GButton.button 
-~label: "A propos" 
+  let btn = GButton.button
+~label: "A propos"
 ~packing:item4#add () in
-   GMisc.image 
-     ~stock:`ABOUT 
+   GMisc.image
+     ~stock:`ABOUT
      ~packing:btn#set_image ();
   btn#connect#clicked (fun () -> ignore (dlg#run ()); dlg#misc#hide ());
   btn
@@ -149,19 +150,19 @@ let about_button =
    ~text: ""
 ~packing: item5#add ()
 
-let buttonquit = 
+let buttonquit =
   let btn = GButton.button
     ~stock:`QUIT
     ~packing:item6#add () in
-  btn#connect#clicked 
-  ~callback:GMain.quit;  
+  btn#connect#clicked
+  ~callback:GMain.quit;
 btn
 
 
   (*========= FUNCTIONS ========== *)
 
 
-let confirm _ = 
+let confirm _ =
   let dlg = GWindow.message_dialog
     ~message:"<b><big>Voulez-vous vraiment quitter ?</big>\n\n\
       Attention :\nvous perdrez toutes les modifications que  vous y avez apportées </b>\n"
