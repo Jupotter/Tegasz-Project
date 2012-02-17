@@ -54,7 +54,7 @@ let forward = GButton.button
 ~label: "|<<"
 (* fonction1#connect#clicked ~callback: fonction args*)
 
-
+(*bonjour *)
 
 (*========== corps de l'interface ==========*)
 
