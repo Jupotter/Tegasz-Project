@@ -2,7 +2,7 @@
 
 PRG = tegasz
 OBJ = main.o FMOD_Err_Check.o FMOD_Wrap.o
-INCDIR = ../fmod/inc
+INCDIR = ../fmod/inc /usr/lib64/ocaml/caml
 LIBDIR = ../fmod/lib
 LIBDIR64 = ../fmod/lib64
 LIB = ../fmod/lib/libfmodex.so
