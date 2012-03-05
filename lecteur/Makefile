@@ -1,8 +1,10 @@
 #Begin Makefile
 
+CAML = $(shell ocamlc -where)
+
 PRG = tegasz
-OBJ = main.o FMOD_Err_Check.o FMOD_Wrap.o
-INCDIR = ../fmod/inc /usr/lib64/ocaml/caml
+OBJ = FMOD_Err_Check.o FMOD_Wrap.o Caml_To_C.o
+INCDIR = -I../fmod/inc -I$(CAML)
 LIBDIR = ../fmod/lib
 LIBDIR64 = ../fmod/lib64
 LIB = ../fmod/lib/libfmodex.so
@@ -16,16 +18,16 @@ all : $(PRG)
 64 : $(PRG).64 
 
 $(PRG).64 : $(OBJ)
-	$(GCC) $(CFLAG) $(LIB64) -L$(LIBDIR64) $(OBJ) -o $(PRG)
+	$(GCC) -shared -Wl,-soname,libCamlToC.so.1 $(CFLAG) $(LIB64) -L$(LIBDIR64) $(OBJ) -o libCamlToC.so.1
 
 $(PRG) : $(OBJ)
 	$(GCC) $(CFLAG) $(LIB) -L$(LIBDIR) $(OBJ) -o $(PRG)
 
 %.o : %.c
-	$(GCC) $(CFLAG) -I$(INCDIR) -c $<
+	$(GCC) -fPIC $(CFLAG) $(INCDIR) -c $<
 
 clean :
-	rm $(PRG)
 	rm *.o
+	rm $(PRG)
 
 #End Makefile
