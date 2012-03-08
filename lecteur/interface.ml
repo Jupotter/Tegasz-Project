@@ -1,4 +1,4 @@
-external play: string -> unit = "call_play" (*LAUUL*)
+external play: string -> unit = "call_play";; (*LAUUL*)
 
 let window =
   GMain.init ();
@@ -54,6 +54,7 @@ let forward = GButton.button
 ~label: "|<<"
 (* fonction1#connect#clicked ~callback: fonction args*)
 
+(*bonjour *)
 
 (*========== corps de l'interface ==========*)
 
