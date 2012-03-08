@@ -20,7 +20,7 @@ CFLAG = -O2 -Wall -W -Werror -pedantic -ansi
 all : $(PRG)
 
 $(PRG) : $(CMLTOC)
-	ocamlc -w s -I +lablgtk2 lalbgtk.cma $(ML) -dllib $(CMLTOC) -o $(PRG)
+	ocamlc -w s -I +lablgtk2 lablgtk.cma  $(ML) -dllib $(CMLTOC) -o $(PRG)
 
 $(CMLTOC) : $(OBJ)
 	$(GCC) -shared -Wl,-soname,CamlToC.so $(CFLAG) $(LIB64) -L$(LIBDIR64) $(OBJ) -o CamlToC.so
