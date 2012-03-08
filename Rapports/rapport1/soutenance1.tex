@@ -1,0 +1,208 @@
+
+\documentclass{report}
+\usepackage{graphicx}
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{alltt}
+
+
+     \textwidth 16cm
+      \textheight 25cm
+      \headsep 1.5cm
+      \topmargin -2cm
+      \oddsidemargin 0cm
+
+
+\title{Rapport de soutenance \no{1}} 
+\date{}
+\author{TeGaSz}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+
+
+\begin{document}
+
+\begin{titlepage}
+
+
+
+\begin{center}
+
+
+
+\textsc{\LARGE PROJET}\\[1.5cm]
+
+\textsc{\Large TeGaSz}\\[0.5cm]
+
+
+% Title
+\HRule \\[0.4cm]
+{ \huge \bfseries Rapport de Soutenance 1}\\[0.4cm]
+  
+\HRule \\[1.5cm]
+\includegraphics[width=1\textwidth]{./name.jpg}\\[1cm]  
+% Author and supervisor
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+Julien \textsc{Garagnon}\\
+Julien \textsc{Szkudlareck}
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+Maxime \textsc{Templé}\\
+
+\end{flushright}
+\end{minipage}
+
+\vfill
+
+% Bottom of the page
+{\large 13 février 2012}
+
+\end{center}
+
+\end{titlepage}
+
+\tableofcontents
+
+\chapter{Le Projet}
+	\section{Introduction}
+Dans ce cahier des charges, nous allons vous présenter notre projet, ainsi que toute la démarche, qu'elle soit intellectuelle, sous forme de recherche ou tout simplement en code pur.
+Notre projet est un logiciel de lecture audio nommé TeGasz. Dans la suite de ce rapport, nous présenterons de façon détaillée toutes les parties que nous avons étudié. Le projet aura été développé sous et pour Fédora. et C et en Caml.
+
+\begin{center}
+\includegraphics[scale = 0.2]{logo_fedo.png}
+\end{center}
+
+	\section{Les origines du projet}
+
+\begin{center}
+\includegraphics[scale= 0.3]{./name.jpg}\\[1cm]  
+\end{center}
+
+Le groupe\textit{ Tegasz} est un groupe de projet formé en 2012 par trois  étudiants d'EPITA passionnés, dans le but de réaliser pour la fin de l'année un travail de programmation inédit. Ce programme est un lecteur audio codé dans la majeure partie en C et en caml. Le projet sera accompagné d'un site web qui décrira tout au long de l'année l'avancement du projet. Il sera mis à  jour régulièrement après chaque évolution notable.
+Ce projet sera particulièrement difficile à  réaliser au niveau de la programmation:
+En effet, ce projet demande des notions particulièrement avancées dans le domaine du cryptage des fichiers audio. Par exemple, il faudra être capable de distinguer les en-tête de fichier de type .mp3, ou tout simplement être capable de lire un son, montrer sons avancement dans le temps, et pourquoi pas, afficher plusieurs informations sur la musique en cours.
+ C'est pourquoi nous allons commencer ce projet en progressant étape par étape.
+
+\newpage
+
+	\section{étude du marché}
+Nous nous intéressons principalement aux lecteurs audio libres, puisque c'est à  cela que nous espérons arriver. voici quelques uns des logiciels disponibles sur le marché:
+
+			\subsubsection{The KMPlayer}
+
+Simple et épuré KMPlayer n'en est pas moins puissant. Ce lecteur Coréen a le vent en poupe et il se dit dans les forums qu'il commence à faire de l'ombre à VLC. Lecteur multimédia, KMPlayer est capable de lire pratiquement tous les formats audio et vidéo nativement. Il est doté d'une très belle interface vraiment simple à  utiliser. A découvrir... Il est gratuit et un patch français est disponible.
+
+\subsubsection{Amarok}
+
+Amarok est un lecteur audio. Il était au départ conçu uniquement pour Linux,mais la migration vers les plateformes Windows et Mac OS X est en cours. C'est\`a ce jour l'un des meilleurs lecteurs audio. 
+ Amarok peut lire quasiment n'importe quel type de fichiers audio (MP3, OGG, WMA, FLAC...), permet la création de playlists ce qui le transforme en Jukebox, gère l'édition des tags, grave les CD audio (à condition d'avoir K3B), récupère les pochettes de disques ou les paroles d'un morceau, permet d'uploader votre musique vers de nombreux baladeurs (iPod, Creative NOMAD ou ZEN, Rio Karma...), affiche les infos Wikipedia sur le groupe que vous écoutez... Bref, Amarok est un outil très puissant.
+Iil faut disposer d'un moteur de décodage tel que gstreamer ou xine pour faire fonctionner Amarok : Amarok est en quelque sorte une interface utilisateur. 
+
+\subsubsection{Splayer}
+
+lecteur multimédia extrêmement léger, Splayer est compact, gratuit, facile à utiliser et capable de lire pratiquement tous les formats audio et vidéo sans avoir besoin de plugins supplémentaires. Il est doté d'une superbe interface que l'on apprécie d'autant plus quand on utilise Splayer pour lire des vidéos. 
+
+\subsubsection{Windows Media Player}
+
+Le format WMA est la réponse de Microsoft au MP3. Face au succès du MP3 et l'engouement des internautes pour ce format, Microsoft a réagi en mettant au point le Windows Media Audio codec en 1999. Les techniques de compression sont semblables à celles utilisées par le standard MP3. Windows Media Player est fourni directement avec Windows depuis Windows 98. Pour obtenir la dernière version, voyez les liens ci-dessous. Windows Media Player permet la lecture des CD audio, des fichiers MP3 et WMA et la visualisation de fichiers vidéo. Il est doté d'un égaliseur 10 bandes, d'un gestionnaire de Playlists qui le transforme en Jukebox. Il permet la compression des fichiers Wave en WMA. On peut aussi procéder à l'extraction des pistes audio d'un CD. Les fichiers obtenus sont directement encodés en WMA (on ne récupère pas les wave). Il existe des skins et des plug-ins pour le transfert vers des baladeurs.
+
+\subsubsection{Winamp}
+
+Premier lecteur MP3 logiciel apparu sur le Web en 1997 et toujours très populaire. Aujourd'hui, Winamp est bien plus qu'un simple lecteur MP3. Il permet la lecture des CD audio, des fichiers MP3, OGG, AAC et WMA sans ajout de plug-ins et ceci pour ne parler que des formats les plus courants. Il peut désormais ripper les pistes d'un CD audio pour les copier sur votre disque dur et graver des CD. Ces deux dernières fonctionnalités sont limitées dans la version gratuite : on peut ripper en x6 et graver en x2 seulement mais c'est possible. Cette limitation ne nous semble pas un gros handicap dans la mesure o\`u il vaut mieux ripper \`a  vitesse lente pour obtenir une bonne qualité d'extraction. Mais revenons \`a  Winamp... Il est doté d'un égaliseur 10 bandes, d'un gestionnaire de Playlists qui le transforme en Jukebox et d'un minibrowser Web. 
+L'ajout de plug-ins étend encore les possibilités de Winamp puisqu'on peut encoder en MP3 ou autre format, visualiser des vidéos au format DivX, lire des fichiers audio de type VQF, Monkey... A tester !
+
+\newpage
+
+\section{présentation de l'équipe}
+\section{Présentation des membres de l'équipe}
+		\subsection{Maxime Templé}
+
+Il y a maintenant quatre ou cinq ans, j'ai découvert les possibilités que pouvaient donner l'informatique. Malgré quelques notions de C et depuis six mois de CaML,et un projet en C\# je n'ai jamais eu l'occasion de m'investir pleinement dans le domaine du son lié à la programmation, mais je compte me servir de ce projet afin d'approfondir mes connaissances dans le domaine.
+
+		\subsection{Julien Garagnon}
+
+Troisième année a l'Epita, troisième spé, et enfin je commence le C. Après l'échec du projet cartographie, j'espère bien me rattraper avec cette fois ci un groupe soudé et motivé. n'ayant pratiquement aucune expérience concernant le son, que ça soit sa lecteur, sa production ou encore sa manipulation, ce projet promet de m'apporter de nombreuses connaissances sur le sujet, connaissances dont je suis toujours avide.
+
+		\subsection{Julien Szkudlarek}
+		Après un premier projet consistant à réaliser une cartographie 3D avec un grand intérêt principalement lié à la visualisation, celui-ci sera donc un lecteur audio. Il s'annonce tout aussi passionnant car le principe même du projet est un outil très commun et de notre quotidien aujourd'hui. Il va également me permettre de pouvoir approfondir le C que je connais relativement peu. Pouvoir créer son propre lecteur audio est un objectif très stimulant d'autant plus que le sujet est plus libre que le précédent ce qui va permettre une meilleure créativité.
+\newpage
+
+
+\chapter{Planning et répartition des tâches}
+\section{Organisation du travail} %bullshiiiiiit!!!!!!!!
+		\subsection{Travail hebdomadaire}
+
+Pour pouvoir réaliser ce projet dans les temps, nous avons choisi de travailler en groupe au moins une fois par semaine, sur des plages d'horaires communes comme le Vendredi soir ou le jeudi matin. Le reste du travail sera réalisé individuellement par chaque membre de l'équipe en suivant un planning et une répartition organisée des tâches décrite plus bas. Le but de ces réunions hebdomadaires est tout simplement de mettre en commun nos idées et de faire le point sur l'avancée du travail de chacun. Ainsi, chaque semaine un planning pour la semaine suivante sera établi pour chaque membre de l'équipe.
+
+		\subsection{Communication entre les membres} %fake, trouver une autre idee
+
+Pour faciliter la communication entre nous, nous avons créé un forum de développement
+o\`u tous nos travaux seront postés au fur et \`a  mesure de leur réalisation. Cela permettra d'une part, une meilleure gestion du travail, et d'autre part de voir l'avancement des travaux de chacun des membres. Skype sera aussi un des moyens principaux de communication.
+
+		\subsection{Chef de projet}
+
+La personne qui s'occupera tout au long de l'année de la mise en place du projet
+et de l'organisation des travaux sera Maxime, choisi à l'unanimité. Il sera notre chef de projet, c'est à dire le principal intermédiaire entre le jury et le groupe de projet lors des soutenances.
+
+%trois pages
+\chapter{l'interface graphique}
+pour mettre en place un projet facilement ergonomique, nous avons choisi de mettre en place une interface en utilisant GTK. deux interfaces ont été mises en place. la première, en C, pour tester les différentes fonctionnalités, et la seconde en Caml pour simplifier la tâche.
+	\section {histoire de GTK}
+
+\begin{center}
+\includegraphics[scale = 1]{GTK.png}
+\end{center}
+
+GTK+ (The GIMP Toolkit) est un ensemble de bibliothèques logicielles, c'est-à-dire un ensemble de fonctions informatiques, permettant de réaliser des interfaces graphiques. Cette bibliothèque a été développée originellement pour les besoins du logiciel de traitement d'images GIMP. GTK+ est maintenant utilisé dans de nombreux projets, dont les environnements de bureau GNOME, Xfce et ROX.
+GTK+ est un projet libre (licence GNU LGPL 2.1) et multiplate-forme.
+
+même si, au départ GTK+ est écrit en langage C et utilise pourtant le paradigme de la programmation orientée objet2. Il est également possible d'utiliser GTK+ dans de nombreux autres langages de programmation3: C++ (avec gtkmm), Ada (avec GtkAda), Fortran (avec gtk-fortran), Pascal, PHP, Perl, Ruby, Objective Caml, Java, Python, Vala, Seed (JavaScript) ou encore C\# avec la plateforme mono au travers du binding Gtk\#, etc.
+
+	\section{interface C}
+
+	\section{interface Caml}
+
+Pour cette derniere version, le principe de base aura été de repartir à zéro. Nous avons utilisé nos connaissances acquises dans nos recherches pour réaliser une interface qui correspondait beaucoup plus aux attentes du cahier des charges. Bien que les methodes employées pour la plupart des parties restent fondamentalement les memes, nous avons surtout ajouter des actions plus spécifiques, permettant ainsi une meilleure interconnexion entre les différentes parties du projet.
+
+	\section{ce qu'il reste à faire}
+
+
+%cinq pages
+\chapter{interface C/ Caml}
+\section{ce qu'il reste à faire}
+
+%cinq pages
+
+\chapter{moteur son}
+
+\section{Le Son}
+\it{Le son est une onde produite par la vibration mécanique d'un support fluide ou solide et propagée grâce à l'élasticité du milieu environnant sous forme d'ondes longitudinales. Par extension physiologique, le son désigne la sensation auditive à laquelle cette vibration est susceptible de donner naissance.}
+
+\it{Dans un milieu compressible, le plus souvent dans l'air, le son se propage sous forme d'une variation de pression créée par la source sonore. Un haut-parleur, par exemple, utilise ce mécanisme. Seule la compression se déplace et non les molécules d'air, si ce n'est de quelques micromètres. Lorsque l'on observe des ronds dans l'eau, les vagues se déplacent mais l'eau reste au même endroit, elle ne fait que se déplacer verticalement et non suivre les vagues (un bouchon placé sur l'eau reste à la même position sans se déplacer). Le son se propage également dans les solides sous forme de vibrations des atomes appelées phonons. Là encore, seule la vibration se propage, et non les atomes qui ne font que vibrer très faiblement autour de leur position d'équilibre}
+source: Wikipedia
+
+\section{ce qu'il reste à faire}
+
+%cinq pages
+
+\chapter{site web}
+
+pour cette première soutenance, lnous avons mis en place tout le squelette du site web. En effet nous avons très vite choisi de créer le site web en Html, ce qui ne permettait pas de faire une interface trop esthétique. Nous avons donc tout mise sur la visibilité de l'information. La page de garde nous indique quelles sont nouveautees de l'aventure mapplestore avec un systeme de news, puis trois barres, indiquant notre progression dans le projet. \\
+Une autre page explique avec précision ce qu'est exactement Mapplestore et comment l'avons nous implémenté. nous avons bien sûur une page destinée à la présentation du groupe de projet , chaque personne se décrivant brièvement et expliquant son rôle dans le projet. vient ensuite une page ``livre d'or'' permettant a tout utilisateur du projet de donner son avis sur le site et des commentaire des remarques, ou des demandes... Enfin, un dernier bouton permet d'envoyer un mail aux programmeurs pour des questions particulières.\\
+ Ce site ce veut être une vitrine pour le projet et veut donner envie aux utilisateurs de l'acheter
+
+\section{ce qu'il reste à faire}
+Il nous faudra terminer le site web afin de le mettre complètement utilisable pour la seconde soutenance. ce dernier est pleinement fonctionnel d'un point de vue du code mais pas de la mise en page. les utilisateurs ne sont pas encore capable de se déplacer facilement à travers les différents menus
+%trois pages
+\chapter{conclusion}
+\section{ce qu'il reste à faire}
+\section{l'emploi du temps}
+\section{pour finir}
+
+
+% une ou deux pages
+\end{document}
