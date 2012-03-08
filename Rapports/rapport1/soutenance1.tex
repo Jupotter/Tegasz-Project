@@ -180,10 +180,39 @@ Pour cette derniere version, le principe de base aura été de repartir à zéro
 \chapter{moteur son}
 
 \section{Le Son}
-\it{Le son est une onde produite par la vibration mécanique d'un support fluide ou solide et propagée grâce à l'élasticité du milieu environnant sous forme d'ondes longitudinales. Par extension physiologique, le son désigne la sensation auditive à laquelle cette vibration est susceptible de donner naissance.}
+Le son est une onde produite par la vibration mécanique d'un support fluide ou solide et propagée grâce à l'élasticité du milieu environnant sous forme d'ondes longitudinales. Par extension physiologique, le son désigne la sensation auditive à laquelle cette vibration est susceptible de donner naissance.}
 
-\it{Dans un milieu compressible, le plus souvent dans l'air, le son se propage sous forme d'une variation de pression créée par la source sonore. Un haut-parleur, par exemple, utilise ce mécanisme. Seule la compression se déplace et non les molécules d'air, si ce n'est de quelques micromètres. Lorsque l'on observe des ronds dans l'eau, les vagues se déplacent mais l'eau reste au même endroit, elle ne fait que se déplacer verticalement et non suivre les vagues (un bouchon placé sur l'eau reste à la même position sans se déplacer). Le son se propage également dans les solides sous forme de vibrations des atomes appelées phonons. Là encore, seule la vibration se propage, et non les atomes qui ne font que vibrer très faiblement autour de leur position d'équilibre}
-source: Wikipedia
+Dans un milieu compressible, le plus souvent dans l'air, le son se propage sous forme d'une variation de pression créée par la source sonore. Un haut-parleur, par exemple, utilise ce mécanisme. Seule la compression se déplace et non les molécules d'air, si ce n'est de quelques micromètres. Lorsque l'on observe des ronds dans l'eau, les vagues se déplacent mais l'eau reste au même endroit, elle ne fait que se déplacer verticalement et non suivre les vagues (un bouchon placé sur l'eau reste à la même position sans se déplacer). Le son se propage également dans les solides sous forme de vibrations des atomes appelées phonons. Là encore, seule la vibration se propage, et non les atomes qui ne font que vibrer très faiblement autour de leur position d'équilibre.
+
+Le son en informatique est toujours représenté de manière numérique. De nombreux standards existent; certains s'appliquent à la production, au stockage et à la diffusion, d'autres (ceux qui utilisent des algorithmes de compression de données ou de débit), sont destinés, en principe, uniquement à la diffusion. Actuellement, le format le plus utilisé est de loin le mp3, suivi du wma, et de l'aac. C'est pourquoi nous avons décidé d'utiliser une librairie permettant de gerer de nombreux formats sonores, c'est à dire FMOD.
+
+Les formats audio varient selon :
+
+    Le nombre de canaux sonores encodés.
+    Le nombre d'échantillons par seconde avec lequel on découpera numériquement, pour chaque canal, une onde sonore ou un signal électrique.
+    La résolution donnée à chaque échantillon et la grandeur physique qu'on lui donne.
+    l'application d'une compression ou non.
+
+Chaque format audio présente aussi des caractéristiques découlant de l'algorithme de compression/décompression, ou codec (ou « codage-décodage » - COde-DECode en anglais), qu'il utilise ou non. Après la numérisation du son, le format utilisé est inscrit dans l'extension du fichier de données qui en stocke la transcription. Chaque format se caractérise aussi par sa propension à inclure et gérer des Métadonnées.
+
+Dans un format donné, les fichiers peuvent être déclinés en plusieurs échelles de quantification (8, 16 ou 24 bits) avec différentes fréquences d'échantillonnage (p. ex. 22.05, 44.1, 48, 88.2 ; 96, 176.4, 192, kilohertz) appliqués à un certain nombre de voies (monophonique, stéréophonique, 5.1 surround, etc).
+
+Le nombre de canaux sonores peuvent être réels et séparés, ou mélangés discrètement aux signaux principaux; ils seront décodés et restitués par la suite à l'aide d'algorithmes spécifiques (Surround).
+
+\subsection{La question de la qualité}
+Pour un format de fichier non compressé, la qualité peut être assez bien évaluée par le débit et la quantification mise en application. Pour un format compressé, le problème est différent : tout dépend de la performance du codec de compression (c'est-à-dire sa capacité à ne pas détruire les informations contenues dans le signal sonore tout en le compressant). En théorie, un fichier compressé avec une taille inférieure à celle d'un codage pour CD peut avoir une qualité supérieure. En pratique, d'une part on choisit souvent des compressions privilégiant trop la diminution de la taille pour que ce soit le cas, d'autre part souvent la source avant compression est un fichier CD.
+
+Aidé par les nouveaux supports informatiques, le son peut être numérisé en 24 bits, voire 32 bits, contre 16 bits sur CD. Ceci permet d'améliorer le rapport signal bruit et autorise la prise de son a des niveaux plus bas.
+
+La fréquence quant à elle est passée à 88.2, 96, 176.4, ou 192 kHz, contre 44.1 pour le CD.
+
+Des offres de son de qualité supérieure au CD existent : pour les disques physiques, le DVD-Audio ou le SuperAudio CD de Sony, qui a l'avantage d'exister en version hybride : il est lisible à la fois selon la norme CD Audio classique, sur tous les lecteurs, et en SACD sur un lecteur dédié. Pour les offres en lignes, certains sites proposent de télécharger des musiques encodées à 96 kHz, et 24 bits.
+
+Pour le grand public, ces nouveaux formats reçoivent un accueil mitigé : les audiophiles les apprécient, mais la majorité non seulement se contente de la qualité CD, mais se tourne vers les formats de compression, perdant de la qualité pour gagner en portabilité.
+
+Il faut rappeler que le CD lui-même a été calibré suivant les limites de l'audition humaine normale qui se situe en moyenne entre 20 Hertz et 20 000 Hertz. La qualité supérieure n'a donc pas d'intérêt pour tous.
+
+Toutefois l'utilisation de formats de qualité supérieure est indispensable durant les phases d'enregistrement et de production. La précision supplémentaire ainsi obtenue autorise des calculs plus fins lors de traitements numériques dans les logiciels audio. Ceci permet une amélioration subtile de la qualité lors de l'application d'effets tels que la réverberation.
 
 \section{ce qu'il reste à faire}
 
