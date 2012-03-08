@@ -1,4 +1,5 @@
 external play: string -> unit = "call_play";; (*LAUUL*)
+external stop: string -> unit = "call_stop";;
 
 let window =
   GMain.init ();
@@ -38,10 +39,10 @@ let play =
   btn#connect#clicked ~callback: (fun() -> play "Audiotest.mp3")
 
 let stop = GButton.button
-~packing: bbox#add()
+  ~packing: bbox#add()
 ~stock: `MEDIA_STOP
-~label: "[]"
-
+  ~label: "[]"
+  
 let next = GButton.button
 ~packing: bbox#add()
 ~stock: `MEDIA_NEXT
@@ -128,10 +129,10 @@ let help_button =
 let about_button =
   let dlg = GWindow.about_dialog
     ~authors:["Julien Garagnon, Julien Szkudlarek,
- Maxime TemplÃ©, "]
-    ~copyright:"Copyright Â© 2011-2012 "
+ Maxime Temple, "]
+    ~copyright:"Copyright (c) 2012 "
     ~license:"Public License."
-    ~version:"42"
+    ~version:"0.42"
     ~website:"http///www.tegasz.com"
     ~website_label:"Visit our website"
     ~position:`CENTER_ON_PARENT
