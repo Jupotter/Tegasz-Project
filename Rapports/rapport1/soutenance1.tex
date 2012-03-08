@@ -224,9 +224,11 @@ Dès le début des années 2000, des réseaux d'échange sur Internet via des lo
 
 Aujourd'hui (2011) le format MP3 a été adopté par la majorité des sites de vente de musique en ligne tel que la Fnac ou Amazon. Seul l'iTunes Store vend de la musique au format MPEG-2/4 Audio/AAC. Le MP3 a aussi trouvé sa place pour les flux audio des radios en ligne et autres sites d'écoute de musique ainsi que dans les flux vidéos diffusés au format Flash (FLV encodé en VP6). La majorité des jeux PC l'utilisent. Le MP3 s'est largement imposé face à ses concurrents directs que sont les formats de compression mp3PRO, WMA, OGG Vorbis et MPEG-2/4 Audio/AAC.
 
-\section{ce qu'il reste à faire}
+\section{Ce qui a été fait}
+Nous utilisons une librairie externe, FMOD, qui se charge de la décompressions des fichier audio et d'autre fonctions au niveau du système. Nous avons donc un "objet" principal, appelé un SoundSystem, qui gere tous les paramètres sonore. Fmod nous donne aussi des structures Sound, qui, comme on pourrais s'en douter, contiennent les informations sonores elle mêmes. On peut donc facilement associer le systeme et le sound afin de pouvoir jouer le son sur notre ordinateur.
 
-%cinq pages
+\section{ce qu'il reste à faire}
+Le principal de ce que il reste a fair est de lier les fonctions de FMOD avec l'interface. Pour le moment, nos pouvons facilement jouer un son, mais nous ne pouvons pas arreter la lecture. Il faut aussi fait tout le systeme de playlist, ainsi que pouvoir proposer diverses options sonores telles que la répetition ou encore un égaliseur.
 
 \chapter{site web}
 
