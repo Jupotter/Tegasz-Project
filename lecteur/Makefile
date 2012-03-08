@@ -2,8 +2,12 @@
 
 CAML = $(shell ocamlc -where)
 
-PRG = tegasz
+
 OBJ = FMOD_Err_Check.o FMOD_Wrap.o Caml_To_C.o
+ML = interface.ml
+
+PRG = tegasz
+CMLTOC = CamlToC.so
 INCDIR = -I../fmod/inc -I$(CAML)
 LIBDIR = ../fmod/lib
 LIBDIR64 = ../fmod/lib64
@@ -15,19 +19,18 @@ CFLAG = -O2 -Wall -W -Werror -pedantic -ansi
 
 all : $(PRG)
 
-64 : $(PRG).64 
+$(PRG) : $(CMLTOC)
+	ocamlc -w s -I +lablgtk2 lalbgtk.cma $(ML) -dllib $(CMLTOC) -o $(PRG)
 
-$(PRG).64 : $(OBJ)
-	$(GCC) -shared -Wl,-soname,libCamlToC.so.1 $(CFLAG) $(LIB64) -L$(LIBDIR64) $(OBJ) -o libCamlToC.so.1
-
-$(PRG) : $(OBJ)
-	$(GCC) $(CFLAG) $(LIB) -L$(LIBDIR) $(OBJ) -o $(PRG)
+$(CMLTOC) : $(OBJ)
+	$(GCC) -shared -Wl,-soname,CamlToC.so $(CFLAG) $(LIB64) -L$(LIBDIR64) $(OBJ) -o CamlToC.so
 
 %.o : %.c
 	$(GCC) -fPIC $(CFLAG) $(INCDIR) -c $<
 
 clean :
-	rm *.o
+	rm *.so
+	rm *.cm*
 	rm $(PRG)
 
 #End Makefile
