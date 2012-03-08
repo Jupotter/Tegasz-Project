@@ -1,6 +1,8 @@
 
+*C.so
 tegasz
 *.o
+*.cm*
 *.aux
 *.gz
 *.log
