@@ -43,7 +43,8 @@ let play =
     ~stock: `MEDIA_PLAY
     ~label: ">"
     ~packing: bbox#add() in
-  btn#connect#clicked ~callback: (fun() -> play 0 (getInit ()))
+  btn#connect#clicked ~callback: (fun() ->let x = getInit () in play (load
+  "AudioTest.mp3" x) (x))
 
 let stop = GButton.button
   ~packing: bbox#add()
