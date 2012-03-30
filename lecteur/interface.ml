@@ -1,5 +1,12 @@
-external play: string -> unit = "call_play";; (*LAUUL*)
-external stop: string -> unit = "call_stop";;
+external play: 'a -> 'b -> unit = "call_play";; (*LAUUL*)
+external load: string -> 'b -> 'a = "call_load";;
+external stop: 'a -> 'b -> unit = "call_stop";;
+external pause: 'a -> 'b -> unit = "call_pause";;
+external init: unit -> 'a = "call_init";;
+
+let getInit = 
+  let i = init () in
+    fun () -> i
 
 let window =
   GMain.init ();
@@ -36,7 +43,7 @@ let play =
     ~stock: `MEDIA_PLAY
     ~label: ">"
     ~packing: bbox#add() in
-  btn#connect#clicked ~callback: (fun() -> play "Audiotest.mp3")
+  btn#connect#clicked ~callback: (fun() -> play 0 (getInit ()))
 
 let stop = GButton.button
   ~packing: bbox#add()
