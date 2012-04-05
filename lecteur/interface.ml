@@ -103,11 +103,20 @@ let sep2 = GButton.separator_tool_item ~packing:toolbar#insert ()
 let item5 = GButton.tool_item ~packing:toolbar#insert ()
 let item6 = GButton.tool_item ~packing:toolbar#insert ()
 
+let may_view btn () =
+match btn#filename with
+Some n ->
+  ignore ( load n (getInit ())
+  )
+  | None -> ()
 
-let buttonopen =  GFile.chooser_button
+
+let buttonopen =  
+let btn =GFile.chooser_button
 ~action:`OPEN
 ~packing:item1#add ()
-
+in btn#connect#selection_changed (may_view btn);
+btn
 
 let edit = GButton.button
  ~label: "afficher la playlist "
