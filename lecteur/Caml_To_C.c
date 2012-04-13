@@ -38,8 +38,6 @@ value call_init()
 	FMOD_SYSTEM 	*system;
 	FMOD_Initialize(&system, 32, FMOD_INIT_NORMAL, NULL);
 
-	printf("init");
-
 	return (value)system;
 }
 
@@ -57,6 +55,22 @@ value call_load(value v, value sys)
 	FMOD_Err_Check(result);
 
 	return (value)sound1;
+}
+
+value call_stop(value v, value sys)
+{
+	FMOD_CHANNEL	*channel = 0;
+	FMOD_RESULT		result;
+
+	v = v;
+	sys = sys;
+
+	/*result = FMOD_System_CreateSound(system, sound1, FMOD_SOFTWARE, 0, &sound1);
+	FMOD_Err_Check(result);*/
+	result = FMOD_Channel_Stop(channel);
+	FMOD_Err_Check(result);
+
+  return 0;
 }
 
 /* End main.c */
