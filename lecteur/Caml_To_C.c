@@ -32,7 +32,6 @@ value call_play(value v, value sys)
 	result = FMOD_Channel_SetPaused(channel, 0);
 	FMOD_Err_Check(result);
 
-	printf("%p\n", (void *)channel);
 
   return (value)channel;
 }
@@ -67,9 +66,25 @@ value call_stop(value v)
 	FMOD_RESULT		result;
 
 	channel = (void*)v;
-	printf("%p\n", (void *)channel);
 
 	result = FMOD_Channel_SetPaused(channel, 1);
+	FMOD_Err_Check(result);
+
+  return 0;
+}
+
+value set_volume(value v, value c)
+{
+	FMOD_CHANNEL	*channel = 0;
+	FMOD_RESULT		result;
+	float volume;
+	double tmp;
+
+	channel = (void*)c;
+	tmp = Double_val(v);
+	volume = tmp/100;
+
+	result = FMOD_Channel_SetVolume(channel, volume);
 	FMOD_Err_Check(result);
 
   return 0;

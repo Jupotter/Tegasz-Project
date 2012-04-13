@@ -14,5 +14,7 @@ value call_pause(value v, value sys);
 
 value call_init();
 
+value set_volume(value v, value c);
+
 #endif
 

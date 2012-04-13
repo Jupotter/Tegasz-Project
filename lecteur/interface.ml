@@ -3,6 +3,7 @@ external load: string -> 'b -> 'a = "call_load";;
 external stop: 'a -> unit = "call_stop";;
 external pause: 'a -> 'b -> unit = "call_pause";;
 external init: unit -> 'a = "call_init";;
+external volume: float -> 'a -> unit = "set_volume";;
 
 class data = 
   object
@@ -89,6 +90,7 @@ let volume =
   let btn = GRange.scale `HORIZONTAL
   ~packing: bbox#add()
   ~digits: 0
+  ~update_policy: `CONTINUOUS
   in 
   let adj = GData.adjustment
     ~lower: 0.
@@ -97,7 +99,10 @@ let volume =
     ~page_incr: 10.
     ~page_size: 0.
     ~value: 100.
-  in btn#set_adjustment (adj ())
+  in btn#set_adjustment (adj ());
+  btn#connect#value_changed (fun () -> volume (btn#adjustment#value)
+  (d#getChannel ()))
+  
 
 (*========== corps de l'interface ==========*)
 
