@@ -4,6 +4,16 @@ external stop: 'a -> 'b -> unit = "call_stop";;
 external pause: 'a -> 'b -> unit = "call_pause";;
 external init: unit -> 'a = "call_init";;
 
+class data = 
+  object
+    val mutable son = ()
+
+    method setSound x = son <- x
+    method getSound () = son
+end
+
+let d = new data
+
 let getInit = 
   let i = init () in
     fun () -> i
@@ -43,8 +53,8 @@ let play =
     ~stock: `MEDIA_PLAY
     ~label: ">"
     ~packing: bbox#add() in
-  btn#connect#clicked ~callback: (fun() ->let x = getInit () in play (load
-  "AudioTest.mp3" x) (x))
+  btn#connect#clicked ~callback: (fun() ->let x = getInit () in play
+							     (d#getSound ()) (x))
 
 let stop = GButton.button
   ~packing: bbox#add()
@@ -105,8 +115,8 @@ let item6 = GButton.tool_item ~packing:toolbar#insert ()
 
 let may_view btn () =
 match btn#filename with
-Some n ->
-  ignore ( load n (getInit ())
+  | Some n ->
+  d#setSound ( load n (getInit ())
   )
   | None -> ()
 
