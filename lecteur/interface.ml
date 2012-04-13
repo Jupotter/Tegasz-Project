@@ -7,9 +7,12 @@ external init: unit -> 'a = "call_init";;
 class data = 
   object
     val mutable son = ()
+    val mutable name = ""
 
     method setSound x = son <- x
     method getSound () = son
+    method getName () = name
+    method setName x = name <- x
 end
 
 let d = new data
@@ -53,9 +56,10 @@ let play =
     ~label: "PLAY \n  >"
     ~packing: bbox#add() in
   btn#connect#clicked ~callback: (fun() ->let x = getInit () in play
-							     (d#getSound ()) (x))
+							     (d#getSound
+  ()) (x))
 
-let stop = 
+let stop =
   let btn = GButton.button
     ~packing: bbox#add()
     ~label: "STOP \n   []" in
@@ -67,12 +71,16 @@ let next = GButton.button
  ~label: "NEXT \n >>|"
 (* fonction1#connect#clicked ~callback: fonction args*)
 
-let forward = GButton.button
+let previous = GButton.button
 ~packing: bbox#add()
 ~label: "PREVIOUS \n     |<<"
 (* fonction1#connect#clicked ~callback: fonction args*)
 
-(*bonjour *)
+(* bonjour *)
+(* TG *)
+
+let volume = GButton.volumeButton
+  ~packing: bbox#add()
 
 (*========== corps de l'interface ==========*)
 
@@ -115,10 +123,9 @@ let item6 = GButton.tool_item ~packing:toolbar#insert ()
 let may_view btn () =
 match btn#filename with
   | Some n ->
-  d#setSound ( load n (getInit ())
-  )
+  d#setSound (load n (getInit ()));
+    d#setName (n)
   | None -> ()
-
 
 let buttonopen =  
 let btn =GFile.chooser_button
