@@ -85,8 +85,19 @@ let previous = GButton.button
 (* bonjour *)
 (* TG *)
 
-let volume = GButton.volumeButton
+let volume = 
+  let btn = GRange.scale `HORIZONTAL
   ~packing: bbox#add()
+  ~digits: 0
+  in 
+  let adj = GData.adjustment
+    ~lower: 0.
+    ~upper: 100.
+    ~step_incr: 1.
+    ~page_incr: 10.
+    ~page_size: 0.
+    ~value: 100.
+  in btn#set_adjustment (adj ())
 
 (*========== corps de l'interface ==========*)
 
