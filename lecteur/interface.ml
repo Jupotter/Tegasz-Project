@@ -50,27 +50,26 @@ let bbox = GPack.button_box `HORIZONTAL
 
 let play =
   let btn = GButton.button
-    ~stock: `MEDIA_PLAY
-    ~label: ">"
+    ~label: "PLAY \n  >"
     ~packing: bbox#add() in
   btn#connect#clicked ~callback: (fun() ->let x = getInit () in play
 							     (d#getSound ()) (x))
 
-let stop = GButton.button
-  ~packing: bbox#add()
-~stock: `MEDIA_STOP
-  ~label: "[]"
+let stop = 
+  let btn = GButton.button
+    ~packing: bbox#add()
+    ~label: "STOP \n   []" in
+  btn#connect#clicked ~callback: (fun() -> let x = getInit () in stop
+							    (d#getSound ()) (x))
   
 let next = GButton.button
 ~packing: bbox#add()
-~stock: `MEDIA_NEXT
- ~label: ">>|"
+ ~label: "NEXT \n >>|"
 (* fonction1#connect#clicked ~callback: fonction args*)
 
 let forward = GButton.button
 ~packing: bbox#add()
-~stock:`MEDIA_FORWARD
-~label: "|<<"
+~label: "PREVIOUS \n     |<<"
 (* fonction1#connect#clicked ~callback: fonction args*)
 
 (*bonjour *)
