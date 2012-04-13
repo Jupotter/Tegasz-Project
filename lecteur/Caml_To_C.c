@@ -29,8 +29,12 @@ value call_play(value v, value sys)
 	FMOD_Err_Check(result);*/
 	result = FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, sound1, 0, &channel);
 	FMOD_Err_Check(result);
+	result = FMOD_Channel_SetPaused(channel, 0);
+	FMOD_Err_Check(result);
 
-  return 0;
+	printf("%p\n", (void *)channel);
+
+  return (value)channel;
 }
 
 value call_init()
@@ -57,17 +61,15 @@ value call_load(value v, value sys)
 	return (value)sound1;
 }
 
-value call_stop(value v, value sys)
+value call_stop(value v)
 {
 	FMOD_CHANNEL	*channel = 0;
 	FMOD_RESULT		result;
 
-	v = v;
-	sys = sys;
+	channel = (void*)v;
+	printf("%p\n", (void *)channel);
 
-	/*result = FMOD_System_CreateSound(system, sound1, FMOD_SOFTWARE, 0, &sound1);
-	FMOD_Err_Check(result);*/
-	result = FMOD_Channel_Stop(channel);
+	result = FMOD_Channel_SetPaused(channel, 1);
 	FMOD_Err_Check(result);
 
   return 0;

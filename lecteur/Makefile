@@ -19,7 +19,7 @@ CFLAG = -O2 -Wall -W -Werror -pedantic -ansi
 
 all : $(PRG)
 
-$(PRG) : $(CMLTOC)
+$(PRG) : $(CMLTOC) $(ML)
 	ocamlc -w s -I +lablgtk2 lablgtk.cma  $(ML) -dllib ./libCamlToC.so -o $(PRG)
 
 $(CMLTOC) : $(OBJ)

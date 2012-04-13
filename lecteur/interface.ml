@@ -1,15 +1,19 @@
 external play: 'a -> 'b -> unit = "call_play";; (*LAUUL*)
 external load: string -> 'b -> 'a = "call_load";;
-external stop: 'a -> 'b -> unit = "call_stop";;
+external stop: 'a -> unit = "call_stop";;
 external pause: 'a -> 'b -> unit = "call_pause";;
 external init: unit -> 'a = "call_init";;
 
 class data = 
   object
     val mutable son = ()
+    val mutable channel = ()
 
     method setSound x = son <- x
     method getSound () = son
+
+    method setChannel x = channel <- x
+    method getChannel () = channel
 end
 
 let d = new data
@@ -47,20 +51,22 @@ let bbox = GPack.button_box `HORIZONTAL
   ~border_width:2
   ~packing:(vbox#pack ~expand:false) ()
 
+let playfunc () = 
+  let x = getInit () in
+  d#setChannel (play (d#getSound ()) (x))
 
 let play =
   let btn = GButton.button
     ~label: "PLAY \n  >"
     ~packing: bbox#add() in
-  btn#connect#clicked ~callback: (fun() ->let x = getInit () in play
-							     (d#getSound ()) (x))
+  btn#connect#clicked ~callback: playfunc
 
 let stop = 
   let btn = GButton.button
     ~packing: bbox#add()
     ~label: "STOP \n   []" in
-  btn#connect#clicked ~callback: (fun() -> let x = getInit () in stop
-							    (d#getSound ()) (x))
+  btn#connect#clicked ~callback: (fun() -> stop
+							    (d#getChannel ()))
   
 let next = GButton.button
 ~packing: bbox#add()
