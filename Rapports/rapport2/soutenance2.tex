@@ -139,7 +139,7 @@ En outre, il nous fallait un outil fiable afin de partager notre avance commune.
 
 		\subsection{Chef de projet}
 
-La personne qui s'occupera tout au long de l'année de la mise en place du projet et de l'organisation des travaux sera Maxime, choisi à l'unanimité. Il sera notre chef de projet, c'est à dire le principal intermédiaire entre le jury et le groupe de projet lors des soutenances.
+La personne qui s'occupera tout au long de l'année de la mise en place du projet et de l'organisation des travaux sera Maxime, choisi à l'unanimité. Il sera notre chef de projet, c'est-à-dire le principal intermédiaire entre le jury et le groupe de projet lors des soutenances.
 
 %trois pages
 \chapter{L'Interface graphique}
@@ -156,15 +156,25 @@ GTK+ est un projet libre (licence GNU LGPL 2.1) et multiplate-forme.
 
 Même si, au départ GTK+ est écrit en langage C et utilise pourtant le paradigme de la programmation orientée objet. Il est également possible d'utiliser GTK+ dans de nombreux autres langages de programmation: C++ (avec gtkmm), Ada (avec GtkAda), Fortran (avec gtk-fortran), Pascal, PHP, Perl, Ruby, Objective Caml, Java, Python, Vala, Seed (JavaScript) ou encore C\# avec la plateforme mono au travers du binding Gtk\#, etc.
 
-	\section{Interface OCaml}
+\section{Interface OCaml}
 
 Pour cette derniere version, le principe de base aura été de repartir à zéro. Nous avons utilisé nos connaissances acquises dans nos recherches pour réaliser une interface qui correspondait beaucoup plus aux attentes du cahier des charges. Bien que les methodes employées pour la plupart des parties restent fondamentalement les memes, nous avons surtout ajouter des actions plus spécifiques, permettant ainsi une meilleure interconnexion entre les différentes parties du projet.
 
-L'interface inclu toute les fonctions que l'on peut attendre d'un lecteur audio basique. Nous pouvons selectionner le fichier charger, un bouton play permettant de lancer le fichier selectionne, un bouton stop pour arreter la lecture, et une barre de volume pour regler l'intensite du son. Il y a aussi deux boutons pour changer de piste, bien que ils ne soient pas encore fonctionnels.
+\begin{center}
+\includegraphics{interface1.png}
+\it{apercu de l'interface}
+\end{center}
+
+L'interface inclu toutes les fonctions que l'on peut attendre d'un lecteur audio basique. Nous pouvons selectionner le fichier charger, un bouton play permettant de lancer le fichier selectionne, un bouton stop pour arreter la lecture, et une barre de volume pour regler l'intensite du son. Il y a aussi deux boutons pour changer de piste, bien que ils ne soient pas encore fonctionnels.
 
 Une des particularite du bouton de lecture est qu'il permet aussi de mettre en pause la lecture. Une fois presse, il reste enfonce et ainsi l'utilisateur sait que la piste est lue. S'il est de nouveau clique, il ressort et la lecture est mise en pause et peut etre reprise au meme point.
 
 La selection du volume se fait par une barre coulissante, avec une indication numerique du volume actuel pour une plus grande precision. A la base, le volume est indique avec une decimale, ainsi pour raison esthetique, nous avons prefere ne garder que les entiers.
+
+\begin{center}
+\includegraphics{interface-volume.png}
+\it{lecture d'un son avec changement de titre de fenetre et ajustement du volume}
+\end{center}
 
 Autre detail d'ordre visuel, lors de la lecture du son, le nom du fichier est ajoute dans la barre de titre de la fenetre. Ainsi, sans meme avoir l'interface sous les yeux, il est possible de savoir quel son est joue.
 
@@ -201,7 +211,7 @@ Le son est une onde produite par la vibration mécanique d'un support fluide ou 
 \begin{center}
 \includegraphics[scale=0.5]{onde.jpg}
 
-\it{ une onde}
+\it{Une onde}
 \end{center}
 
 Dans un milieu compressible, le plus souvent dans l'air, le son se propage sous forme d'une variation de pression créée par la source sonore. Un haut-parleur, par exemple, utilise ce mécanisme. Seule la compression se déplace et non les molécules d'air, si ce n'est de quelques micromètres. Lorsque l'on observe des ronds dans l'eau, les vagues se déplacent mais l'eau reste au même endroit, elle ne fait que se déplacer verticalement et non suivre les vagues (un bouchon placé sur l'eau reste à la même position sans se déplacer). Le son se propage également dans les solides sous forme de vibrations des atomes appelées phonons. Là encore, seule la vibration se propage, et non les atomes qui ne font que vibrer très faiblement autour de leur position d'équilibre.\\
@@ -249,28 +259,21 @@ Dès le début des années 2000, des réseaux d'échange sur Internet via des lo
 Aujourd'hui le format MP3 a été adopté par la majorité des sites de vente de musique en ligne tel que la Fnac ou Amazon. Seul l'iTunes Store vend de la musique au format MPEG-2/4 Audio/AAC. Le MP3 a aussi trouvé sa place pour les flux audio des radios en ligne et autres sites d'écoute de musique ainsi que dans les flux vidéos diffusés au format Flash (FLV encodé en VP6). La majorité des jeux PC l'utilisent. Le MP3 s'est largement imposé face à ses concurrents directs que sont les formats de compression mp3PRO, WMA, OGG Vorbis et MPEG-2/4 Audio/AAC.\\
 
 \section{Ce qui a été fait}
-Nous utilisons une librairie externe, FMOD, qui se charge de la décompressions des fichier audio et d'autre fonctions au niveau du système. Nous avons donc un "objet" principal, appelé un SoundSystem, qui gère tous les paramètres sonore. Fmod nous donne aussi des structures Sound, qui, comme on pourrais s'en douter, contiennent les informations sonores elle mêmes. On peut donc facilement associer le système et le sound afin de pouvoir jouer le son sur notre ordinateur.\\
-
-%\section{Ce qu'il reste à faire}
-%Le principal de ce que il reste a faire est de lier les fonctions de FMOD avec l'interface. Pour le moment, nos pouvons facilement jouer un son, mais nous ne pouvons pas arrêter la lecture. Il faut aussi fait tout le système de playlist, ainsi que pouvoir proposer diverses options sonores telles que la répétition ou encore un égaliseur.\\
+Nous utilisons une librairie externe, FMOD, qui se charge de la décompressions des fichier audio et d'autre fonctions au niveau du système. Nous avons donc un "objet" principal, appelé un SoundSystem, qui gère tous les paramètres sonore. FMOD nous donne aussi des structures Sound, qui, comme on pourrais s'en douter, contiennent les informations sonores elle mêmes. On peut donc facilement associer le système et le sound afin de pouvoir jouer le son sur notre ordinateur.\\
 
 \chapter{Ce qu'il reste a faire}
 
-Maintenant que toutes les fonctions de base ont ete implementees (lecture, pause, arret, chargement), nous pouvons ajouter des fonctions pour une utilisation complete du lecteur.
+Maintenant que toutes les fonctions de base ont ete implementees (lecture, pause, arret, chargement), nous pourrons ajouter des fonctions pour une utilisation complete du lecteur.
 
-L'une d'entre elle est la possibilite d'utiliser des playlist, une liste de sons qui seront joues les uns apres les autres. Les boutons Next et Previous prendront alors tout leur sens. Cette fonctionnalite est presente dans tous les lecteurs modernes, il nous parait donc indispensable de l'integrer. Vous pourrez ainsi utiliser PROJET pour toutes vos soirees sans aucun soucis.
+L'une d'entre elle est la possibilite d'utiliser des playlist, une liste de sons qui seront joues les uns apres les autres. Les boutons Next et Previous prendront alors tout leur sens. Cette fonctionnalite est presente dans tous les lecteurs modernes, il nous parait donc indispensable de l'integrer. Vous pourrez ainsi utiliser PROJET pour toutes vos soirees sans aucun soucis. Ensuite, le lecteur devra afficher la pochette ou l'illustration du fichier lu. L'image qui aura le meme nom que le fichier joue sera ouverte dans une nouvelle fenetre.
 
 \chapter{Site web}
 Tout le squelette du site web a ete mis en place. En effet nous avons très vite choisi de créer le site web en HTML, ce qui ne permettait pas de faire une interface trop esthétique. Nous avons donc tout mise sur la visibilité de l'information. La page de garde nous indique quelles sont nouveautés de l'aventure mapplestore avec un système de news, puis trois barres, indiquant notre progression dans le projet. \\
 Une autre page explique avec précision ce qu'est exactement Tegasz et comment l'avons nous implémenté. nous avons bien sûr une page destinée à la présentation du groupe de projet , chaque personne se décrivant brièvement et expliquant son rôle dans le projet. vient ensuite une page ``livre d'or'' permettant a tout utilisateur du projet de donner son avis sur le site et des commentaire des remarques, ou des demandes... Enfin, un dernier bouton permet d'envoyer un mail aux programmeurs pour des questions particulières.\\
  Ce site ce veut être une vitrine pour le projet et veut donner envie aux utilisateurs de l'utiliser.
 
-\section{Ce qu'il reste à faire}
-Il nous faudra terminer le site web afin de le mettre complètement utilisable pour la seconde soutenance. ce dernier est pleinement fonctionnel d'un point de vue du code mais pas de la mise en page. les utilisateurs ne sont pas encore capable de se déplacer facilement à travers les différents menus
-%trois pages
 \chapter{Conclusion}
 
-Dans ce rapport, qui présente de façon détaillé notre projet de logiciel de lecteur ausio nome TeGaSz, nous avons pu nous rendre compte de l'avancement rapide du projet. Les fonctionnalités basiques sont déjà en place, et on peut même voir une légère avance sur le planning, qui, rappelons nous, ne promettais aucune interaction C/Caml avant la seconde soutenance.
+Dans ce rapport qui présente de façon détaillée notre projet de logiciel de lecteur audio nomme Projet Radiophonique Oriente Jouant Enormement sur les Tonalites (PROJET), nous avons pu nous rendre compte de l'avancement rapide du logiciel. Toutes les fonctionnalites vitales d'un lecteur basique sont en place et fonctionnelles. Le developpement du projet est dans les temps du planning et nous sommes impatients de le finaliser avec de nouvelles fonctionnalites.
 
-% une ou deux pages
 \end{document}
