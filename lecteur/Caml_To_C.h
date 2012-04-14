@@ -10,7 +10,7 @@ value call_load(value v, value sys);
 
 value call_stop(value v);
 
-value call_pause(value v, value sys);
+value call_pause(value v);
 
 value call_init();
 

@@ -11,7 +11,8 @@ void FMOD_Err_Check(FMOD_RESULT result)
 	if (result != FMOD_OK)
 	{
 		printf("FMOD error! (%d) %s\n", result, FMOD_ErrorString(result));
-		exit(-1);
+		if (result != FMOD_ERR_INVALID_HANDLE)
+			exit(-1);
 	}
 }
 

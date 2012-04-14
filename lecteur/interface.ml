@@ -1,7 +1,7 @@
 external play: 'a -> 'b -> unit = "call_play";; (*LAUUL*)
 external load: string -> 'b -> 'a = "call_load";;
 external stop: 'a -> unit = "call_stop";;
-external pause: 'a -> 'b -> unit = "call_pause";;
+external unpause: 'a -> unit = "call_pause";;
 external init: unit -> 'a = "call_init";;
 external volume: float -> 'a -> unit = "set_volume";;
 
@@ -9,11 +9,15 @@ class data =
   object
     val mutable son = ()
     val mutable name = ""
+    val mutable playing = false
 
     method setSound x = son <- x
     method getSound () = son
     method getName () = name
     method setName x = name <- x
+
+    method setPlaying x = playing <- x
+    method isPlaying () = playing
 
     val mutable channel = ()
 
@@ -56,22 +60,45 @@ let bbox = GPack.button_box `HORIZONTAL
   ~border_width:2
   ~packing:(vbox#pack ~expand:false) ()
 
-let playfunc () = 
-  let x = getInit () in
-  d#setChannel (play (d#getSound ()) (x))
+let playfunc btn () = 
+  if d#isPlaying () = false then
+    begin
+    let x = getInit () in
+    let s = d#getSound() in
+    if s != () then
+    begin
+      d#setChannel (play (s) (x));
+      d#setPlaying true;
+      window#set_title (String.concat  " " ("TeGaSz --"::(d#getName ())::[]))
+    end
+    end
+  else
+    if btn#active then
+      unpause (d#getChannel ())
+    else
+      stop (d#getChannel ())
+
 
 let play =
-  let btn = GButton.button
+  let btn = GButton.toggle_button
     ~label: "PLAY \n  >"
+    ~active: false
     ~packing: bbox#add() in
-  btn#connect#clicked ~callback: playfunc
+  btn#connect#toggled ~callback: (playfunc btn)
+
+let stopfunc () =
+  if d#isPlaying () then
+    begin 
+      stop (d#getChannel ());
+      d#setPlaying false;
+      window#set_title "TeGaSz"
+    end
 
 let stop =
   let btn = GButton.button
     ~packing: bbox#add()
     ~label: "STOP \n   []" in
-  btn#connect#clicked ~callback: (fun() -> stop
-							    (d#getChannel ()))
+  btn#connect#clicked ~callback: stopfunc
   
 let next = GButton.button
 ~packing: bbox#add()
@@ -146,7 +173,8 @@ let may_view btn () =
 match btn#filename with
   | Some n ->
   d#setSound (load n (getInit ()));
-    d#setName (n)
+    d#setName (let l = (Str.split (Str.regexp "/") n) in let l = List.rev l in
+    match l with |h::t -> h | _ -> assert false)
   | None -> ()
 
 let buttonopen =  

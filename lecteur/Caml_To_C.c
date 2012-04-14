@@ -60,6 +60,19 @@ value call_load(value v, value sys)
 	return (value)sound1;
 }
 
+value call_pause(value v)
+{
+	FMOD_CHANNEL	*channel = 0;
+	FMOD_RESULT		result;
+
+	channel = (void*)v;
+
+	result = FMOD_Channel_SetPaused(channel, 0);
+	FMOD_Err_Check(result);
+
+  return 0;
+}
+
 value call_stop(value v)
 {
 	FMOD_CHANNEL	*channel = 0;
