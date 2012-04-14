@@ -34,7 +34,7 @@ let getInit =
 let window =
   GMain.init ();
   let wnd = GWindow.window
-    ~title:"TeGaSz"
+    ~title:"PROJET"
     ~position:`CENTER
     ~resizable:false
     ~width:500 ~height:200 () in
@@ -63,14 +63,14 @@ let bbox = GPack.button_box `HORIZONTAL
 let playfunc btn () = 
   if d#isPlaying () = false then
     begin
-    let x = getInit () in
-    let s = d#getSound() in
-    if s != () then
-    begin
-      d#setChannel (play (s) (x));
-      d#setPlaying true;
-      window#set_title (String.concat  " " ("TeGaSz --"::(d#getName ())::[]))
-    end
+      let x = getInit () in
+      let s = d#getSound() in
+      if s != () then
+	begin
+	  d#setChannel (play (s) (x));
+	  d#setPlaying true;
+	  window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
+	end
     end
   else
     if btn#active then
@@ -91,7 +91,7 @@ let stopfunc () =
     begin 
       stop (d#getChannel ());
       d#setPlaying false;
-      window#set_title "TeGaSz"
+      window#set_title "PROJET"
     end
 
 let stop =

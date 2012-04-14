@@ -17,89 +17,89 @@
 
 value call_play(value v, value sys)
 {
-	FMOD_SYSTEM 	*system;
-	FMOD_SOUND		*sound1;
-	FMOD_CHANNEL	*channel = 0;
-	FMOD_RESULT		result;
-
-	system = (void*)sys;
-	sound1 = (void*)v;
-
-	/*result = FMOD_System_CreateSound(system, sound1, FMOD_SOFTWARE, 0, &sound1);
-	FMOD_Err_Check(result);*/
-	result = FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, sound1, 0, &channel);
-	FMOD_Err_Check(result);
-	result = FMOD_Channel_SetPaused(channel, 0);
-	FMOD_Err_Check(result);
-
-
+  FMOD_SYSTEM 	*system;
+  FMOD_SOUND	*sound1;
+  FMOD_CHANNEL	*channel = 0;
+  FMOD_RESULT	result;
+  
+  system = (void*)sys;
+  sound1 = (void*)v;
+  
+  /*result = FMOD_System_CreateSound(system, sound1, FMOD_SOFTWARE, 0, &sound1);
+    FMOD_Err_Check(result);*/
+  result = FMOD_System_PlaySound(system, FMOD_CHANNEL_FREE, sound1, 0, &channel);
+  FMOD_Err_Check(result);
+  result = FMOD_Channel_SetPaused(channel, 0);
+  FMOD_Err_Check(result);
+  
+  
   return (value)channel;
 }
 
 value call_init()
 {
-	FMOD_SYSTEM 	*system;
-	FMOD_Initialize(&system, 32, FMOD_INIT_NORMAL, NULL);
-
-	return (value)system;
+  FMOD_SYSTEM 	*system;
+  FMOD_Initialize(&system, 32, FMOD_INIT_NORMAL, NULL);
+  
+  return (value)system;
 }
 
 value call_load(value v, value sys)
 {
-	FMOD_SYSTEM 	*system;
-	FMOD_SOUND		*sound1;
-	FMOD_RESULT		result;
-
-	char *name;
-	name = String_val(v);
-	system = (void*)sys;
-
-	result = FMOD_System_CreateSound(system, name ,FMOD_SOFTWARE, 0, &sound1);
-	FMOD_Err_Check(result);
-
-	return (value)sound1;
+  FMOD_SYSTEM 	*system;
+  FMOD_SOUND		*sound1;
+  FMOD_RESULT		result;
+  
+  char *name;
+  name = String_val(v);
+  system = (void*)sys;
+  
+  result = FMOD_System_CreateSound(system, name ,FMOD_SOFTWARE, 0, &sound1);
+  FMOD_Err_Check(result);
+  
+  return (value)sound1;
 }
 
 value call_pause(value v)
 {
-	FMOD_CHANNEL	*channel = 0;
-	FMOD_RESULT		result;
-
-	channel = (void*)v;
-
-	result = FMOD_Channel_SetPaused(channel, 0);
-	FMOD_Err_Check(result);
-
+  FMOD_CHANNEL	*channel = 0;
+  FMOD_RESULT		result;
+  
+  channel = (void*)v;
+  
+  result = FMOD_Channel_SetPaused(channel, 0);
+  FMOD_Err_Check(result);
+  
   return 0;
 }
 
 value call_stop(value v)
 {
-	FMOD_CHANNEL	*channel = 0;
-	FMOD_RESULT		result;
-
-	channel = (void*)v;
-
-	result = FMOD_Channel_SetPaused(channel, 1);
-	FMOD_Err_Check(result);
-
+  FMOD_CHANNEL	*channel = 0;
+  FMOD_RESULT		result;
+  
+  channel = (void*)v;
+  
+  result = FMOD_Channel_SetPaused(channel, 1);
+  FMOD_Err_Check(result);
+  
   return 0;
 }
 
 value set_volume(value v, value c)
 {
-	FMOD_CHANNEL	*channel = 0;
-	FMOD_RESULT		result;
-	float volume;
-	double tmp;
-
-	channel = (void*)c;
-	tmp = Double_val(v);
-	volume = tmp/100;
-
-	result = FMOD_Channel_SetVolume(channel, volume);
-	FMOD_Err_Check(result);
-
+  FMOD_CHANNEL	*channel = 0;
+  FMOD_RESULT		result;
+  float volume;
+  double tmp;
+  
+  channel = (void*)c;
+  tmp = Double_val(v);
+  volume = tmp/100;
+  
+  result = FMOD_Channel_SetVolume(channel, volume);
+  FMOD_Err_Check(result);
+  
   return 0;
 }
 
