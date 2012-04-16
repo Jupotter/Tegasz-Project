@@ -37,7 +37,7 @@ let window =
     ~title:"PROJET"
     ~position:`CENTER
     ~resizable:false
-    ~width:500 ~height:200 () in
+    ~width:500 ~height:110 () in
   wnd#connect#destroy GMain.quit;
   wnd
 
