@@ -1,5 +1,5 @@
 
-\documentclass[12pt]{report}
+\documentclass[12pt,a4paper]{report}
 \usepackage{graphicx}
 \usepackage[francais]{babel}
 \usepackage[utf8]{inputenc}
@@ -17,11 +17,7 @@
 
 \begin{titlepage}
 
-
-
 \begin{center}
-
-
 
 \textsc{\LARGE PROJET}\\[1.5cm]
 
@@ -51,12 +47,11 @@ Maxime \textsc{Templé}\\
 \vfill
 
 % Bottom of the page
-{\large 13 mars 2012}
+{\large 16 Avril 2012}
 
 \end{center}
 
 \end{titlepage}
-
 \tableofcontents
 
 \chapter{Le Projet}
@@ -165,20 +160,20 @@ Pour cette dernière version, le principe de base aura été de repartir à zér
 \it{apercu de l'interface}
 \end{center}
 
-L'interface inclue toutes les fonctions que l'on peut attendre d'un lecteur audio basique. Nous pouvons sélectionner le fichier à charger, un bouton play permettant de lancer le fichier sélectionné, un bouton stop pour arrêter la lecture, et une barre de volume pour régler l'intensité du son. Il y a aussi deux boutons pour changer de piste, bien que ils ne soient pas encore fonctionnels.
+L'interface inclue toutes les fonctions que l'on peut attendre d'un lecteur audio basique. Nous pouvons sélectionner le fichier à charger, un bouton play permettant de lancer le fichier sélectionné, un bouton stop pour arrêter la lecture, et une barre de volume pour régler l'intensité du son. Il y a aussi deux boutons pour changer de piste, bien que ils ne soient pas encore fonctionnels.\\
 
-Une des particularité du bouton de lecture est qu'il permet aussi de mettre en pause la lecture. Une fois pressé, il reste enfoncé et ainsi l'utilisateur sait que la piste est lue. S'il est de nouveau cliqué, il ressort et la lecture est mise en pause et peut être reprise au même point.
+Une des particularité du bouton de lecture est qu'il permet aussi de mettre en pause la lecture. Une fois pressé, il reste enfoncé et ainsi l'utilisateur sait que la piste est lue. S'il est de nouveau cliqué, il ressort et la lecture est mise en pause et peut être reprise au même point.\\
 
-La sélection du volume se fait par une barre coulissante, avec une indication numérique du volume actuel pour une plus grande precision. A la base, le volume est indique avec une décimale, ainsi pour raison esthétique, nous avons préféré ne garder que les entiers.
+La sélection du volume se fait par une barre coulissante, avec une indication numérique du volume actuel pour une plus grande precision. A la base, le volume est indique avec une décimale, ainsi pour raison esthétique, nous avons préféré ne garder que les entiers.\\
 
 \begin{center}
 \includegraphics[scale = 0.75]{interface-volume.png}
 \it{lecture d'un son avec changement de titre de fenêtre et ajustement du volume}
 \end{center}
 
-Autre détail d'ordre visuel, lors de la lecture du son, le nom du fichier est ajoute dans la barre de titre de la fenêtre. Ainsi, sans même avoir l'interface sous les yeux, il est possible de savoir quel son est joue.
+Autre détail d'ordre visuel, lors de la lecture du son, le nom du fichier est ajoute dans la barre de titre de la fenêtre. Ainsi, sans même avoir l'interface sous les yeux, il est possible de savoir quel son est joue.\\
 
-Petite fonctionnalité pratique en cas de panne de pile de la souris, l'interface est entièrement utilisable au clavier via les touches de directions et la touche de tabulation.
+Petite fonctionnalité pratique en cas de panne de pile de la souris, l'interface est entièrement utilisable au clavier via les touches de directions et la touche de tabulation.\\
 
 %cinq pages
 \chapter{interface C/ Caml}
@@ -188,6 +183,7 @@ Petite fonctionnalité pratique en cas de panne de pile de la souris, l'interfac
 Ce projet est soumis a une condition principale, très nouvelle pour nous : faire coexister le langage C avec le OCaml. Le partage entre les deux doit être relativement équitable tout au long du programme. En fait, lors du projet précédent nous avons déjà eu l'occasion de faire dialoguer les deux langages, via l'utilisation de GTK (écrit en C), notamment pour l'interface.\\
 
 Ceci a donc été la principale raison qui nous a pousse a faire l'interface de ce projet-ci en Caml. L'interface entièrement en OCaml doit donc appeler des fonctions, comme la lecture d'un fichier, en C.\\
+\\
 
 Tous les types OCaml sont exportés dans le monde C avec le type unique "value". On convertit ensuite les valeurs de ce type en données manipulables par le C, et on renvoie une valeur qui, elle aussi, doit être de type "value". Le code C et le code OCaml sont placés dans des fichiers séparés qui diffèrent par leur nom. En effet, a la compilation, deux fichiers .o seront générés ayant le même nom, un pour la version en Ocaml et l'autre en C. Ceci posera alors problème. On ne fait que appeler du C a partir du OCaml.\\
 
@@ -263,13 +259,15 @@ Nous utilisons une librairie externe, FMOD, qui se charge de la décompressions 
 
 \chapter{Ce qu'il reste a faire}
 
-Maintenant que toutes les fonctions de base ont été implémentées (lecture, pause, arrêt, chargement), nous pourrons ajouter des fonctions pour une utilisation complète du lecteur.
+Maintenant que toutes les fonctions de base ont été implémentées (lecture, pause, arrêt, chargement), nous pourrons ajouter des fonctions pour une utilisation complète du lecteur.\\
 
 L'une d'entre elle est la possibilité d'utiliser des playlist, une liste de sons qui seront joues les uns après les autres. Les boutons Next et Previous prendront alors tout leur sens. Cette fonctionnalité est présente dans tous les lecteurs modernes, il nous parait donc indispensable de l'intégrer. Vous pourrez ainsi utiliser PROJET pour toutes vos soirées sans aucun soucis. Ensuite, le lecteur devra afficher la pochette ou l'illustration du fichier lu. L'image qui aura le même nom que le fichier joue sera ouverte dans une nouvelle fenêtre.
 
 \chapter{Site web}
-Tout le squelette du site web a été mis en place. En effet nous avons très vite choisi de créer le site web en HTML, ce qui ne permettait pas de faire une interface trop esthétique. Nous avons donc tout mise sur la visibilité de l'information. La page de garde nous indique quelles sont nouveautés de l'aventure TeGaSz avec un système de news, puis trois barres, indiquant notre progression dans le projet. \\
+Tout le squelette du site web a été mis en place. En effet nous avons très vite choisi de créer le site web en HTML, ce qui ne permettait pas de faire une interface trop esthétique. Nous avons donc tout mise sur la visibilité de l'information. La page de garde nous indique quelles sont nouveautés de l'aventure TeGaSz avec un système de news, puis trois barres, indiquant notre progression dans le projet.\\
+
 Une autre page explique avec précision ce qu'est exactement TGgaSz et comment l'avons nous implémenté. nous avons bien sûr une page destinée à la présentation du groupe de projet , chaque personne se décrivant brièvement et expliquant son rôle dans le projet. vient ensuite une page ``livre d'or'' permettant a tout utilisateur du projet de donner son avis sur le site et des commentaire des remarques, ou des demandes... Enfin, un dernier bouton permet d'envoyer un mail aux programmeurs pour des questions particulières.\\
+
  Ce site ce veut être une vitrine pour le projet et veut donner envie aux utilisateurs de l'utiliser.
 
 \chapter{Conclusion}
