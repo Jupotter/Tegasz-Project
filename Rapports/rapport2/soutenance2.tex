@@ -1,5 +1,5 @@
 
-\documentclass[12pt]{report}
+\documentclass[12pt,a4paper]{report}
 \usepackage{graphicx}
 \usepackage[francais]{babel}
 \usepackage[utf8]{inputenc}
@@ -17,11 +17,7 @@
 
 \begin{titlepage}
 
-
-
 \begin{center}
-
-
 
 \textsc{\LARGE PROJET}\\[1.5cm]
 
@@ -56,7 +52,6 @@ Maxime \textsc{Templé}\\
 \end{center}
 
 \end{titlepage}
-
 \tableofcontents
 
 \chapter{Le Projet}
@@ -75,7 +70,7 @@ Notre projet est un logiciel de lecture audio nommé PROJET (Programme Radiophon
 \includegraphics[scale= 0.3]{./name.jpg}\\[1cm]  
 \end{center}
 
-Le groupe\textit{ TeGaSz} est un groupe de projet formé en 2012 par trois  étudiants d'EPITA passionnés, dans le but de réaliser pour la fin de l'année un travail de programmation inédit. Ce programme est un lecteur audio codé dans la majeure partie en C et en caml. Le projet sera accompagné d'un site web qui décrira tout au long de l'année l'avancement du projet. Il sera mis à  jour régulièrement après chaque évolution notable.
+Le groupe\textit{ TeGaSz} est un groupe de projet formé en 2012 par trois  étudiants d'EPITA passionnés, dans le but de réaliser pour la fin de l'année un travail de programmation inédit. Ce programme est un lecteur audio codé dans la majeure partie en C et en Caml. Le projet sera accompagné d'un site web qui décrira tout au long de l'année l'avancement du projet. Il sera mis à  jour régulièrement après chaque évolution notable.
 Ce projet sera particulièrement difficile à  réaliser au niveau de la programmation:
 En effet, ce projet demande des notions particulièrement avancées dans le domaine du cryptage des fichiers audio. Par exemple, il faudra être capable de distinguer les en-tête de fichier de type .mp3, ou tout simplement être capable de lire un son, montrer sons avancement dans le temps, et pourquoi pas, afficher plusieurs informations sur la musique en cours.
  C'est pourquoi nous allons commencer ce projet en progressant étape par étape.
@@ -92,8 +87,8 @@ Simple et épuré KMPlayer n'en est pas moins puissant. Ce lecteur Coréen a le 
 \subsubsection{Amarok}
 
 Amarok est un lecteur audio. Il était au départ conçu uniquement pour Linux, mais la migration vers les plateformes Windows et Mac OS X est en cours. C'est\`a ce jour l'un des meilleurs lecteurs audio. 
- Amarok peut lire quasiment n'importe quel type de fichiers audio (MP3, OGG, WMA, FLAC...), permet la création de playlists ce qui le transforme en Jukebox, gère l'édition des tags, grave les CD audio (à condition d'avoir K3B), récupère les pochettes de disques ou les paroles d'un morceau, permet d'uploader votre musique vers de nombreux baladeurs (iPod, Creative NOMAD ou ZEN, Rio Karma...), affiche les infos Wikipedia sur le groupe que vous écoutez... Bref, Amarok est un outil très puissant.
-Il faut disposer d'un moteur de décodage tel que gstreamer ou xine pour faire fonctionner Amarok : Amarok est en quelque sorte une interface utilisateur. 
+ Amarok peut lire quasiment n'importe quel type de fichiers audio (MP3, OGG, WMA, FLAC...), permet la création de playlists ce qui le transforme en Jukebox, gère l'édition des tags, grave les CD audio (à condition d'avoir K3B), récupère les pochettes de disques ou les paroles d'un morceau, permet d'uploader votre musique vers de nombreux baladeurs (iPod, Creative NOMAD ou ZEN, Rio Karma...), affiche les informations de Wikipedia sur le groupe que vous écoutez... Bref, Amarok est un outil très puissant.
+Il faut disposer d'un moteur de décodage tel que GStreamer ou Xine pour faire fonctionner Amarok : Amarok est en quelque sorte une interface utilisateur. 
 
 \subsubsection{Splayer}
 
@@ -105,7 +100,7 @@ Le format WMA est la réponse de Microsoft au MP3. Face au succès du MP3 et l'e
 
 \subsubsection{Winamp}
 
-Premier lecteur MP3 logiciel apparu sur le Web en 1997 et toujours très populaire. Aujourd'hui, Winamp est bien plus qu'un simple lecteur MP3. Il permet la lecture des CD audio, des fichiers MP3, OGG, AAC et WMA sans ajout de plug-ins et ceci pour ne parler que des formats les plus courants. Il peut désormais ripper les pistes d'un CD audio pour les copier sur votre disque dur et graver des CD. Ces deux dernières fonctionnalités sont limitées dans la version gratuite : on peut ripper en x6 et graver en x2 seulement mais c'est possible. Cette limitation ne nous semble pas un gros handicap dans la mesure o\`u il vaut mieux ripper \`a  vitesse lente pour obtenir une bonne qualité d'extraction. Mais revenons \`a  Winamp... Il est doté d'un égaliseur 10 bandes, d'un gestionnaire de Playlists qui le transforme en Jukebox et d'un minibrowser Web. 
+Premier lecteur MP3 logiciel apparu sur le Web en 1997 et toujours très populaire. Aujourd'hui, Winamp est bien plus qu'un simple lecteur MP3. Il permet la lecture des CD audio, des fichiers MP3, OGG, AAC et WMA sans ajout de plug-ins et ceci pour ne parler que des formats les plus courants. Il peut désormais ripper les pistes d'un CD audio pour les copier sur votre disque dur et graver des CD. Ces deux dernières fonctionnalités sont limitées dans la version gratuite : on peut ripper en x6 et graver en x2 seulement mais c'est possible. Cette limitation ne nous semble pas un gros handicap dans la mesure o\`u il vaut mieux ripper \`a  vitesse lente pour obtenir une bonne qualité d'extraction. Mais revenons \`a  Winamp... Il est doté d'un égaliseur 10 bandes, d'un gestionnaire de Playlists qui le transforme en Jukebox et d'un mini navigateur Web. 
 L'ajout de plug-ins étend encore les possibilités de Winamp puisqu'on peut encoder en MP3 ou autre format, visualiser des vidéos au format DivX, lire des fichiers audio de type VQF, Monkey... A tester !
 
 \newpage
@@ -135,7 +130,7 @@ Pour pouvoir réaliser ce projet dans les temps, nous avons choisi de travailler
 
 Pour faciliter la communication entre nous, nous avons créé un forum de développement o\`u tous nos travaux seront postés au fur et \`a  mesure de leur réalisation. Cela permettra d'une part, une meilleure gestion du travail, et d'autre part de voir l'avancement des travaux de chacun des membres. Skype sera aussi un des principaux moyens de communication.
 
-En outre, il nous fallait un outil fiable afin de partager notre avance commune. Le gestionnaire de version decentralises GIT semblait tout destine pour cette tache. Pour cela, nous avons donc cree un dep\^ot sur le site GitHub qui permet gratuitement d'herberger l'ensemble de nos sources.
+En outre, il nous fallait un outil fiable afin de partager notre avancé commune. Le gestionnaire de version décentralisé GIT semblait tout destine pour cette tache. Pour cela, nous avons donc créé un dépôt sur le site GitHub qui permet gratuitement d'héberger l'ensemble de nos sources.
 
 		\subsection{Chef de projet}
 
@@ -158,27 +153,27 @@ Même si, au départ GTK+ est écrit en langage C et utilise pourtant le paradig
 
 \section{Interface OCaml}
 
-Pour cette derniere version, le principe de base aura été de repartir à zéro. Nous avons utilisé nos connaissances acquises dans nos recherches pour réaliser une interface qui correspondait beaucoup plus aux attentes du cahier des charges. Bien que les methodes employées pour la plupart des parties restent fondamentalement les memes, nous avons surtout ajouter des actions plus spécifiques, permettant ainsi une meilleure interconnexion entre les différentes parties du projet.
+Pour cette dernière version, le principe de base aura été de repartir à zéro. Nous avons utilisé nos connaissances acquises dans nos recherches pour réaliser une interface qui correspondait beaucoup plus aux attentes du cahier des charges. Bien que les methodes employées pour la plupart des parties restent fondamentalement les memes, nous avons surtout ajouter des actions plus spécifiques, permettant ainsi une meilleure interconnexion entre les différentes parties du projet.
 
 \begin{center}
-\includegraphics{interface1.png}
+\includegraphics[scale = 0.75]{interface1.png}
 \it{apercu de l'interface}
 \end{center}
 
-L'interface inclu toutes les fonctions que l'on peut attendre d'un lecteur audio basique. Nous pouvons selectionner le fichier charger, un bouton play permettant de lancer le fichier selectionne, un bouton stop pour arreter la lecture, et une barre de volume pour regler l'intensite du son. Il y a aussi deux boutons pour changer de piste, bien que ils ne soient pas encore fonctionnels.
+L'interface inclue toutes les fonctions que l'on peut attendre d'un lecteur audio basique. Nous pouvons sélectionner le fichier à charger, un bouton play permettant de lancer le fichier sélectionné, un bouton stop pour arrêter la lecture, et une barre de volume pour régler l'intensité du son. Il y a aussi deux boutons pour changer de piste, bien que ils ne soient pas encore fonctionnels.\\
 
-Une des particularite du bouton de lecture est qu'il permet aussi de mettre en pause la lecture. Une fois presse, il reste enfonce et ainsi l'utilisateur sait que la piste est lue. S'il est de nouveau clique, il ressort et la lecture est mise en pause et peut etre reprise au meme point.
+Une des particularité du bouton de lecture est qu'il permet aussi de mettre en pause la lecture. Une fois pressé, il reste enfoncé et ainsi l'utilisateur sait que la piste est lue. S'il est de nouveau cliqué, il ressort et la lecture est mise en pause et peut être reprise au même point.\\
 
-La selection du volume se fait par une barre coulissante, avec une indication numerique du volume actuel pour une plus grande precision. A la base, le volume est indique avec une decimale, ainsi pour raison esthetique, nous avons prefere ne garder que les entiers.
+La sélection du volume se fait par une barre coulissante, avec une indication numérique du volume actuel pour une plus grande precision. A la base, le volume est indique avec une décimale, ainsi pour raison esthétique, nous avons préféré ne garder que les entiers.\\
 
 \begin{center}
-\includegraphics{interface-volume.png}
-\it{lecture d'un son avec changement de titre de fenetre et ajustement du volume}
+\includegraphics[scale = 0.75]{interface-volume.png}
+\it{lecture d'un son avec changement de titre de fenêtre et ajustement du volume}
 \end{center}
 
-Autre detail d'ordre visuel, lors de la lecture du son, le nom du fichier est ajoute dans la barre de titre de la fenetre. Ainsi, sans meme avoir l'interface sous les yeux, il est possible de savoir quel son est joue.
+Autre détail d'ordre visuel, lors de la lecture du son, le nom du fichier est ajoute dans la barre de titre de la fenêtre. Ainsi, sans même avoir l'interface sous les yeux, il est possible de savoir quel son est joue.\\
 
-Petite fonctionnalite pratique en cas de panne de pile de la souris, l'interface est entierement utilisable au clavier via les touches de directions et la touche de tabulation.
+Petite fonctionnalité pratique en cas de panne de pile de la souris, l'interface est entièrement utilisable au clavier via les touches de directions et la touche de tabulation.\\
 
 %cinq pages
 \chapter{interface C/ Caml}
@@ -188,6 +183,7 @@ Petite fonctionnalite pratique en cas de panne de pile de la souris, l'interface
 Ce projet est soumis a une condition principale, très nouvelle pour nous : faire coexister le langage C avec le OCaml. Le partage entre les deux doit être relativement équitable tout au long du programme. En fait, lors du projet précédent nous avons déjà eu l'occasion de faire dialoguer les deux langages, via l'utilisation de GTK (écrit en C), notamment pour l'interface.\\
 
 Ceci a donc été la principale raison qui nous a pousse a faire l'interface de ce projet-ci en Caml. L'interface entièrement en OCaml doit donc appeler des fonctions, comme la lecture d'un fichier, en C.\\
+\\
 
 Tous les types OCaml sont exportés dans le monde C avec le type unique "value". On convertit ensuite les valeurs de ce type en données manipulables par le C, et on renvoie une valeur qui, elle aussi, doit être de type "value". Le code C et le code OCaml sont placés dans des fichiers séparés qui diffèrent par leur nom. En effet, a la compilation, deux fichiers .o seront générés ayant le même nom, un pour la version en Ocaml et l'autre en C. Ceci posera alors problème. On ne fait que appeler du C a partir du OCaml.\\
 
@@ -263,17 +259,19 @@ Nous utilisons une librairie externe, FMOD, qui se charge de la décompressions 
 
 \chapter{Ce qu'il reste a faire}
 
-Maintenant que toutes les fonctions de base ont ete implementees (lecture, pause, arret, chargement), nous pourrons ajouter des fonctions pour une utilisation complete du lecteur.
+Maintenant que toutes les fonctions de base ont été implémentées (lecture, pause, arrêt, chargement), nous pourrons ajouter des fonctions pour une utilisation complète du lecteur.\\
 
-L'une d'entre elle est la possibilite d'utiliser des playlist, une liste de sons qui seront joues les uns apres les autres. Les boutons Next et Previous prendront alors tout leur sens. Cette fonctionnalite est presente dans tous les lecteurs modernes, il nous parait donc indispensable de l'integrer. Vous pourrez ainsi utiliser PROJET pour toutes vos soirees sans aucun soucis. Ensuite, le lecteur devra afficher la pochette ou l'illustration du fichier lu. L'image qui aura le meme nom que le fichier joue sera ouverte dans une nouvelle fenetre.
+L'une d'entre elle est la possibilité d'utiliser des playlist, une liste de sons qui seront joues les uns après les autres. Les boutons Next et Previous prendront alors tout leur sens. Cette fonctionnalité est présente dans tous les lecteurs modernes, il nous parait donc indispensable de l'intégrer. Vous pourrez ainsi utiliser PROJET pour toutes vos soirées sans aucun soucis. Ensuite, le lecteur devra afficher la pochette ou l'illustration du fichier lu. L'image qui aura le même nom que le fichier joue sera ouverte dans une nouvelle fenêtre.
 
 \chapter{Site web}
-Tout le squelette du site web a ete mis en place. En effet nous avons très vite choisi de créer le site web en HTML, ce qui ne permettait pas de faire une interface trop esthétique. Nous avons donc tout mise sur la visibilité de l'information. La page de garde nous indique quelles sont nouveautés de l'aventure mapplestore avec un système de news, puis trois barres, indiquant notre progression dans le projet. \\
-Une autre page explique avec précision ce qu'est exactement Tegasz et comment l'avons nous implémenté. nous avons bien sûr une page destinée à la présentation du groupe de projet , chaque personne se décrivant brièvement et expliquant son rôle dans le projet. vient ensuite une page ``livre d'or'' permettant a tout utilisateur du projet de donner son avis sur le site et des commentaire des remarques, ou des demandes... Enfin, un dernier bouton permet d'envoyer un mail aux programmeurs pour des questions particulières.\\
+Tout le squelette du site web a été mis en place. En effet nous avons très vite choisi de créer le site web en HTML, ce qui ne permettait pas de faire une interface trop esthétique. Nous avons donc tout mise sur la visibilité de l'information. La page de garde nous indique quelles sont nouveautés de l'aventure TeGaSz avec un système de news, puis trois barres, indiquant notre progression dans le projet.\\
+
+Une autre page explique avec précision ce qu'est exactement TGgaSz et comment l'avons nous implémenté. nous avons bien sûr une page destinée à la présentation du groupe de projet , chaque personne se décrivant brièvement et expliquant son rôle dans le projet. vient ensuite une page ``livre d'or'' permettant a tout utilisateur du projet de donner son avis sur le site et des commentaire des remarques, ou des demandes... Enfin, un dernier bouton permet d'envoyer un mail aux programmeurs pour des questions particulières.\\
+
  Ce site ce veut être une vitrine pour le projet et veut donner envie aux utilisateurs de l'utiliser.
 
 \chapter{Conclusion}
 
-Dans ce rapport qui présente de façon détaillée notre projet de logiciel de lecteur audio nomme Projet Radiophonique Oriente Jouant Enormement sur les Tonalites (PROJET), nous avons pu nous rendre compte de l'avancement rapide du logiciel. Toutes les fonctionnalites vitales d'un lecteur basique sont en place et fonctionnelles. Le developpement du projet est dans les temps du planning et nous sommes impatients de le finaliser avec de nouvelles fonctionnalites.
+Dans ce rapport qui présente de façon détaillée notre projet de logiciel de lecteur audio nomme Projet Radiophonique Oriente Jouant Énormément sur les Tonalités (PROJET), nous avons pu nous rendre compte de l'avancement rapide du logiciel. Toutes les fonctionnalités vitales d'un lecteur basique sont en place et fonctionnelles. Le développement du projet est dans les temps du planning et nous sommes impatients de le finaliser avec de nouvelles fonctionnalités.
 
 \end{document}
