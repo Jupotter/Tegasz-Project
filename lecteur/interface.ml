@@ -155,8 +155,8 @@ let cbox = GPack.button_box `VERTICAL
 
 
  let hide = GButton.button
-~label:"Cacher"
-~packing:cbox#add ()
+   ~label:"Cacher"
+   ~packing:cbox#add ()
 
   (*========== TOOLBAR ==========*)
 
@@ -170,24 +170,38 @@ let item5 = GButton.tool_item ~packing:toolbar#insert ()
 let item6 = GButton.tool_item ~packing:toolbar#insert ()
 
 let may_view btn () =
-match btn#filename with
-  | Some n ->
-  d#setSound (load n (getInit ()));
-    d#setName (let l = (Str.split (Str.regexp "/") n) in let l = List.rev l in
-    match l with |h::t -> h | _ -> assert false)
-  | None -> ()
+  match btn#filename with
+    | Some n ->
+      d#setSound (load n (getInit ()));
+      d#setName (let l = (Str.split (Str.regexp "/") n) in let l = List.rev l in
+							   match l with |h::t -> h | _ -> assert false)
+    | None -> ()
 
-let buttonopen =  
-let btn =GFile.chooser_button
-~action:`OPEN
-~packing:item1#add ()
-in btn#connect#selection_changed (may_view btn);
-btn
+let buttonopen =
+  let btn = GFile.chooser_button
+    ~action:`OPEN
+    ~packing:item1#add ()
+  in btn#connect#selection_changed (may_view btn);
+  btn
 
-let edit = GButton.button
- ~label: "afficher la playlist "
-~packing: item2#add ()
+let select_playlist () =
+  let wnd = GWindow.dialog
+    ~height:300
+    ~widght:300
+    ~resizable:true
+    ~position:`CENTER
+    ~parent:window
+    ~title:"GWindow Demo" () in
+  begin
+    wnd#show ()
+  end
 
+
+let btn_playlist =
+  let btn = GButton.button
+    ~label:"Playlist"
+    ~packing: item2#add () in
+  btn#connect#clicked ~callback: select_playlist
 
 let help_button =
   let dlg = GWindow.message_dialog
@@ -249,7 +263,7 @@ btn
 let confirm _ =
   let dlg = GWindow.message_dialog
     ~message:"<b><big>Voulez-vous vraiment quitter ?</big>\n\n\
-      Attention :\nvous perdrez toutes les modifications que  vous y avez apportées </b>\n"
+      Attention :\nvous perdrez toutes les modifications que vous y avez apportées </b>\n"
     ~parent:window
     ~destroy_with_parent:true
     ~use_markup:true
@@ -263,7 +277,7 @@ let confirm _ =
 (*========== APPEL ==========*)
 
 let _ =
-  edit#connect#clicked  cbox#misc#show;
+  (*edit_playlist#connect#clicked  cbox#misc#show;*)
   hide#connect#clicked ~callback:cbox#misc#hide;
   window#event#connect#delete confirm;
   window#show ();
