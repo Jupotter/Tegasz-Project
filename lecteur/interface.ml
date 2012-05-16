@@ -215,7 +215,7 @@ let buttonopen =
 let select_playlist () =
   let wnd = GWindow.dialog
     ~height:300
-    ~widght:300
+    ~width:300
     ~resizable:true
     ~position:`CENTER
     ~parent:window
