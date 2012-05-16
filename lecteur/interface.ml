@@ -212,24 +212,23 @@ let buttonopen =
   in btn#connect#selection_changed (may_view btn);
   btn
 
-let select_playlist () =
-  let wnd = GWindow.dialog
-    ~height:300
-    ~width:300
+let select_playlist =
+  let wnd = GWindow.window
+    ~height:500
+    ~width:500
     ~resizable:true
     ~position:`CENTER
-    ~parent:window
+    ~show:false
     ~title:"GWindow Demo" () in
-  begin
-    wnd#show ()
-  end
+  wnd
 
 
 let btn_playlist =
   let btn = GButton.button
     ~label:"Playlist"
     ~packing: item2#add () in
-  btn#connect#clicked ~callback: select_playlist
+  btn#connect#clicked ~callback: (fun () -> select_playlist#show () )
+    
 
 let help_button =
   let dlg = GWindow.message_dialog
