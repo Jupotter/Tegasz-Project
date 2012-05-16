@@ -186,6 +186,7 @@ let cbox = GPack.button_box `VERTICAL
    ~label:"Cacher"
    ~packing:cbox#add ()
 
+
   (*========== TOOLBAR ==========*)
 
 let item1 = GButton.tool_item ~packing:toolbar#insert ()
@@ -260,9 +261,11 @@ let cols = new GTree.column_list
 let col_name = cols#add string	(* string column *)
 let col_age = cols#add int	(* int column *)
 
+let liste = [("golden sun ",1); ("diablo 3 ", -1  );("pokemon ",42  )
+	    ;("aok ",10  )  ]
 
 let create_model () =
-  let data = [("Heinz El-Mann", 51); ("Jane Doe", 23); ("Joe Bungop", 91)] in
+  let data = liste in
   let store = GTree.list_store cols in
   let fill (name, age) =
     let iter = store#append () in
@@ -275,13 +278,13 @@ let create_model () =
 let create_view ~model ~packing () =
   let view = GTree.view ~model ~packing () in
 
-  (* Column #1: col_name is string column *)
-  let col = GTree.view_column ~title:"Name"
+  (* Column #1: nom *)
+  let col = GTree.view_column ~title:"Nom"
       ~renderer:(GTree.cell_renderer_text [], ["text", col_name]) () in
   ignore (view#append_column col);
 
-  (* Column #2: col_age is int column *)
-  let col = GTree.view_column ~title:"Age"
+    (* Column #2: emplacemement *)
+  let col = GTree.view_column ~title:"emplacement"
       ~renderer:(GTree.cell_renderer_text [], ["text", col_age]) () in
   ignore (view#append_column col);
 
