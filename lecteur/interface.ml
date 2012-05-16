@@ -233,11 +233,26 @@ let toolbar_playlist = GButton.toolbar
   ~style:`ICONS
   ~packing:(vbox_playlist#pack ~expand:false) ()
 
+
 let item1_playlist = GButton.tool_item ~packing:toolbar_playlist#insert ()
 let sep1_playlist = GButton.separator_tool_item ~packing:toolbar_playlist#insert ()
 let item2_playlist = GButton.tool_item
   ~packing:toolbar_playlist#insert ()
+let sep2_playlist = GButton.separator_tool_item ~packing:toolbar_playlist#insert ()
 let item3_playlist = GButton.tool_item ~packing:toolbar_playlist#insert ()
+
+
+let text =
+  let scroll = GBin.scrolled_window
+    ~hpolicy:`ALWAYS
+    ~vpolicy:`ALWAYS
+    ~shadow_type:`ETCHED_IN
+    ~packing:vbox_playlist#add () in
+  let txt = GText.view ~packing:scroll#add () in
+  txt#misc#modify_font_by_name "Monospace 12";
+  txt
+
+
 
 let add_playlist = GButton.button
     ~label: " ADD +"
