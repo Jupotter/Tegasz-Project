@@ -73,7 +73,7 @@ let window =
   wnd#connect#destroy GMain.quit;
   wnd
 
-(*========== VBOX (PRINCIPAL) ========== *)
+(* ========== VBOX (PRINCIPAL) ========== *)
 
 let vbox = GPack.vbox
   ~spacing:2
@@ -85,7 +85,7 @@ let toolbar = GButton.toolbar
   ~style:`ICONS
   ~packing:(vbox#pack ~expand:false) ()
 
-(*========== BOUTONS MULTIMEDIAS ========= *)
+(* ========== BOUTONS MULTIMEDIAS ========= *)
 
 let bbox = GPack.button_box `HORIZONTAL
   ~layout:`EDGE
@@ -187,8 +187,8 @@ let cbox = GPack.button_box `VERTICAL
 
 
  let hide = GButton.button
-~label:"Cacher"
-~packing:cbox#add ()
+   ~label:"Cacher"
+   ~packing:cbox#add ()
 
   (*========== TOOLBAR ==========*)
 
@@ -202,24 +202,82 @@ let item5 = GButton.tool_item ~packing:toolbar#insert ()
 let item6 = GButton.tool_item ~packing:toolbar#insert ()
 
 let may_view btn () =
-match btn#filename with
-  | Some n ->
-  d#setSound (load n (getInit ()));
-    d#setName (let l = (Str.split (Str.regexp "/") n) in let l = List.rev l in
-    match l with |h::t -> h | _ -> assert false)
-  | None -> ()
+  match btn#filename with
+    | Some n ->
+      d#setSound (load n (getInit ()));
+      d#setName (let l = (Str.split (Str.regexp "/") n) in let l = List.rev l in
+							   match l with |h::t -> h | _ -> assert false)
+    | None -> ()
 
-let buttonopen =  
-let btn =GFile.chooser_button
-~action:`OPEN
-~packing:item1#add ()
-in btn#connect#selection_changed (may_view btn);
-btn
+let buttonopen =
+  let btn = GFile.chooser_button
+    ~action:`OPEN
+    ~packing:item1#add ()
+  in btn#connect#selection_changed (may_view btn);
+  btn
 
-let edit = GButton.button
- ~label: "afficher la playlist "
-~packing: item2#add ()
+let select_playlist =
+  let wnd = GWindow.window
+    ~height:500
+    ~width:500
+    ~resizable:true
+    ~position:`CENTER
+    ~show:false
+    ~title:"Playlist" () in
+  wnd
 
+
+let vbox_playlist = GPack.vbox
+  ~spacing:3
+  ~border_width:3
+  ~packing:select_playlist#add ()
+
+let toolbar_playlist = GButton.toolbar
+  ~orientation:`HORIZONTAL
+  ~style:`ICONS
+  ~packing:(vbox_playlist#pack ~expand:false) ()
+
+
+let item1_playlist = GButton.tool_item ~packing:toolbar_playlist#insert ()
+let sep1_playlist = GButton.separator_tool_item ~packing:toolbar_playlist#insert ()
+let item2_playlist = GButton.tool_item
+  ~packing:toolbar_playlist#insert ()
+let sep2_playlist = GButton.separator_tool_item ~packing:toolbar_playlist#insert ()
+let item3_playlist = GButton.tool_item ~packing:toolbar_playlist#insert ()
+
+
+let text =
+  let scroll = GBin.scrolled_window
+    ~hpolicy:`ALWAYS
+    ~vpolicy:`ALWAYS
+    ~shadow_type:`ETCHED_IN
+    ~packing:vbox_playlist#add () in
+  let txt = GText.view ~packing:scroll#add () in
+  txt#misc#modify_font_by_name "Monospace 12";
+  txt
+
+
+
+let add_playlist = GButton.button
+    ~label: " ADD +"
+    ~packing: item1_playlist#add()
+
+let del_playlist = GButton.button
+  ~label: "DEL -"
+  ~packing: item2_playlist#add()
+
+let close_playlist =
+  let btn = GButton.button
+  ~label: "Quit"
+  ~packing: item3_playlist#add()
+  in btn#connect#clicked ~callback: select_playlist#misc#hide
+
+let btn_playlist =
+  let btn = GButton.button
+    ~label:"Playlist"
+    ~packing: item2#add () in
+  btn#connect#clicked ~callback: (fun () -> select_playlist#show () )
+    
 
 let help_button =
   let dlg = GWindow.message_dialog
@@ -281,7 +339,7 @@ btn
 let confirm _ =
   let dlg = GWindow.message_dialog
     ~message:"<b><big>Voulez-vous vraiment quitter ?</big>\n\n\
-      Attention :\nvous perdrez toutes les modifications que  vous y avez apportées </b>\n"
+      Attention :\nvous perdrez toutes les modifications que vous y avez apportées </b>\n"
     ~parent:window
     ~destroy_with_parent:true
     ~use_markup:true
@@ -298,7 +356,7 @@ let loop () =
   true
 
 let _ =
-  edit#connect#clicked  cbox#misc#show;
+  (*edit_playlist#connect#clicked  cbox#misc#show;*)
   hide#connect#clicked ~callback:cbox#misc#hide;
   window#event#connect#delete confirm;
   window#show ();

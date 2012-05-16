@@ -1,5 +1,0 @@
-http://icculus.org/SDL_sound/
-http://steve.louis.free.fr/developpement/liens.htm
-http://www.fmod.org/index.php/download
-http://loka.developpez.com/tutoriel/sdl/sons
-http://www.developpez.net/forums/d965763/general-developpement/programmation-systeme/linux/gtk/gtkp/lecteur-audio-gtk-passer-automatiquement-plage-suivante/
