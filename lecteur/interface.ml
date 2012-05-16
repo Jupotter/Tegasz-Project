@@ -4,9 +4,10 @@ external stop: 'a -> unit = "call_stop";;
 external unpause: 'a -> unit = "call_pause";;
 external init: unit -> 'a = "call_init";;
 external volume: float -> 'a -> unit = "set_volume";;
+external paused: 'a -> int = "is_paused";;
 
 class playlist = 
-object
+object (self)
   val mutable plist = []
   val mutable current = -1
 
@@ -26,6 +27,9 @@ object
       | h::_ when x = current -> x
       | _::l -> getCSrec (x+1) l
     in getCSrec 0 plist
+
+  method next () = current <- current + 1;
+  self#getCurrentSong ()
 
 end
 
@@ -290,9 +294,13 @@ let confirm _ =
 
 (*========== APPEL ==========*)
 
+let loop () = 
+  true
+
 let _ =
   edit#connect#clicked  cbox#misc#show;
   hide#connect#clicked ~callback:cbox#misc#hide;
   window#event#connect#delete confirm;
   window#show ();
+  GMain.Idle.add loop;
   GMain.main ()

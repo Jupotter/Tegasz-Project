@@ -16,5 +16,7 @@ value call_init();
 
 value set_volume(value v, value c);
 
+value is_paused(value v);
+
 #endif
 

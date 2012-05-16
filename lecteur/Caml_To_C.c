@@ -103,4 +103,18 @@ value set_volume(value v, value c)
   return 0;
 }
 
+value is_paused(value v)
+{
+  FMOD_CHANNEL	*channel = 0;
+  FMOD_RESULT		result;
+	int 					paused = 0;
+
+  channel = (void*)v;
+
+	result = FMOD_Channel_GetPaused(channel, &paused);
+	FMOD_Err_Check(result);
+
+	return (value)paused;
+}
+
 /* End main.c */
