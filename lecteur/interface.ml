@@ -69,7 +69,7 @@ let window =
   wnd#connect#destroy GMain.quit;
   wnd
 
-(*========== VBOX (PRINCIPAL) ========== *)
+(* ========== VBOX (PRINCIPAL) ========== *)
 
 let vbox = GPack.vbox
   ~spacing:2
@@ -81,7 +81,7 @@ let toolbar = GButton.toolbar
   ~style:`ICONS
   ~packing:(vbox#pack ~expand:false) ()
 
-(*========== BOUTONS MULTIMEDIAS ========= *)
+(* ========== BOUTONS MULTIMEDIAS ========= *)
 
 let bbox = GPack.button_box `HORIZONTAL
   ~layout:`EDGE
@@ -219,9 +219,39 @@ let select_playlist =
     ~resizable:true
     ~position:`CENTER
     ~show:false
-    ~title:"GWindow Demo" () in
+    ~title:"Playlist" () in
   wnd
 
+
+let vbox_playlist = GPack.vbox
+  ~spacing:3
+  ~border_width:3
+  ~packing:select_playlist#add ()
+
+let toolbar_playlist = GButton.toolbar
+  ~orientation:`HORIZONTAL
+  ~style:`ICONS
+  ~packing:(vbox_playlist#pack ~expand:false) ()
+
+let item1_playlist = GButton.tool_item ~packing:toolbar_playlist#insert ()
+let sep1_playlist = GButton.separator_tool_item ~packing:toolbar_playlist#insert ()
+let item2_playlist = GButton.tool_item
+  ~packing:toolbar_playlist#insert ()
+let item3_playlist = GButton.tool_item ~packing:toolbar_playlist#insert ()
+
+let add_playlist = GButton.button
+    ~label: " ADD +"
+    ~packing: item1_playlist#add()
+
+let del_playlist = GButton.button
+  ~label: "DEL -"
+  ~packing: item2_playlist#add()
+
+let close_playlist =
+  let btn = GButton.button
+  ~label: "Quit"
+  ~packing: item3_playlist#add()
+  in btn#connect#clicked ~callback: select_playlist#misc#hide
 
 let btn_playlist =
   let btn = GButton.button
