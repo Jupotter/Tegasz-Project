@@ -128,9 +128,6 @@ let previous = GButton.button
 ~label: "PREVIOUS \n     |<<"
 (* fonction1#connect#clicked ~callback: fonction args*)
 
-(* bonjour *)
-(* TG *)
-
 let volume = 
   let btn = GRange.scale `HORIZONTAL
   ~packing: bbox#add()
@@ -169,8 +166,6 @@ let cbox = GPack.button_box `VERTICAL
   ~border_width:20
   ~packing:(hbox#pack ~expand:false) ()
 
-  (*========== PLAYLIST ==========*)
-
 
  let hide = GButton.button
    ~label:"Cacher"
@@ -207,7 +202,6 @@ let buttonopen =
   btn
 
 (*========== COVER ==========*)
-
 
 
 let show_cover =
@@ -257,6 +251,7 @@ let btn_cover =
     ~packing: item3#add () in
     btn#connect#clicked ~callback: (fun () -> show_cover#show ();
 				      show_cover#move 640 500)
+
 
 (*========== PLAYLIST ==========*)
 
@@ -392,6 +387,7 @@ let buttonquit =
   ~callback:GMain.quit;
 btn
 
+(*========= BARRE DE DEFILEMENT ==========*)
 
   (*========= FUNCTIONS ========== *)
 
