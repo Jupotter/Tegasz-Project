@@ -209,13 +209,16 @@ let buttonopen =
 
 (*========== COVER ==========*)
 
+
+
 let show_cover =
   let wnd  = GWindow.window
     ~height:150
     ~width:150
     ~resizable:true
-    ~position:`CENTER
+    ~position: `CENTER
     ~show:false
+    ~deletable: false
     ~title:"Cover" () in
   wnd
 
@@ -230,11 +233,7 @@ let toolbar_cover= GButton.toolbar
   ~style:`ICONS
   ~packing:(vbox_cover#pack ~expand:false) ()
 
-let btn_cover =
-  let btn = GButton.button
-    ~label:"cover"
-    ~packing: item7#add () in
-  btn#connect#clicked ~callback: (fun () -> show_cover#show () )
+
 
 let view = GPack.vbox 
   ~packing:vbox_cover#add ()
@@ -250,6 +249,13 @@ let close_cover =
   ~packing: toolbar_cover#add()
   in btn#connect#clicked ~callback: show_cover#misc#hide
 
+
+
+let btn_cover =
+  let btn = GButton.button
+    ~label:"cover"
+    ~packing: item7#add () in
+  btn#connect#clicked ~callback: (fun () -> show_cover#show () )
 
 (*========== PLAYLIST ==========*)
 
@@ -400,10 +406,12 @@ let loop () =
   true
 
 let _ =
-  (*edit_playlist#connect#clicked  cbox#misc#show;*)
   hide#connect#clicked ~callback:cbox#misc#hide;
   window#event#connect#delete confirm;
-   let model = playlist in
+
+(*~callback: show_cover#misc#hide; *)
+  
+let model = playlist in
   create_view ~model ~packing:vbox_playlist#add ();
      
   window#show ();
