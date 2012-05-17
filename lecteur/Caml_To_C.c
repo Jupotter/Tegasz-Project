@@ -111,7 +111,7 @@ value is_paused(value v)
 
   channel = (void*)v;
 
-	result = FMOD_Channel_GetPaused(channel, &paused);
+	result = FMOD_Channel_IsPlaying(channel, &paused);
 	FMOD_Err_Check(result);
 
 	return (value)paused;

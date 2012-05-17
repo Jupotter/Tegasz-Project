@@ -138,7 +138,8 @@ let playlist_next () =
   |Some(row) ->
       begin
         playlist#iter_next row;
-        stopfunc ()
+        stopfunc ();
+        play#set_active true;
       end
   end
 
@@ -152,7 +153,8 @@ let playlist_prev () =
         let _ = GTree.Path.prev path in
         let iter = playlist#get_iter path in
         d#setPListCurrent (Some(iter));
-        stopfunc ()
+        stopfunc ();
+        play#set_active true;
       end
 
 let stop =
@@ -457,9 +459,9 @@ let confirm _ =
 
 let loop () = 
   let stop = paused (d#getChannel ()) in
-  if ((stop != 0) && (d#isPlaying ())) then
+  if ((play#active)&&(stop != 0) ) then
     begin
-
+      playlist_next ();
     end;
     if (play#active) then
       (fun () -> timer (d#getChannel ()); ()) ();
@@ -471,7 +473,7 @@ let _ =
 
 (*~callback: show_cover#misc#hide; *)
   
-let model = playlist in
+  let model = playlist in
   create_view ~model ~packing:vbox_playlist#add ();
      
   window#show ();
