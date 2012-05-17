@@ -50,16 +50,19 @@ let getInit =
 let playlist_add s = 
   let row = playlist#append () in
   playlist#set ~row ~column:col_name s;
-  playlist#set ~row ~column:col_age  0
+  playlist#set ~row ~column:col_age  0;
+  if d#getPListCurrent () = None then
+    d#setPListCurrent (Some(row))
 
 let playlist_next () =
   let iter = d#getPListCurrent () in
   match iter with
   |None -> ()
   |Some(i) ->
-    playlist#iter_next i;
-    let name = (playlist#get i col_name) in
-    print_string name
+      playlist#iter_next i;
+      ()
+    (*let name = (playlist#get i col_name) in
+    print_string name*)
 
 (* ========= Main Window ======== *)
 
@@ -205,7 +208,6 @@ let sep3 = GButton.separator_tool_item ~packing:toolbar#insert ()
 
 let item6 = GButton.tool_item ~packing:toolbar#insert ()
 
-
 let may_view btn () =
   match btn#filename with
     | Some n ->
@@ -222,8 +224,6 @@ let buttonopen =
   btn
 
 (*========== COVER ==========*)
-
-
 
 let show_cover =
   let wnd  = GWindow.window
@@ -417,11 +417,11 @@ let confirm _ =
 (*========== APPEL ==========*)
 
 let loop () = 
-  let stop = paused (d#getchannel ()) in
-  if !stop && d#isplaying () then
+  let stop = paused (d#getChannel ()) in
+  if ((stop != 0) && (d#isPlaying ())) then
     begin
 
-    end
+    end;
   true
 
 let _ =
