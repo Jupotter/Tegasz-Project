@@ -107,7 +107,7 @@ value is_paused(value v)
 {
   FMOD_CHANNEL	*channel = 0;
   FMOD_RESULT		result;
-	int 					paused = 0;
+  int 	      		paused = 0;
 
   channel = (void*)v;
 
@@ -115,6 +115,21 @@ value is_paused(value v)
 	FMOD_Err_Check(result);
 
 	return (value)paused;
+}
+
+value timer (value v )
+{
+   FMOD_CHANNEL     *channel = 0;
+   FMOD_RESULT       result;
+   unsigned int time;
+
+   channel = (void*)v;
+   result = FMOD_Channel_GetPosition(channel, &time, FMOD_TIMEUNIT_MS);
+   FMOD_Err_Check(result);
+
+   printf("%i\n", time);
+     return 0;
+
 }
 
 /* End main.c */

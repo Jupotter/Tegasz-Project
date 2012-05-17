@@ -5,6 +5,7 @@ external unpause: 'a -> unit = "call_pause";;
 external init: unit -> 'a = "call_init";;
 external volume: float -> 'a -> unit = "set_volume";;
 external paused: 'a -> int = "is_paused";;
+external timer: 'a -> string = "timer";;
 
 class data = 
   object
@@ -460,6 +461,8 @@ let loop () =
     begin
 
     end;
+    if (play#active) then
+      (fun () -> timer (d#getChannel ()); ()) ();
   true
 
 let _ =
