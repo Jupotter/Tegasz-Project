@@ -230,9 +230,10 @@ let show_cover =
     ~height:150
     ~width:150
     ~resizable:true
-    ~position: `CENTER
+    ~position: `NONE
     ~show:false
     ~deletable: false
+    ~decorated: true
     ~title:"Cover" () in
   wnd
 
@@ -269,7 +270,8 @@ let btn_cover =
   let btn = GButton.button
     ~label:"cover"
     ~packing: item7#add () in
-  btn#connect#clicked ~callback: (fun () -> show_cover#show () )
+    btn#connect#clicked ~callback: (fun () -> show_cover#show ();
+				      show_cover#move 640 500)
 
 (*========== PLAYLIST ==========*)
 
@@ -294,11 +296,7 @@ let toolbar_playlist = GButton.toolbar
   ~style:`ICONS
   ~packing:(vbox_playlist#pack ~expand:false) ()
 
-let close_playlist =
-  let btn = GButton.button
-  ~label: "Quit"
-  ~packing: toolbar_playlist#add()
-  in btn#connect#clicked ~callback: select_playlist#misc#hide
+
 
 let item1_playlist = GButton.tool_item ~packing:toolbar_playlist#insert ()
 let sep1_playlist = GButton.separator_tool_item ~packing:toolbar_playlist#insert ()
