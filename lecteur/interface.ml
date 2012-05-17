@@ -11,6 +11,7 @@ class data =
     val mutable son = ()
     val mutable name = ""
     val mutable playing = false
+    val mutable playlist_current = ()
 
     method setSound x = son <- x
     method getSound () = son
@@ -20,6 +21,9 @@ class data =
     method setPlaying x = playing <- x
     method isPlaying () = playing
 
+    method getPListCurrent () = playlist_current
+    method setPListCurrent x  = playlist_current <- x
+
     val mutable channel = ()
 
     method setChannel x = channel <- x
@@ -27,6 +31,14 @@ class data =
 end
 
 let d = new data
+
+let cols = new GTree.column_list
+let col_name = cols#add Gobject.Data.string	(* string column *)
+let col_age = cols#add Gobject.Data.int	(* int column *)
+
+let liste = []
+
+let playlist = GTree.list_store cols
 
 let getInit = 
   let i = init () in
@@ -171,10 +183,17 @@ let sep2 = GButton.separator_tool_item ~packing:toolbar#insert ()
 let item5 = GButton.tool_item ~packing:toolbar#insert ()
 let item6 = GButton.tool_item ~packing:toolbar#insert ()
 
+let may_view_add s = 
+  let row = playlist#append () in
+  playlist#set ~row ~column:col_name s;
+  playlist#set ~row ~column:col_age  0
+
+
 let may_view btn () =
   match btn#filename with
     | Some n ->
       d#setSound (load n (getInit ()));
+      may_view_add n;
       d#setName (let l = (Str.split (Str.regexp "/") n) in let l = List.rev l in
 							   match l with |h::t -> h | _ -> assert false)
     | None -> ()
@@ -228,39 +247,22 @@ let text =
 
 *)
 
-open Gobject.Data
+(* open Gobject.Data *)
 
-let cols = new GTree.column_list
-let col_name = cols#add string	(* string column *)
-let col_age = cols#add int	(* int column *)
-
-let liste = [("golden sun ",1); ("diablo 3 ", -1  );("pokemon ",42  )
-	    ;("aok ",10  )  ]
-
-let create_model () =
-  let data = liste in
-  let store = GTree.list_store cols in
-  let fill (name, age) =
-    let iter = store#append () in
-    store#set ~row:iter ~column:col_name name;
-    store#set ~row:iter ~column:col_age age
-  in
-  List.iter fill data;
-  store
 
 let create_view ~model ~packing () =
   let view = GTree.view ~model ~packing () in
 
   (* Column #1: nom *)
-  let col = GTree.view_column ~title:"Nom"
+  let col = GTree.view_column ~title:"Nom" 
       ~renderer:(GTree.cell_renderer_text [], ["text", col_name]) () in
+  (* Column #1: nom *)
   ignore (view#append_column col);
 
     (* Column #2: emplacemement *)
-  let col = GTree.view_column ~title:"emplacement"
+  let col = GTree.view_column ~title:"Emplacement"
       ~renderer:(GTree.cell_renderer_text [], ["text", col_age]) () in
   ignore (view#append_column col);
-
   view
 
 
@@ -366,7 +368,7 @@ let _ =
   (*edit_playlist#connect#clicked  cbox#misc#show;*)
   hide#connect#clicked ~callback:cbox#misc#hide;
   window#event#connect#delete confirm;
-   let model = create_model () in
+   let model = playlist in
   create_view ~model ~packing:vbox_playlist#add ();
      
   window#show ();
