@@ -6,33 +6,6 @@ external init: unit -> 'a = "call_init";;
 external volume: float -> 'a -> unit = "set_volume";;
 external paused: 'a -> int = "is_paused";;
 
-class playlist = 
-object (self)
-  val mutable plist = []
-  val mutable current = -1
-
-  method addToStart x = plist <- x::plist
-  method addToEnd (x:string) = 
-    let rec addrec x = function 
-      | [] -> x::[]
-      | h::l -> h::(addrec x l)
-    in plist <- addrec x plist
-
-  method setCurrent x = current <- x
-  method getCurrent () = current
-
-  method getCurrentSong () = 
-    let rec getCSrec x = function
-      | [] -> raise Not_found
-      | h::_ when x = current -> x
-      | _::l -> getCSrec (x+1) l
-    in getCSrec 0 plist
-
-  method next () = current <- current + 1;
-  self#getCurrentSong ()
-
-end
-
 class data = 
   object
     val mutable son = ()
@@ -51,10 +24,6 @@ class data =
 
     method setChannel x = channel <- x
     method getChannel () = channel
-
-    val mutable pList = new playlist
-
-    method getPlayList () = pList 
 end
 
 let d = new data
