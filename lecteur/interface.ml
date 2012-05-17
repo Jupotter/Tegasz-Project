@@ -11,7 +11,7 @@ class data =
     val mutable son = ()
     val mutable name = ""
     val mutable playing = false
-    val mutable playlist_current = ()
+    val mutable playlist_current = None
 
     method setSound x = son <- x
     method getSound () = son
@@ -22,7 +22,7 @@ class data =
     method isPlaying () = playing
 
     method getPListCurrent () = playlist_current
-    method setPListCurrent x  = playlist_current <- x
+    method setPListCurrent (x:Gtk.tree_iter option)  = playlist_current <- x
 
     val mutable channel = ()
 
@@ -38,7 +38,10 @@ let col_age = cols#add Gobject.Data.int	(* int column *)
 
 let liste = []
 
-let playlist = GTree.list_store cols
+let playlist = 
+  let pl = GTree.list_store cols in
+  d#setPListCurrent (pl#get_iter_first);
+  pl
 
 let getInit = 
   let i = init () in
@@ -48,6 +51,17 @@ let playlist_add s =
   let row = playlist#append () in
   playlist#set ~row ~column:col_name s;
   playlist#set ~row ~column:col_age  0
+
+let playlist_next () =
+  let iter = d#getPListCurrent () in
+  match iter with
+  |None -> ()
+  |Some(i) ->
+    playlist#iter_next i;
+    let name = (playlist#get i col_name) in
+    print_string name
+
+(* ========= Main Window ======== *)
 
 let window =
   GMain.init ();
@@ -360,6 +374,11 @@ let confirm _ =
 (*========== APPEL ==========*)
 
 let loop () = 
+  let stop = paused (d#getchannel ()) in
+  if !stop && d#isplaying () then
+    begin
+
+    end
   true
 
 let _ =
