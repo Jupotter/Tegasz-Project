@@ -11,7 +11,7 @@ class data =
     val mutable son = ()
     val mutable name = ""
     val mutable playing = false
-    val mutable playlist_current = ()
+    val mutable playlist_current = None
 
     method setSound x = son <- x
     method getSound () = son
@@ -22,7 +22,7 @@ class data =
     method isPlaying () = playing
 
     method getPListCurrent () = playlist_current
-    method setPListCurrent x  = playlist_current <- x
+    method setPListCurrent (x:Gtk.tree_iter option)  = playlist_current <- x
 
     val mutable channel = ()
 
@@ -38,7 +38,10 @@ let col_age = cols#add Gobject.Data.int	(* int column *)
 
 let liste = []
 
-let playlist = GTree.list_store cols
+let playlist = 
+  let pl = GTree.list_store cols in
+  d#setPListCurrent (pl#get_iter_first);
+  pl
 
 let getInit = 
   let i = init () in
@@ -47,7 +50,13 @@ let getInit =
 let playlist_add s = 
   let row = playlist#append () in
   playlist#set ~row ~column:col_name s;
-  playlist#set ~row ~column:col_age  0
+  playlist#set ~row ~column:col_age  0;
+  if d#getPListCurrent () = None then
+    d#setPListCurrent (Some(row));
+    row
+
+
+(* ========= Main Window ======== *)
 
 let window =
   GMain.init ();
@@ -79,22 +88,28 @@ let bbox = GPack.button_box `HORIZONTAL
   ~packing:(vbox#pack ~expand:false) ()
 
 let playfunc btn () = 
+  if btn#active then
   if d#isPlaying () = false then
     begin
       let x = getInit () in
+      let row = match d#getPListCurrent () with None -> assert false 
+                | Some n -> n in
+      let name = playlist#get ~row ~column:col_name in
+      d#setSound (load name (getInit ()));
+      d#setName (let l = (Str.split (Str.regexp "/") name) in let l = List.rev l in
+      match l with |h::t -> h | _ -> assert false);
       let s = d#getSound() in
       if s != () then
-	begin
-	  d#setChannel (play (s) (x));
-	  d#setPlaying true;
-	  window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
-	end
+      begin
+        d#setChannel (play (s) (x));
+        d#setPlaying true;
+        window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
+      end
     end
-  else
-    if btn#active then
-      unpause (d#getChannel ())
     else
-      stop (d#getChannel ())
+      unpause (d#getChannel ())
+  else
+    stop (d#getChannel ())
 
 
 let play =
@@ -102,15 +117,42 @@ let play =
     ~label: "PLAY \n  >"
     ~active: false
     ~packing: bbox#add() in
-  btn#connect#toggled ~callback: (playfunc btn)
+  btn#connect#toggled ~callback: (playfunc btn);
+  btn
 
 let stopfunc () =
   if d#isPlaying () then
     begin 
       stop (d#getChannel ());
       d#setPlaying false;
-      window#set_title "PROJET"
+      window#set_title "PROJET";
+      play#set_active false
     end
+
+let playlist_next () =
+  let iter = d#getPListCurrent () in
+  begin
+  match iter with
+  |None -> ()
+  |Some(row) ->
+      begin
+        playlist#iter_next row;
+        stopfunc ()
+      end
+  end
+
+let playlist_prev () = 
+  let iter = d#getPListCurrent () in
+  match iter with 
+  |None -> ()
+  |Some(row) ->
+      begin
+        let path = playlist#get_path row in
+        let _ = GTree.Path.prev path in
+        let iter = playlist#get_iter path in
+        d#setPListCurrent (Some(iter));
+        stopfunc ()
+      end
 
 let stop =
   let btn = GButton.button
@@ -118,14 +160,18 @@ let stop =
     ~label: "STOP \n   []" in
   btn#connect#clicked ~callback: stopfunc
   
-let next = GButton.button
-~packing: bbox#add()
- ~label: "NEXT \n >>|"
+let next =
+  let btn = GButton.button
+  ~packing: bbox#add()
+  ~label: "NEXT \n >>|" in
+  btn#connect#clicked ~callback: playlist_next
 (* fonction1#connect#clicked ~callback: fonction args*)
 
-let previous = GButton.button
+let previous = 
+  let btn = GButton.button
 ~packing: bbox#add()
-~label: "PREVIOUS \n     |<<"
+~label: "PREVIOUS \n     |<<" in
+  btn#connect#clicked ~callback: playlist_prev
 (* fonction1#connect#clicked ~callback: fonction args*)
 
 let volume = 
@@ -185,13 +231,14 @@ let item5 = GButton.tool_item ~packing:toolbar#insert ()
 let sep3 = GButton.separator_tool_item ~packing:toolbar#insert ()
 let item6 = GButton.tool_item ~packing:toolbar#insert ()
 
-
 let may_view btn () =
   match btn#filename with
     | Some n ->
-      d#setSound (load n (getInit ()));
-      d#setName (let l = (Str.split (Str.regexp "/") n) in let l = List.rev l in
-							   match l with |h::t -> h | _ -> assert false)
+        let row = playlist_add n in
+        d#setPListCurrent (Some(row))
+          (*d#setSound (load n (getInit ()));
+          d#setName (let l = (Str.split (Str.regexp "/") n) in let l = List.rev l in
+							   match l with |h::t -> h | _ -> assert false)*)
     | None -> ()
 
 let buttonopen =
@@ -202,7 +249,6 @@ let buttonopen =
   btn
 
 (*========== COVER ==========*)
-
 
 let show_cover =
   let wnd  = GWindow.window
@@ -302,14 +348,15 @@ let create_view ~model ~packing () =
 
 let may_view_playlist btn () =
   match btn#filename with
-    | Some n -> playlist_add n;
+    | Some n -> playlist_add n; ()
     | None -> ()
 
 let add_playlist =
   let btn = GFile.chooser_button
     ~action: `OPEN
     ~packing: item1_playlist#add() in
-  btn#connect#selection_changed ~callback: (may_view_playlist btn)
+  btn#connect#selection_changed ~callback: (may_view_playlist btn);
+  btn
 
 
 (*let remove_playlist () =
@@ -408,6 +455,11 @@ let confirm _ =
 (*========== APPEL ==========*)
 
 let loop () = 
+  let stop = paused (d#getChannel ()) in
+  if ((stop != 0) && (d#isPlaying ())) then
+    begin
+
+    end;
   true
 
 let _ =
