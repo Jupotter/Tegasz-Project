@@ -331,7 +331,8 @@ let add_playlist =
   let btn = GFile.chooser_button
     ~action: `OPEN
     ~packing: item1_playlist#add() in
-  btn#connect#selection_changed ~callback: (may_view_playlist btn)
+  btn#connect#selection_changed ~callback: (may_view_playlist btn);
+  btn
 
 
 (*let remove_playlist () =
