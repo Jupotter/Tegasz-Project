@@ -384,7 +384,15 @@ let btn_playlist =
   btn#connect#clicked ~callback: (fun () -> select_playlist#show ())
     
 
+(*========== TIMER ==========*)
+let bbox_timer = GPack.button_box `VERTICAL
+  ~layout:`EDGE
+  ~border_width:2
+  ~packing:(vbox#pack ~expand:true) ()
 
+let progress_bar =  GRange.progress_bar
+  ~orientation:`LEFT_TO_RIGHT
+  ~packing: bbox_timer#add()
 
 (* ====================================================== *)
 
@@ -437,8 +445,6 @@ let buttonquit =
   ~callback:GMain.quit;
 btn
 
-(*========= BARRE DE DEFILEMENT ==========*)
-
   (*========= FUNCTIONS ========== *)
 
 let confirm _ =
@@ -462,6 +468,7 @@ let loop () =
   if ((play#active)&&(stop != 0) ) then
     begin
       playlist_next ();
+   
     end;
     if (play#active) then
       (fun () -> timer (d#getChannel ()); ()) ();

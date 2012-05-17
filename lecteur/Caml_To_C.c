@@ -128,7 +128,7 @@ value timer (value v )
    FMOD_Err_Check(result);
 
    printf("%i\n", time);
-     return 0;
+     return time;
 
 }
 
