@@ -186,8 +186,10 @@ let item3 = GButton.tool_item ~packing:toolbar#insert ()
 let item4 = GButton.tool_item ~packing:toolbar#insert ()
 let sep2 = GButton.separator_tool_item ~packing:toolbar#insert ()
 let item5 = GButton.tool_item ~packing:toolbar#insert ()
-let item6 = GButton.tool_item ~packing:toolbar#insert ()
+let item7 = GButton.tool_item ~packing:toolbar#insert ()
+let sep3 = GButton.separator_tool_item ~packing:toolbar#insert ()
 
+let item6 = GButton.tool_item ~packing:toolbar#insert ()
 
 
 let may_view btn () =
@@ -204,6 +206,58 @@ let buttonopen =
     ~packing:item1#add ()
   in btn#connect#selection_changed (may_view btn);
   btn
+
+(*========== COVER ==========*)
+
+
+
+let show_cover =
+  let wnd  = GWindow.window
+    ~height:150
+    ~width:150
+    ~resizable:true
+    ~position: `CENTER
+    ~show:false
+    ~deletable: false
+    ~title:"Cover" () in
+  wnd
+
+let vbox_cover = GPack.vbox
+  ~spacing:3
+  ~border_width:3
+  ~packing:show_cover#add ()
+
+
+let toolbar_cover= GButton.toolbar
+  ~orientation:`HORIZONTAL
+  ~style:`ICONS
+  ~packing:(vbox_cover#pack ~expand:false) ()
+
+
+
+let view = GPack.vbox 
+  ~packing:vbox_cover#add ()
+
+let image = GMisc.image
+            ~file: "cover.png"
+            ~packing: view#add()
+
+
+let close_cover =
+  let btn = GButton.button
+  ~label: "Quit"
+  ~packing: toolbar_cover#add()
+  in btn#connect#clicked ~callback: show_cover#misc#hide
+
+
+
+let btn_cover =
+  let btn = GButton.button
+    ~label:"cover"
+    ~packing: item7#add () in
+  btn#connect#clicked ~callback: (fun () -> show_cover#show () )
+
+(*========== PLAYLIST ==========*)
 
 let select_playlist =
   let wnd = GWindow.window
@@ -226,28 +280,17 @@ let toolbar_playlist = GButton.toolbar
   ~style:`ICONS
   ~packing:(vbox_playlist#pack ~expand:false) ()
 
+let close_playlist =
+  let btn = GButton.button
+  ~label: "Quit"
+  ~packing: toolbar_playlist#add()
+  in btn#connect#clicked ~callback: select_playlist#misc#hide
 
 let item1_playlist = GButton.tool_item ~packing:toolbar_playlist#insert ()
 let sep1_playlist = GButton.separator_tool_item ~packing:toolbar_playlist#insert ()
-let item2_playlist = GButton.tool_item
-  ~packing:toolbar_playlist#insert ()
+let item2_playlist = GButton.tool_item ~packing:toolbar_playlist#insert ()
 let sep2_playlist = GButton.separator_tool_item ~packing:toolbar_playlist#insert ()
 let item3_playlist = GButton.tool_item ~packing:toolbar_playlist#insert ()
-
-(*
-let text =
-  let scroll = GBin.scrolled_window
-    ~hpolicy:`ALWAYS
-    ~vpolicy:`ALWAYS
-    ~shadow_type:`ETCHED_IN
-    ~packing:vbox_playlist#add () in
-  let txt = GText.view ~packing:scroll#add () in
-  txt#misc#modify_font_by_name "Monospace 12";
-  txt
-
-*)
-
-(* open Gobject.Data *)
 
 
 let create_view ~model ~packing () =
@@ -379,10 +422,12 @@ let loop () =
   true
 
 let _ =
-  (*edit_playlist#connect#clicked  cbox#misc#show;*)
   hide#connect#clicked ~callback:cbox#misc#hide;
   window#event#connect#delete confirm;
-   let model = playlist in
+
+(*~callback: show_cover#misc#hide; *)
+  
+let model = playlist in
   create_view ~model ~packing:vbox_playlist#add ();
      
   window#show ();
