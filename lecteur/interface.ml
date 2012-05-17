@@ -183,12 +183,11 @@ let item1 = GButton.tool_item ~packing:toolbar#insert ()
 let sep1 = GButton.separator_tool_item ~packing:toolbar#insert ()
 let item2 = GButton.tool_item ~packing:toolbar#insert ()
 let item3 = GButton.tool_item ~packing:toolbar#insert ()
-let item4 = GButton.tool_item ~packing:toolbar#insert ()
 let sep2 = GButton.separator_tool_item ~packing:toolbar#insert ()
-let item5 = GButton.tool_item ~packing:toolbar#insert ()
-let item7 = GButton.tool_item ~packing:toolbar#insert ()
-let sep3 = GButton.separator_tool_item ~packing:toolbar#insert ()
+let item4 = GButton.tool_item ~packing:toolbar#insert ()
 
+let item5 = GButton.tool_item ~packing:toolbar#insert ()
+let sep3 = GButton.separator_tool_item ~packing:toolbar#insert ()
 let item6 = GButton.tool_item ~packing:toolbar#insert ()
 
 
@@ -255,7 +254,7 @@ let close_cover =
 let btn_cover =
   let btn = GButton.button
     ~label:"cover"
-    ~packing: item7#add () in
+    ~packing: item3#add () in
     btn#connect#clicked ~callback: (fun () -> show_cover#show ();
 				      show_cover#move 640 500)
 
@@ -358,7 +357,7 @@ let help_button =
  in
   let btn = GButton.button
 ~label: "Aide"
-~packing:item3#add ()
+~packing:item4#add ()
   in
    GMisc.image ~stock:`HELP ~packing:btn#set_image ();
   btn#connect#clicked (fun () -> ignore (dlg#run ()); dlg#misc#hide ());
@@ -378,16 +377,12 @@ let about_button =
     ~destroy_with_parent:true () in
   let btn = GButton.button
 ~label: "A propos"
-~packing:item4#add () in
+~packing:item5#add () in
    GMisc.image
      ~stock:`ABOUT
      ~packing:btn#set_image ();
   btn#connect#clicked (fun () -> ignore (dlg#run ()); dlg#misc#hide ());
   btn
-
- let test = GMisc.label
-   ~text: ""
-~packing: item5#add ()
 
 let buttonquit =
   let btn = GButton.button
