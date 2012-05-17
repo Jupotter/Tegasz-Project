@@ -177,7 +177,7 @@ let cbox = GPack.button_box `VERTICAL
    ~packing:cbox#add ()
 
 
-  (*========== TOOLBAR ==========*)
+(*========== TOOLBAR PLAYLIST ==========*)
 
 let item1 = GButton.tool_item ~packing:toolbar#insert ()
 let sep1 = GButton.separator_tool_item ~packing:toolbar#insert ()
@@ -265,26 +265,43 @@ let create_view ~model ~packing () =
   ignore (view#append_column col);
   view
 
-let add_playlist = GButton.button
-    ~label: " ADD +"
-    ~packing: item1_playlist#add()
+let may_view_playlist btn () =
+  match btn#filename with
+    | Some n -> playlist_add n;
+    | None -> ()
+
+let add_playlist =
+  let btn = GFile.chooser_button
+    ~action: `OPEN
+    ~packing: item1_playlist#add() in
+  btn#connect#selection_changed ~callback: (may_view_playlist btn)
+
+
+(*let remove_playlist () =
+  playlist#get_selecte_rows
+    playlist#remove*)
 
 let del_playlist = GButton.button
   ~label: "DEL -"
-  ~packing: item2_playlist#add()
+  ~packing: item2_playlist#add() (*in
+  btn#connect#clicked ~callback: remove_playlist*)
 
 let close_playlist =
   let btn = GButton.button
   ~label: "Quit"
-  ~packing: item3_playlist#add()
-  in btn#connect#clicked ~callback: select_playlist#misc#hide
+  ~packing: item3_playlist#add() in
+  btn#connect#clicked ~callback: select_playlist#misc#hide
 
 let btn_playlist =
   let btn = GButton.button
     ~label:"Playlist"
     ~packing: item2#add () in
-  btn#connect#clicked ~callback: (fun () -> select_playlist#show () )
+  btn#connect#clicked ~callback: (fun () -> select_playlist#show ())
     
+
+
+
+(* ====================================================== *)
 
 let help_button =
   let dlg = GWindow.message_dialog
@@ -312,7 +329,7 @@ let about_button =
  Maxime Temple, "]
     ~copyright:"Copyright (c) 2012 "
     ~license:"Public License."
-    ~version:"0.42"
+    ~version:"0.64"
     ~website:"http///www.tegasz.com"
     ~website_label:"Visit our website"
     ~position:`CENTER_ON_PARENT
@@ -341,7 +358,6 @@ btn
 
 
   (*========= FUNCTIONS ========== *)
-
 
 let confirm _ =
   let dlg = GWindow.message_dialog
