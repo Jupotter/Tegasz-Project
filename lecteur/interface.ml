@@ -44,6 +44,11 @@ let getInit =
   let i = init () in
     fun () -> i
 
+let playlist_add s = 
+  let row = playlist#append () in
+  playlist#set ~row ~column:col_name s;
+  playlist#set ~row ~column:col_age  0
+
 let window =
   GMain.init ();
   let wnd = GWindow.window
@@ -183,17 +188,12 @@ let sep2 = GButton.separator_tool_item ~packing:toolbar#insert ()
 let item5 = GButton.tool_item ~packing:toolbar#insert ()
 let item6 = GButton.tool_item ~packing:toolbar#insert ()
 
-let may_view_add s = 
-  let row = playlist#append () in
-  playlist#set ~row ~column:col_name s;
-  playlist#set ~row ~column:col_age  0
 
 
 let may_view btn () =
   match btn#filename with
     | Some n ->
       d#setSound (load n (getInit ()));
-      may_view_add n;
       d#setName (let l = (Str.split (Str.regexp "/") n) in let l = List.rev l in
 							   match l with |h::t -> h | _ -> assert false)
     | None -> ()
@@ -264,8 +264,6 @@ let create_view ~model ~packing () =
       ~renderer:(GTree.cell_renderer_text [], ["text", col_age]) () in
   ignore (view#append_column col);
   view
-
-
 
 let add_playlist = GButton.button
     ~label: " ADD +"
