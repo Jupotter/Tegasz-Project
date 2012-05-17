@@ -159,6 +159,7 @@ let cbox = GPack.button_box `VERTICAL
    ~label:"Cacher"
    ~packing:cbox#add ()
 
+
   (*========== TOOLBAR ==========*)
 
 let item1 = GButton.tool_item ~packing:toolbar#insert ()
@@ -214,7 +215,7 @@ let item2_playlist = GButton.tool_item
 let sep2_playlist = GButton.separator_tool_item ~packing:toolbar_playlist#insert ()
 let item3_playlist = GButton.tool_item ~packing:toolbar_playlist#insert ()
 
-
+(*
 let text =
   let scroll = GBin.scrolled_window
     ~hpolicy:`ALWAYS
@@ -224,6 +225,43 @@ let text =
   let txt = GText.view ~packing:scroll#add () in
   txt#misc#modify_font_by_name "Monospace 12";
   txt
+
+*)
+
+open Gobject.Data
+
+let cols = new GTree.column_list
+let col_name = cols#add string	(* string column *)
+let col_age = cols#add int	(* int column *)
+
+let liste = [("golden sun ",1); ("diablo 3 ", -1  );("pokemon ",42  )
+	    ;("aok ",10  )  ]
+
+let create_model () =
+  let data = liste in
+  let store = GTree.list_store cols in
+  let fill (name, age) =
+    let iter = store#append () in
+    store#set ~row:iter ~column:col_name name;
+    store#set ~row:iter ~column:col_age age
+  in
+  List.iter fill data;
+  store
+
+let create_view ~model ~packing () =
+  let view = GTree.view ~model ~packing () in
+
+  (* Column #1: nom *)
+  let col = GTree.view_column ~title:"Nom"
+      ~renderer:(GTree.cell_renderer_text [], ["text", col_name]) () in
+  ignore (view#append_column col);
+
+    (* Column #2: emplacemement *)
+  let col = GTree.view_column ~title:"emplacement"
+      ~renderer:(GTree.cell_renderer_text [], ["text", col_age]) () in
+  ignore (view#append_column col);
+
+  view
 
 
 
@@ -328,6 +366,9 @@ let _ =
   (*edit_playlist#connect#clicked  cbox#misc#show;*)
   hide#connect#clicked ~callback:cbox#misc#hide;
   window#event#connect#delete confirm;
+   let model = create_model () in
+  create_view ~model ~packing:vbox_playlist#add ();
+     
   window#show ();
   GMain.Idle.add loop;
   GMain.main ()
