@@ -5,8 +5,9 @@ external unpause: 'a -> unit = "call_pause";;
 external init: unit -> 'a = "call_init";;
 external volume: float -> 'a -> unit = "set_volume";;
 external paused: 'a -> int = "is_paused";;
-external timer: 'a -> string = "timer";;
+external timer: 'a -> int = "timer";;
 external album: 'a -> string = "getAlbum";;
+external tottime: 'a -> int = "getTotalTime";;
 
 
 class data = 
@@ -97,6 +98,7 @@ let playfunc btn () =
       let x = getInit () in
       let row = match d#getPListCurrent () with None -> assert false 
                 | Some n -> n in
+<<<<<<< HEAD
       let name = playlist#get ~row ~column:col_name in
       d#setSound (load name (getInit ()));
       d#setName (let l = (Str.split (Str.regexp "/") name) in let l = List.rev l in
@@ -109,6 +111,24 @@ let playfunc btn () =
 	
         window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
       end
+=======
+      (*if row != () then*)
+        begin
+          let name = playlist#get ~row ~column:col_name in
+          d#setSound (load name (getInit ()));
+          d#setName (let l = (Str.split (Str.regexp "/") name) in
+          let l = List.rev l in
+          match l with |h::t -> h | _ -> assert false);
+          let s = d#getSound() in
+          if s != () then
+          begin
+            d#setChannel (play (s) (x));
+            d#setPlaying true;
+            album(s);
+            window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
+          end
+        end
+>>>>>>> e6f0f4bf015f3afbe4da4743fa0a8be51a3f32e3
     end
     else
       unpause (d#getChannel ())
@@ -405,7 +425,7 @@ let btn_playlist =
     
 
 (*========== TIMER ==========*)
-let bbox_timer = GPack.button_box `VERTICAL
+let bbox_timer = GPack.button_box `HORIZONTAL
   ~layout:`EDGE
   ~border_width:2
   ~packing:(vbox#pack ~expand:true) ()
@@ -413,6 +433,30 @@ let bbox_timer = GPack.button_box `VERTICAL
 let progress_bar =  GRange.progress_bar
   ~orientation:`LEFT_TO_RIGHT
   ~packing: bbox_timer#add()
+
+let update_bar () = 
+  let curt  = timer (d#getChannel ()) in
+  let tott  = tottime (d#getSound ()) in
+  let pcent = (curt * 100) / tott     in
+  let adj = GData.adjustment
+    ~lower: 0.
+    ~upper: 100.
+    ~step_incr: 1.
+    ~page_incr: 10.
+    ~page_size: 0.
+    ~value: (float_of_int pcent)
+  in progress_bar#set_adjustment (adj ())
+
+let clear_bar () = 
+  let adj = GData.adjustment
+    ~lower: 0.
+    ~upper: 100.
+    ~step_incr: 1.
+    ~page_incr: 10.
+    ~page_size: 0.
+    ~value: 0. 
+  in progress_bar#set_adjustment (adj ())
+
 
 (* ====================================================== *)
 
@@ -488,10 +532,12 @@ let loop () =
   if ((play#active)&&(stop != 0) ) then
     begin
       playlist_next ();
-   
+      clear_bar ()
     end;
     if (play#active) then
-      (fun () -> timer (d#getChannel ()); ()) ();
+      begin
+        update_bar ()
+      end;
   true
 
 let _ =
