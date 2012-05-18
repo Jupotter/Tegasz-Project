@@ -303,7 +303,9 @@ let may_view btn () =
   match btn#filename with
     | Some n ->
         let row = playlist_add n in
-        d#setPListCurrent (Some(row))
+        d#setPListCurrent (Some(row));
+        stopfunc ();
+        play#set_active true
           (*d#setSound (load n (getInit ()));
           d#setName (let l = (Str.split (Str.regexp "/") n) in let l = List.rev l in
 							   match l with |h::t -> h | _ -> assert false)*)
