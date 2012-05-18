@@ -99,12 +99,16 @@ let toolbar_cover= GButton.toolbar
 
 let view = GPack.vbox 
   ~packing:vbox_cover#add ()
-
+(*
 let image (s: string) =
   GMisc.image
     ~file: s
     ~packing: view#add()
+  *)
 
+let image = GMisc.image
+            ~file: "principal.jpg"
+            ~packing: view#add()
 
 (* ================== VBOX (PRINCIPAL) ================ *)
 
@@ -145,7 +149,8 @@ let playfunc btn () =
               d#setChannel (play (s) (x));
               d#setPlaying true;
               let alb = album(s) in
-	      image(alb);
+		(*  image(alb); *)
+		image#set_file alb;
 	      print_string(alb);
               window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
             end
