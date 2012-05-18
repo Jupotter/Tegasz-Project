@@ -93,7 +93,7 @@ let playfunc btn () =
   if d#isPlaying () = false then
     begin
       let x = getInit () in
-      let row = match d#getPListCurrent () with None -> assert false 
+      let row = match d#getPListCurrent () with None -> continue
                 | Some n -> n in
       let name = playlist#get ~row ~column:col_name in
       d#setSound (load name (getInit ()));
