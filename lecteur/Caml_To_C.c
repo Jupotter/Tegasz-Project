@@ -127,7 +127,7 @@ value timer (value v )
    result = FMOD_Channel_GetPosition(channel, &time, FMOD_TIMEUNIT_MS);
    FMOD_Err_Check(result);
 
-   printf("%i\n", time);
+   /*printf("%i\n", time); */
      return time;
 
 }
