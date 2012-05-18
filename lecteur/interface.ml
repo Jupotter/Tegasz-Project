@@ -93,7 +93,7 @@ let playfunc btn () =
   if d#isPlaying () = false then
     begin
       let x = getInit () in
-      let row = match d#getPListCurrent () with None -> assert false 
+      let row = match d#getPListCurrent () with None -> continue
                 | Some n -> n in
       let name = playlist#get ~row ~column:col_name in
       d#setSound (load name (getInit ()));
@@ -166,7 +166,16 @@ let playlist_prev () =
 let playlist_del selection =
   let del path =
     let row = playlist#get_iter path in
-    playlist#remove row; ()
+    let curiter = (match d#getPListCurrent () with 
+                  | Some(n) -> n | _ -> assert false) in
+    if (playlist#get_path row) = (playlist#get_path curiter) then
+      begin
+        stopfunc ();
+        playlist_next ()
+      end;
+    playlist#remove row;
+    if playlist#get_iter_first = None then
+      d#setPListCurrent None
   in List.iter del selection#get_selected_rows
 
 let stop =
