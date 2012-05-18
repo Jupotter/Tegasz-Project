@@ -57,7 +57,7 @@ let playlist_add s =
   playlist#set ~row ~column:col_age  0;
   if d#getPListCurrent () = None then
     d#setPListCurrent (Some(row));
-    row
+  row
 
 
 (* ========= Main Window ======== *)
@@ -72,7 +72,41 @@ let window =
   wnd#connect#destroy GMain.quit;
   wnd
 
-(* ========== VBOX (PRINCIPAL) ========== *)
+(* ================ COVER INTERFACE =============== *)
+
+let show_cover =
+  let wnd  = GWindow.window
+    ~height:150
+    ~width:150
+    ~resizable:true
+    ~position: `NONE
+    ~show:false
+    ~deletable: false
+    ~decorated: true
+    ~title:"Cover" () in
+  wnd
+
+let vbox_cover = GPack.vbox
+  ~spacing:3
+  ~border_width:3
+  ~packing:show_cover#add ()
+
+
+let toolbar_cover= GButton.toolbar
+  ~orientation:`HORIZONTAL
+  ~style:`ICONS
+  ~packing:(vbox_cover#pack ~expand:false) ()
+
+let view = GPack.vbox 
+  ~packing:vbox_cover#add ()
+
+let image (s: string) =
+  GMisc.image
+    ~file: s
+    ~packing: view#add()
+
+
+(* ================== VBOX (PRINCIPAL) ================ *)
 
 let vbox = GPack.vbox
   ~spacing:2
@@ -84,37 +118,39 @@ let toolbar = GButton.toolbar
   ~style:`ICONS
   ~packing:(vbox#pack ~expand:false) ()
 
-(* ========== BOUTONS MULTIMEDIAS ========= *)
+(* ================= BOUTONS MULTIMEDIAS ================ *)
 
 let bbox = GPack.button_box `HORIZONTAL
   ~layout:`EDGE
   ~border_width:2
   ~packing:(vbox#pack ~expand:false) ()
 
-let playfunc btn () = 
+let playfunc btn () =
   if btn#active then
-  if d#isPlaying () = false then
-    begin
-      let x = getInit () in
-      let row = match d#getPListCurrent () with None -> assert false 
-                | Some n -> n in
-      (*if row != () then*)
+    if d#isPlaying () = false then
+      begin
+	let x = getInit () in
+	let row = match d#getPListCurrent () with None -> assert false
+          | Some n -> n in
+	(*if row != () then*)
         begin
           let name = playlist#get ~row ~column:col_name in
           d#setSound (load name (getInit ()));
           d#setName (let l = (Str.split (Str.regexp "/") name) in
-          let l = List.rev l in
-          match l with |h::t -> h | _ -> assert false);
+		     let l = List.rev l in
+		     match l with |h::t -> h | _ -> assert false);
           let s = d#getSound() in
           if s != () then
-          begin
-            d#setChannel (play (s) (x));
-            d#setPlaying true;
-            album(s);
-            window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
-          end
+            begin
+              d#setChannel (play (s) (x));
+              d#setPlaying true;
+              let alb = album(s) in
+	      image(alb);
+	      print_string(alb);
+              window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
+            end
         end
-    end
+      end
     else
       unpause (d#getChannel ())
   else
@@ -273,38 +309,6 @@ let buttonopen =
 
 (*=================== COVER =====================*)
 
-let show_cover =
-  let wnd  = GWindow.window
-    ~height:150
-    ~width:150
-    ~resizable:true
-    ~position: `NONE
-    ~show:false
-    ~deletable: false
-    ~decorated: true
-    ~title:"Cover" () in
-  wnd
-
-let vbox_cover = GPack.vbox
-  ~spacing:3
-  ~border_width:3
-  ~packing:show_cover#add ()
-
-
-let toolbar_cover= GButton.toolbar
-  ~orientation:`HORIZONTAL
-  ~style:`ICONS
-  ~packing:(vbox_cover#pack ~expand:false) ()
-
-
-
-let view = GPack.vbox 
-  ~packing:vbox_cover#add ()
-
-let image = GMisc.image
-            ~packing: view#add()
-
-
 let close_cover =
   let btn = GButton.button
   ~label: "Quit"
@@ -321,7 +325,7 @@ let btn_cover =
 				      show_cover#move 640 500)
 
 
-(*========== PLAYLIST ==========*)
+(*===================  PLAYLIST  =====================*)
 
 let select_playlist =
   let wnd = GWindow.window
@@ -409,7 +413,7 @@ let btn_playlist =
   btn#connect#clicked ~callback: (fun () -> select_playlist#show ())
     
 
-(*========== TIMER ==========*)
+(*======================  TIMER  ==========================*)
 let bbox_timer = GPack.button_box `HORIZONTAL
   ~layout:`EDGE
   ~border_width:2
@@ -443,7 +447,7 @@ let clear_bar () =
   in progress_bar#set_adjustment (adj ())
 
 
-(* ====================================================== *)
+(* ======================  USELESS BUTTONS  ============================= *)
 
 let help_button =
   let dlg = GWindow.message_dialog
