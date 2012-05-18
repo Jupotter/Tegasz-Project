@@ -5,8 +5,9 @@ external unpause: 'a -> unit = "call_pause";;
 external init: unit -> 'a = "call_init";;
 external volume: float -> 'a -> unit = "set_volume";;
 external paused: 'a -> int = "is_paused";;
-external timer: 'a -> string = "timer";;
+external timer: 'a -> int = "timer";;
 external album: 'a -> string = "getAlbum";;
+external tottime: 'a -> int = "getTotalTime";;
 
 
 class data = 
@@ -419,7 +420,7 @@ let btn_playlist =
     
 
 (*========== TIMER ==========*)
-let bbox_timer = GPack.button_box `VERTICAL
+let bbox_timer = GPack.button_box `HORIZONTAL
   ~layout:`EDGE
   ~border_width:2
   ~packing:(vbox#pack ~expand:true) ()
@@ -427,6 +428,30 @@ let bbox_timer = GPack.button_box `VERTICAL
 let progress_bar =  GRange.progress_bar
   ~orientation:`LEFT_TO_RIGHT
   ~packing: bbox_timer#add()
+
+let update_bar () = 
+  let curt  = timer (d#getChannel ()) in
+  let tott  = tottime (d#getSound ()) in
+  let pcent = (curt * 100) / tott     in
+  let adj = GData.adjustment
+    ~lower: 0.
+    ~upper: 100.
+    ~step_incr: 1.
+    ~page_incr: 10.
+    ~page_size: 0.
+    ~value: (float_of_int pcent)
+  in progress_bar#set_adjustment (adj ())
+
+let clear_bar () = 
+  let adj = GData.adjustment
+    ~lower: 0.
+    ~upper: 100.
+    ~step_incr: 1.
+    ~page_incr: 10.
+    ~page_size: 0.
+    ~value: 0. 
+  in progress_bar#set_adjustment (adj ())
+
 
 (* ====================================================== *)
 
@@ -502,10 +527,12 @@ let loop () =
   if ((play#active)&&(stop != 0) ) then
     begin
       playlist_next ();
-   
+      clear_bar ()
     end;
     if (play#active) then
-      (fun () -> timer (d#getChannel ()); ()) ();
+      begin
+        update_bar ()
+      end;
   true
 
 let _ =

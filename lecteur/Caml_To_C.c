@@ -142,12 +142,28 @@ value getAlbum(value v)
   sound = (void*)v;
 
   result = FMOD_Sound_GetTag(sound, "ALBUM", 0, tag);
-  FMOD_Err_Check(result);
+	if (result != FMOD_ERR_TAGNOTFOUND)
+	{
+		FMOD_Err_Check(result);
+		name_album = tag -> data;
+		printf("%s\n", name_album);
+		return (value)tag;
+	}
+	return (value)"UNKNOWN";
+}
 
-  name_album = tag -> data;
-  printf("%s\n", name_album);
+value getTotalTime(value v)
+{
+	FMOD_SOUND		*sound = 0;
+	FMOD_RESULT		result = 0;
+	unsigned int 	tottime;
 
-  return (value)tag;
+	sound = (void*)v;
+
+	result = FMOD_Sound_GetLength(sound, &tottime, FMOD_TIMEUNIT_MS);
+	FMOD_Err_Check(result);
+
+	return (value)tottime;
 }
 
 /* End main.c */
