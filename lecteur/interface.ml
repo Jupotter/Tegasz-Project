@@ -95,20 +95,24 @@ let playfunc btn () =
   if d#isPlaying () = false then
     begin
       let x = getInit () in
-      let row = match d#getPListCurrent () with None -> continue
+      let row = match d#getPListCurrent () with None -> assert false 
                 | Some n -> n in
-      let name = playlist#get ~row ~column:col_name in
-      d#setSound (load name (getInit ()));
-      d#setName (let l = (Str.split (Str.regexp "/") name) in let l = List.rev l in
-      match l with |h::t -> h | _ -> assert false);
-      let s = d#getSound() in
-      if s != () then
-      begin
-        d#setChannel (play (s) (x));
-        d#setPlaying true;
-	album(s);
-        window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
-      end
+      (*if row != () then*)
+        begin
+          let name = playlist#get ~row ~column:col_name in
+          d#setSound (load name (getInit ()));
+          d#setName (let l = (Str.split (Str.regexp "/") name) in
+          let l = List.rev l in
+          match l with |h::t -> h | _ -> assert false);
+          let s = d#getSound() in
+          if s != () then
+          begin
+            d#setChannel (play (s) (x));
+            d#setPlaying true;
+            album(s);
+            window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
+          end
+        end
     end
     else
       unpause (d#getChannel ())
