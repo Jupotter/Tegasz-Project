@@ -136,9 +136,13 @@ let playlist_next () =
   |None -> ()
   |Some(row) ->
       begin
-        playlist#iter_next row;
-        stopfunc ();
-        play#set_active true;
+        if playlist#iter_next row then
+          begin
+            stopfunc ();
+            play#set_active true;
+          end
+        else
+          stopfunc ();
       end
   end
 
@@ -149,12 +153,20 @@ let playlist_prev () =
   |Some(row) ->
       begin
         let path = playlist#get_path row in
-        let _ = GTree.Path.prev path in
+        if GTree.Path.prev path then
         let iter = playlist#get_iter path in
         d#setPListCurrent (Some(iter));
         stopfunc ();
         play#set_active true;
+        else
+          stopfunc ();
       end
+
+let playlist_del selection =
+  let del path =
+    let row = playlist#get_iter path in
+    playlist#remove row; ()
+  in List.iter del selection#get_selected_rows
 
 let stop =
   let btn = GButton.button
@@ -335,18 +347,22 @@ let item3_playlist = GButton.tool_item ~packing:toolbar_playlist#insert ()
 
 let create_view ~model ~packing () =
   let view = GTree.view ~model ~packing () in
-
   (* Column #1: nom *)
   let col = GTree.view_column ~title:"Nom" 
       ~renderer:(GTree.cell_renderer_text [], ["text", col_name]) () in
   (* Column #1: nom *)
   ignore (view#append_column col);
-
     (* Column #2: emplacemement *)
   let col = GTree.view_column ~title:"Emplacement"
       ~renderer:(GTree.cell_renderer_text [], ["text", col_age]) () in
   ignore (view#append_column col);
+  ignore (view#selection#set_mode `SINGLE);
   view
+
+
+let playlist_view =
+  let model = playlist in
+  create_view ~model ~packing:vbox_playlist#add ()
 
 let may_view_playlist btn () =
   match btn#filename with
@@ -365,10 +381,12 @@ let add_playlist =
   playlist#get_selecte_rows
     playlist#remove*)
 
-let del_playlist = GButton.button
+let del_playlist = 
+let btn = GButton.button 
   ~label: "DEL -"
-  ~packing: item2_playlist#add() (*in
-  btn#connect#clicked ~callback: remove_playlist*)
+  ~packing: item2_playlist#add() in
+  btn#connect#clicked ~callback: (fun () -> 
+    playlist_del playlist_view#selection; ())
 
 let close_playlist =
   let btn = GButton.button
@@ -470,8 +488,6 @@ let _ =
 
 (*~callback: show_cover#misc#hide; *)
   
-  let model = playlist in
-  create_view ~model ~packing:vbox_playlist#add ();
      
   window#show ();
   GMain.Idle.add loop;
