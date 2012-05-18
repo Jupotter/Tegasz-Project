@@ -147,6 +147,7 @@ let playfunc btn () =
               let alb = album(s) in
 	      image(alb);
 	      print_string(alb);
+        flush stdout;
               window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
             end
         end
