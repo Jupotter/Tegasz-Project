@@ -107,7 +107,7 @@ let image (s: string) =
   *)
 
 let image = GMisc.image
-            ~file: "principal.jpg"
+            ~file: "UNKNOWN.jpg"
             ~packing: view#add()
 
 (* ================== VBOX (PRINCIPAL) ================ *)
@@ -150,9 +150,13 @@ let playfunc btn () =
               d#setPlaying true;
               let alb = album(s) in
 		(*  image(alb); *)
-		image#set_file alb;
-	      print_string(alb);
-        flush stdout;
+	      print_string alb;
+	      flush stdout;
+	      let img_alb =
+		String.concat "" (alb::".jpg"::[]) in
+	      image#set_file (img_alb);
+	      print_string(img_alb);
+	      flush stdout;
               window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
             end
         end

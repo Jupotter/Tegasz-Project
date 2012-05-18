@@ -148,7 +148,7 @@ value getAlbum(value v)
 		FMOD_Err_Check(result);
 		name_album = tag -> data;
 		s = caml_copy_string(name_album);
-
+		printf ("%s\n", name_album);
 	}
 	else
 		s = caml_copy_string("UNKNOWN");
