@@ -138,6 +138,7 @@ value getAlbum(value v)
   FMOD_SOUND *sound = 0;
   FMOD_RESULT result;
   char* name_album;
+		value s ;
 
   sound = (void*)v;
 
@@ -146,10 +147,12 @@ value getAlbum(value v)
 	{
 		FMOD_Err_Check(result);
 		name_album = tag -> data;
-		/*printf("%s\n", name_album);*/
-		return (value)name_album;
+		s = caml_copy_string(name_album);
+
 	}
-	return (value)"UNKNOWN";
+	else
+		s = caml_copy_string("UNKNOWN");
+	return s;
 }
 
 value getTotalTime(value v)

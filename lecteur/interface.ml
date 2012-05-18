@@ -152,6 +152,7 @@ let playfunc btn () =
 		(*  image(alb); *)
 		image#set_file alb;
 	      print_string(alb);
+        flush stdout;
               window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
             end
         end

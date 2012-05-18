@@ -3,6 +3,7 @@
 #define _CAML_C_H_
 
 #include <caml/mlvalues.h>
+#include <caml/alloc.h>
 
 value call_play(value v, value sys);
 
