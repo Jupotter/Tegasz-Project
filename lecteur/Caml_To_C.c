@@ -146,7 +146,7 @@ value getAlbum(value v)
 	{
 		FMOD_Err_Check(result);
 		name_album = tag -> data;
-		printf("%s\n", name_album);
+		/*printf("%s\n", name_album);*/
 		return (value)name_album;
 	}
 	return (value)"UNKNOWN";

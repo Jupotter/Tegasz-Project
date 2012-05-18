@@ -146,8 +146,9 @@ let playfunc btn () =
               d#setPlaying true;
               let alb = album(s) in
 	      image(alb);
-	      print_string(alb);
-              window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
+              window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]));
+	      Printf.printf "%s\n" (String.concat alb ("troll"::[]));
+	      flush stdout
             end
         end
       end
@@ -187,7 +188,6 @@ let playlist_next () =
             play#set_active true;
           end
         else
-          d#setPListCurrent (playlist#get_iter_first);
           stopfunc ();
       end
   end
@@ -213,14 +213,6 @@ let playlist_del selection =
     let row = playlist#get_iter path in
     playlist#remove row; ()
   in List.iter del selection#get_selected_rows
-
-let playlist_activate view path column = 
-  let model = view#model in
-  let row = model#get_iter path in
-  stopfunc ();
-  d#setPListCurrent (Some(row));
-  play#set_active true;
-  ()
 
 let stop =
   let btn = GButton.button
@@ -378,7 +370,6 @@ let create_view ~model ~packing () =
       ~renderer:(GTree.cell_renderer_text [], ["text", col_age]) () in
   ignore (view#append_column col);
   ignore (view#selection#set_mode `SINGLE);
-  view#connect#row_activated ~callback:(playlist_activate view);
   view
 
 
@@ -463,8 +454,7 @@ let help_button =
   let dlg = GWindow.message_dialog
 
 ~message:"<b><big> AIDE  </big>\n\n\
-  wesh si si bien la famille les poneys
-  </b>"
+  wesh si si bien la famille les poneys  </b>"
     ~parent:window
     ~destroy_with_parent:true
     ~use_markup:true
