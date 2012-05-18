@@ -68,7 +68,7 @@ let window =
     ~title:"PROJET"
     ~position:`CENTER
     ~resizable:false
-    ~width:500 ~height:110 () in
+    ~width:500 ~height:120 () in
   wnd#connect#destroy GMain.quit;
   wnd
 
@@ -98,20 +98,6 @@ let playfunc btn () =
       let x = getInit () in
       let row = match d#getPListCurrent () with None -> assert false 
                 | Some n -> n in
-<<<<<<< HEAD
-      let name = playlist#get ~row ~column:col_name in
-      d#setSound (load name (getInit ()));
-      d#setName (let l = (Str.split (Str.regexp "/") name) in let l = List.rev l in
-      match l with |h::t -> h | _ -> assert false);
-      let s = d#getSound() in
-      if s != () then
-      begin
-        d#setChannel (play (s) (x));
-        d#setPlaying true;
-	
-        window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
-      end
-=======
       (*if row != () then*)
         begin
           let name = playlist#get ~row ~column:col_name in
@@ -128,7 +114,6 @@ let playfunc btn () =
             window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
           end
         end
->>>>>>> e6f0f4bf015f3afbe4da4743fa0a8be51a3f32e3
     end
     else
       unpause (d#getChannel ())

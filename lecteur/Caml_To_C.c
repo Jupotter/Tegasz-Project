@@ -160,16 +160,10 @@ value getTotalTime(value v)
 
 	sound = (void*)v;
 
-<<<<<<< HEAD
-  name_album = tag -> data;
-
-  return (value)name_album;
-=======
 	result = FMOD_Sound_GetLength(sound, &tottime, FMOD_TIMEUNIT_MS);
 	FMOD_Err_Check(result);
 
 	return (value)tottime;
->>>>>>> e6f0f4bf015f3afbe4da4743fa0a8be51a3f32e3
 }
 
 /* End main.c */
