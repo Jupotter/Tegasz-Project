@@ -117,7 +117,7 @@ value is_paused(value v)
 	return (value)paused;
 }
 
-value timer (value v )
+value timer (value v)
 {
    FMOD_CHANNEL     *channel = 0;
    FMOD_RESULT       result;
@@ -127,9 +127,28 @@ value timer (value v )
    result = FMOD_Channel_GetPosition(channel, &time, FMOD_TIMEUNIT_MS);
    FMOD_Err_Check(result);
 
-   printf("%i\n", time);
-     return time;
+   /*printf("%i\n", time);*/
+   return (value)time;
 
+}
+
+
+value getAlbum(value v)
+{
+  FMOD_TAG *tag = malloc(sizeof(FMOD_TAG));
+  FMOD_SOUND *sound = 0;
+  FMOD_RESULT result;
+  char* name_album;
+
+  sound = (void*)v;
+
+  result = FMOD_Sound_GetTag(sound, "ALBUM", 0, tag);
+  FMOD_Err_Check(result);
+
+  name_album = tag -> data;
+  printf("%s\n", name_album);
+
+  return (value)tag;
 }
 
 /* End main.c */

@@ -6,6 +6,8 @@ external init: unit -> 'a = "call_init";;
 external volume: float -> 'a -> unit = "set_volume";;
 external paused: 'a -> int = "is_paused";;
 external timer: 'a -> string = "timer";;
+external album: 'a -> string = "getAlbum";;
+
 
 class data = 
   object
@@ -104,6 +106,7 @@ let playfunc btn () =
       begin
         d#setChannel (play (s) (x));
         d#setPlaying true;
+	album(s);
         window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
       end
     end
