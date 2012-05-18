@@ -36,8 +36,8 @@ end
 let d = new data
 
 let cols = new GTree.column_list
-let col_name = cols#add Gobject.Data.string	(* string column *)
-let col_age = cols#add Gobject.Data.int	(* int column *)
+let col_name = cols#add Gobject.Data.string     (* string column *)
+let col_age = cols#add Gobject.Data.int 	(* int column *)
 
 let liste = []
 
@@ -95,7 +95,7 @@ let playfunc btn () =
   if d#isPlaying () = false then
     begin
       let x = getInit () in
-      let row = match d#getPListCurrent () with None -> continue
+      let row = match d#getPListCurrent () with None -> assert false 
                 | Some n -> n in
       let name = playlist#get ~row ~column:col_name in
       d#setSound (load name (getInit ()));
@@ -106,7 +106,7 @@ let playfunc btn () =
       begin
         d#setChannel (play (s) (x));
         d#setPlaying true;
-	album(s);
+	
         window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
       end
     end
@@ -169,16 +169,7 @@ let playlist_prev () =
 let playlist_del selection =
   let del path =
     let row = playlist#get_iter path in
-    let curiter = (match d#getPListCurrent () with 
-                  | Some(n) -> n | _ -> assert false) in
-    if (playlist#get_path row) = (playlist#get_path curiter) then
-      begin
-        stopfunc ();
-        playlist_next ()
-      end;
-    playlist#remove row;
-    if playlist#get_iter_first = None then
-      d#setPListCurrent None
+    playlist#remove row; ()
   in List.iter del selection#get_selected_rows
 
 let stop =
@@ -275,7 +266,7 @@ let buttonopen =
   in btn#connect#selection_changed (may_view btn);
   btn
 
-(*========== COVER ==========*)
+(*=================== COVER =====================*)
 
 let show_cover =
   let wnd  = GWindow.window
@@ -306,7 +297,6 @@ let view = GPack.vbox
   ~packing:vbox_cover#add ()
 
 let image = GMisc.image
-            ~file: "cover.png"
             ~packing: view#add()
 
 
