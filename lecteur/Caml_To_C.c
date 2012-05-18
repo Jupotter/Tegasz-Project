@@ -129,7 +129,6 @@ value timer (value v)
 
    /*printf("%i\n", time);*/
    return (value)time;
-
 }
 
 
