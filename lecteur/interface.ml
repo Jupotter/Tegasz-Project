@@ -226,6 +226,14 @@ let playlist_del selection =
     playlist#remove row; ()
   in List.iter del selection#get_selected_rows
 
+let playlist_activate view path column = 
+  let model = view#model in
+  let row = model#get_iter path in
+  stopfunc ();
+  d#setPListCurrent (Some(row));
+  play#set_active true;
+  ()
+
 let stop =
   let btn = GButton.button
     ~packing: bbox#add()
@@ -383,6 +391,7 @@ let create_view ~model ~packing () =
   ignore (view#append_column col);
     (* Column #2: emplacemement *)
   ignore (view#selection#set_mode `SINGLE);
+  view#connect#row_activated ~callback:(playlist_activate view);
   view
 
 
