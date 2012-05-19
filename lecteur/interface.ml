@@ -32,6 +32,11 @@ class data =
 
     method setChannel x = channel <- x
     method getChannel () = channel
+
+    val mutable volume = 100.
+
+    method setVolume x = volume <- x
+    method getVolume () = volume
 end
 
 let d = new data
@@ -148,15 +153,11 @@ let playfunc btn () =
             begin
               d#setChannel (play (s) (x));
               d#setPlaying true;
+              volume (d#getVolume ()) (d#getChannel ());
               let alb = album(s) in
-		(*  image(alb);
-	      print_string alb;*)
-	      flush stdout;
-	      let img_alb =
-		String.concat "" (alb::".jpg"::[]) in
-	      image#set_file (img_alb);
-	      (*print_string(img_alb);*)
-	      flush stdout;
+              let img_alb =
+              String.concat "" (alb::".jpg"::[]) in
+              image#set_file (img_alb);
               window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
             end
         end
@@ -244,7 +245,7 @@ let previous =
   btn#connect#clicked ~callback: playlist_prev
 (* fonction1#connect#clicked ~callback: fonction args*)
 
-let volume = 
+let btn_volume = 
   let btn = GRange.scale `HORIZONTAL
   ~packing: bbox#add()
   ~digits: 0
@@ -258,8 +259,9 @@ let volume =
     ~page_size: 0.
     ~value: 100.
   in btn#set_adjustment (adj ());
-  btn#connect#value_changed (fun () -> volume (btn#adjustment#value)
-  (d#getChannel ()))
+  btn#connect#value_changed (fun () -> 
+    volume (btn#adjustment#value) (d#getChannel ());
+    d#setVolume (btn#adjustment#value))
   
 
 (*========== corps de l'interface ==========*)
