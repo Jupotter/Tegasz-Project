@@ -67,8 +67,13 @@ Ceci est le rapport du projet réalisé par l'équipe \textbf{TeGaSz}.
 Ce dernier se nomme \emph{P.R.O.J.E.T} (Programme Radiophonique Orienté Jouant Énormément sur les Tonalités) et est en définitive un lecteur audio programmé pour fonctionner sous Fedora. \\
 Dans ce rapport, nous allons présenter notre projet terminé ainsi
 que toute la démarche de sa conception, qu'elle soit intellectuelle, sous forme de 
-recherche ou tout simplement en code pur.
+recherche ou tout simplement en code pur.\\ 
 
+
+\begin{center}
+\includegraphics[scale = 0.6]{name.jpg}
+
+\end{center}
 \chapter{Le projet}
 Un lecteur audio est une sorte de lecteur multimédia utilisé pour la lecture audio numérique, les disques optiques tels que CD, SACD, DVD-Audio, HDCD, ou encore  des fichier ou du streaming.
 
@@ -80,6 +85,7 @@ La plupart des lecteurs audio prennent également en charge la lecture simple de
 
 \it{Un lecteur audio reconnu : VLC}
 \end{center}
+\newpage
 
 \section{Les origines du projet}
 
@@ -98,6 +104,7 @@ Nous nous intéressons principalement aux lecteurs audio libres, puisque c'est �
 
 Simple et épuré KMPlayer n'en est pas moins puissant. Ce lecteur Coréen a le vent en poupe et il se dit dans les forums qu'il commence à faire de l'ombre à VLC. Lecteur multimédia, KMPlayer est capable de lire pratiquement tous les formats audio et vidéo nativement. Il est doté d'une très belle interface vraiment simple à  utiliser. A découvrir\ldots Il est gratuit et un patch français est disponible.
 
+\newpage
 \subsubsection{Amarok}
 
 Amarok est un lecteur audio. Il était au départ conçu uniquement pour Linux, mais la migration vers les plateformes Windows et Mac OS X est en cours. C'est\`a ce jour l'un des meilleurs lecteurs audio. 
@@ -117,6 +124,7 @@ Le format WMA est la réponse de Microsoft au MP3. Face au succès du MP3 et l'e
 Premier lecteur MP3 logiciel apparu sur le Web en 1997 et toujours très populaire. Aujourd'hui, Winamp est bien plus qu'un simple lecteur MP3. Il permet la lecture des CD audio, des fichiers MP3, OGG, AAC et WMA sans ajout de plug-ins et ceci pour ne parler que des formats les plus courants. Il peut désormais ripper les pistes d'un CD audio pour les copier sur votre disque dur et graver des CD. Ces deux dernières fonctionnalités sont limitées dans la version gratuite : on peut ripper en x6 et graver en x2 seulement mais c'est possible. Cette limitation ne nous semble pas un gros handicap dans la mesure o\`u il vaut mieux ripper \`a  vitesse lente pour obtenir une bonne qualité d'extraction. Mais revenons \`a  Winamp... Il est doté d'un égaliseur 10 bandes, d'un gestionnaire de Playlists qui le transforme en Jukebox et d'un mini navigateur Web. 
 L'ajout de plug-ins étend encore les possibilités de Winamp puisqu'on peut encoder en MP3 ou autre format, visualiser des vidéos au format DivX, lire des fichiers audio de type VQF, Monkey... A tester !
 
+\newpage
 \section{Présentation de l'équipe}
 TeGaSz est un projet réalisé par trois étudiants en deuxième année à EPITA.
 	\subsection{Maxime Templé}
@@ -128,13 +136,16 @@ Troisième année a l'Epita, troisième spé, et enfin je commence le C. Après 
 	\subsection{Julien Szkudlarek}
 Après un premier projet consistant à réaliser une cartographie 3D avec un grand intérêt principalement lié à la visualisation, celui-ci sera donc un lecteur audio. Il s'annonce tout aussi passionnant car le principe même du projet est un outil très commun et de notre quotidien aujourd'hui. Il va également me permettre de pouvoir approfondir le C que je connais relativement peu. Pouvoir créer son propre lecteur audio est un objectif très stimulant d'autant plus que le sujet est plus libre que le précédent ce qui va permettre une plus grande créativité.
 
+\newpage
 \section{Librairies utilisées}
-	\subsection{Fmod}
+	\subsection{FMOD}
 
 \begin{center}
 \includegraphics[scale =0.5]{fmodex.png}
 \end{center}
-FMOD est une bibliothèque multiplateforme de gestion du son, pouvant être utilisée au travers de noombreux langages de programmation. Avec le lancement de la version 4.03 la bibliothèque a été renommée FMOD Ex.
+FMOD est une bibliothèque multiplateforme de gestion du son, pouvant être utilisée au travers de noombreux langages de programmation. Avec le lancement de la version 4.03 la bibliothèque a été renommée FMOD Ex.\\
+
+IL est disponible sur toutes les plateformes, de Windows à la Xbox, en passant par Linux et la Playstation 3.
 
 	\subsection{GTK}
 
@@ -167,6 +178,7 @@ Les dernières réunions se concentraient donc exclusivement sur l'aspect ergono
 
 La personne qui s'est occupé tout au long de l'année de la mise en place du projet et de l'organisation des travaux sera Maxime, élu à l'unanimité. Il fut le chef de projet, c'est-à-dire le principal intermédiaire entre le jury et le groupe de projet lors des soutenances, et le coordinateur plus ou moins utile entre les membres, c'est-à-dire de la cohésion du groupe.
 
+\newpage
 \section{Utilisation de git}
 
 \begin{center}
@@ -203,10 +215,11 @@ Au final, nous avions un lecteur audio ne pouvant jouer qu'une seule musique pr�
 L'interfaçage entre C et Ocaml ayant été implementé pour la première soutenance,  nous pouvions nous concentrer sur le projet en lui-même, à savoir la mise en place de FMOD et son imprecation dans l'interface.
 Nous avions donc un lecteur audio plus complexe permettant de charger une chanson, de la lire et de varier le volume.
 
+\newpage
 \section{La soutenance finale}
 
 \begin{center}
-\includegraphics[scale = 0.4]{interface3.png}
+\includegraphics[scale = 0.35]{interface3.png}\\
 \it{Aperçu de la version finale avec un exemple}
 \end{center}
 
@@ -263,7 +276,7 @@ une fois cliqué sur le bouton pour afficher la couverture, s'affiche une second
 Nous procédons de la même façon pour la playlist.
 
 \begin{center}
-\includegraphics[scale =0.6]{we-need-to-go-deeper.jpg}
+\includegraphics[scale =0.7]{we-need-to-go-deeper.jpg}
 \end{center}
 
 \chapter{Moteur son}
@@ -359,7 +372,7 @@ L'un des problèmes majeurs auquel nous avons été confrontés fut la compilati
 Actuellement, les fonctions stop, pause, volume et de chargement de fichier utilisent enfin le dialogue C - OCaml. En effet, elles utilisent chacune des fonctions de FMOD qui ne sont disponibles qu'en C.\\
 
 \begin{center}
-\includegraphics[scale=0.7]{c_caml.jpg}
+\includegraphics[scale=0.6]{c_caml.jpg}
 
 \it{Interfaçage entre le C et Ocaml}
 \end{center}
@@ -427,11 +440,44 @@ Nous recherchons ensuite le nom de l'album en dans le dossier. l'image trouvée,
 
 \chapter{Site Web}
 
+Pour la première soutenance, nous avions créé une ébauche de site web. Pour la deuxième soutance, tout le squelette du site web a été mis en place. En effet nous avions très vite choisi de créer le site web en HTML, ce qui ne permettait pas de faire une interface trop esthétique. Nous avons donc tout mise sur la visibilité de l'information.\\
+
+Pour la dernière soutenance, notre site est pleinement fonctionnel. Là où nous avions une ébauche, les pages web ont été completées. Les utilisateurs peuvent donc acceder à toutes les informations dont ils pourraient avoir besoins.
+
+\begin{center}
+\includegraphics[scale=0.25]{site1.png}
+\end{center}
+
+Le site se compose de différentes vues donnant, en autre, des informations sur l'équipe, des explications sur les différentes parties de P.R.O.J.E.T. --- par exemple, des images, une présentation détaillée \ldots
+
+\begin{center}
+\includegraphics[scale=0.25]{site2.png}
+\end{center}
+
+Il sera possible également de télécharger les sources du projet et de laisser des commentaires dans un livre d'or dédié. En outre, il est possible de contatcer directement l'équipe pour tout problêmes, remarques, soucis, choses pas claires \ldots
+
+\chapter{Joies et tristesses}
+
+Ce semestre fut émaillé de nombreuses épreuves mais aussi de bons moments. 
+
+La première de ces difficultés a été de faire cohabiter pacifiquement le C et l'OCaml, deux langages structurellement très différents. Un autre problème est survenu lors de l'implémentation de la playlist. Nous nous devions de la faire fonctionner parfaitement, ceci étant une composante primordiale d'un lecteur audio. Le bouton \emph{Next} posa beaucoup de soucis, notamment à cause de son interaction avec Gtk. Mais, le summum du défi fut atteint lors de l'affichage de la pochette. Cette fois, ce fut entre le C et l'OCaml qu'il fallut résoudre les conflits. Enfin, certains membres se plaignèrent allègrement de l'utilisation du gestionnaire Git.\\
+
+Heureusement, quelques satisfactions nous permirent de tenir bon. Le premier fut la lecture de notre premier son. Également l'implémentation du volume et de la playlist fonctionnelle nous provoqua beaucoup de joie.
+Mais, paradoxalement, l'apothéose de notre jouissance fut ressentit lorsqu'enfin la pochette de l'album en cours apparu devant nos yeux ébahis.
 
 \chapter*{Conclusion}
 
+Nous avons dans ce rapport développé les principales parties de P.R.O.J.E.T. Nous avons donc la possibilité de fournir un programme complet et entièrement fonctionnel.\\
+
+L'équipe a eût la chance de rester soudée tout au long du projet, et a été capable de surmonter moults difficultés et une foultitude de problêmes: chaque personne étant prête a délaisser son travail pour aider un autre membre.\\
+
+Ce projet nous a apporté de nombreuses connaissances dans des domaines divers et variés, entre autres, l'utilisation de FMOD et de GTK+, ainsi que dans l'utilisation du language C.  Le travail en équipe a été décisif dans la réussite de notre entreprise.\\
+
+Pour finir, nous sommes fiers du travail accompli et d'avoir un programme terminé.
+
 
 \begin{center}
-\includegraphics[scale =0.5]{conclu.jpg}
+\includegraphics[scale =0.3]{conclu.jpg}
 \end{center}
+
 \end{document}
