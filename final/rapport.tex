@@ -62,12 +62,25 @@ Maxime \textsc{Templé}\\
 \tableofcontents
 
 \chapter{Introduction}
+
 Ceci est le rapport de soutenance du projet réalisé par l'équipe \emph{TeGaSz}. 
 Ce dernier se prénomme \emph{P.R.O.J.E.T} (Programme Radiophonique Orienté Jouant Énormémentsur les Tonalités) et est en définitive un lecteur Audio programmé pour fonctionner sous Fedora. \\
 Dans ce rapport, nous allons vous présenter notre projet terminé ainsi
-que toute la démarche de sa conception, qu'elle soit intellectuelle, sous forme de recherche ou tout simplement en code pur.
+que toute la démarche de sa conception, qu'elle soit intellectuelle, sous forme de 
+recherche ou tout simplement en code pur.
 
 \chapter{Le projet}
+Un lecteur audio est une sorte de lecteur multimédia utilisé pour la lecture audio numérique, les disques optiques tels que CD, SACD, DVD-Audio, HDCD, ou encore  des fichier ou du streaming.
+
+En plus des fonctions de telles que la lecture,la pause,l' arrêt, rembobinage, et la transmission, certaines fonctions courantes comprennent playlisting, support du format de marquage, ou encore un égaliseur.
+La plupart des lecteurs audio prennent également en charge la lecture simple des vidéos numériques. ils peuvent également lire des films.
+
+\begin{center}
+\includegraphics{vlc-interface1.jpg}
+
+\it{un lecteur audio reconnu : VLC}
+\end{center}
+
 \section{Les origines du projet}
 
 Le groupe TeGaSz est un groupe de projet formé en 2012 par trois étudiants
@@ -358,11 +371,16 @@ Une pochette est l'emballage d'un album de musique. Selon le support de l'enregi
 \it{interface de liste de lecture}
 \end{center}
 
+Cette fenêtre est exclusivement composée par la pochette de l'album en cours.
+Nous récupérons les données incluses dans les métas données du fichier audio. 
+Si ce dernier contient le nom d'un album, nous envoyons ce dernier au code en Caml. 
+Nous recherchons ensuite le nom de l'album en dans le dossier. l'image trouvée, celle ci s'affiche dans la page.
 
 \chapter{site web}
 
 
 \chapter{Conclusion}
+
 
 \begin{center}
 \includegraphics[scale =0.5]{conclu.jpg}
