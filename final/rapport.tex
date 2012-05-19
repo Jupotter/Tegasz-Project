@@ -9,7 +9,7 @@
 \setlength{\headheight}{15.2pt}
 \pagestyle{fancy}
   
-\title{Rapport de soutenance \no{2}} 
+\title{Rapport de soutenance finale} 
 \date{}
 \author{TeGaSz}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
@@ -54,7 +54,7 @@ Maxime \textsc{Templé}\\
 \vfill
 
 % Bottom of the page
-{\large 17 avril 2012}
+{\large \today}
 
 \end{center}
 
@@ -63,16 +63,16 @@ Maxime \textsc{Templé}\\
 
 \chapter{Introduction}
 
-Ceci est le rapport de soutenance du projet réalisé par l'équipe \emph{TeGaSz}. 
-Ce dernier se prénomme \emph{P.R.O.J.E.T} (Programme Radiophonique Orienté Jouant Énormémentsur les Tonalités) et est en définitive un lecteur Audio programmé pour fonctionner sous Fedora. \\
-Dans ce rapport, nous allons vous présenter notre projet terminé ainsi
+Ceci est le rapport du projet réalisé par l'équipe \textbf{TeGaSz}. 
+Ce dernier se nomme \emph{P.R.O.J.E.T} (Programme Radiophonique Orienté Jouant Énormément sur les Tonalités) et est en définitive un lecteur audio programmé pour fonctionner sous Fedora. \\
+Dans ce rapport, nous allons présenter notre projet terminé ainsi
 que toute la démarche de sa conception, qu'elle soit intellectuelle, sous forme de 
 recherche ou tout simplement en code pur.
 
 \chapter{Le projet}
 Un lecteur audio est une sorte de lecteur multimédia utilisé pour la lecture audio numérique, les disques optiques tels que CD, SACD, DVD-Audio, HDCD, ou encore  des fichier ou du streaming.
 
-En plus des fonctions de telles que la lecture,la pause,l' arrêt, rembobinage, et la transmission, certaines fonctions courantes comprennent playlisting, support du format de marquage, ou encore un égaliseur.
+En plus des fonctions de telles que la lecture, la pause, l'arrêt, rembobinage et la transmission, certaines fonctions courantes comprennent playlisting, support du format de marquage, ou encore un égaliseur.
 La plupart des lecteurs audio prennent également en charge la lecture simple des vidéos numériques. ils peuvent également lire des films.
 
 \begin{center}
@@ -85,20 +85,14 @@ La plupart des lecteurs audio prennent également en charge la lecture simple de
 
 Le groupe TeGaSz est un groupe de projet formé en 2012 par trois étudiants
 d'EPITA passionnés, dans le but de réaliser pour la fin de l'année un
-travail de programmation inédit. Ce programme est un lecteur audio codé
-dans la majeure partie en C et en Ocaml. Le projet sera accompagné d'un
-site web qui décrira tout au long de l'année l'avancement du projet. Il sera
-mis à jour régulièrement après chaque évolution notable. Ce projet sera particuli
-èrement diffcile à réaliser au niveau de la programmation : En effet, ce
-projet demande des notions particulièrement avancées dans le domaine du
-cryptage des fichiers audio. Par exemple, il faudra être capable de distinguer
-les en-tête de fichier de type .mp3, ou tout simplement être capable de lire
-un son, montrer sons avancement dans le temps, et pourquoi pas, afficher
-plusieurs informations sur la musique en cours. C'est pourquoi nous allons
-commencer ce projet en progressant étape par étape.
+travail de programmation inédit. 
 
-\section{Etude du marché}
-Nous nous intéressons principalement aux lecteurs audio libres, puisque c'est à cela que nous espérons arriver. voici quelques uns des logiciels disponibles sur le marché:
+Les lecteurs audio sont des outils très répandus aujourd'hui, notamment grâce à la démocratisation de la dématérialisation de la musique. Étant des amateurs de musique en tout genre, notre envie s'est donc tout naturellement porté sur la réalisation de notre propre lecteur. Nous l'avons voulu simple, pratique, ergonomique, léger.
+
+Ce programme est un lecteur audio codé dans la majeure partie en C et en Ocaml. Le projet sera accompagné d'un site web qui décrira tout au long de l'année l'avancement du projet. Il sera mis à jour régulièrement après chaque évolution notable. Ce projet sera particulièrement diffcile à réaliser au niveau de la programmation : en effet, ce projet demande des notions particulièrement avancées dans le domaine du cryptage des fichiers audio. Par exemple, il faudra être capable de distinguer les en-tête de fichier de type .mp3, ou tout simplement être capable de lire un son, montrer sons avancement dans le temps, et pourquoi pas, afficher plusieurs informations sur la musique en cours. C'est pourquoi nous allons commencer ce projet en progressant étape par étape.
+
+\section{Étude du marché}
+Nous nous intéressons principalement aux lecteurs audio libres, puisque c'est à cela que nous espérons arriver. voici quelques uns des logiciels disponibles sur le marché :
 
 \subsubsection{The KMPlayer}
 
@@ -107,7 +101,7 @@ Simple et épuré KMPlayer n'en est pas moins puissant. Ce lecteur Coréen a le 
 \subsubsection{Amarok}
 
 Amarok est un lecteur audio. Il était au départ conçu uniquement pour Linux, mais la migration vers les plateformes Windows et Mac OS X est en cours. C'est\`a ce jour l'un des meilleurs lecteurs audio. 
- Amarok peut lire quasiment n'importe quel type de fichiers audio (MP3, OGG, WMA, FLAC...), permet la création de playlists ce qui le transforme en Jukebox, gère l'édition des tags, grave les CD audio (à condition d'avoir K3B), récupère les pochettes de disques ou les paroles d'un morceau, permet d'uploader votre musique vers de nombreux baladeurs (iPod, Creative NOMAD ou ZEN, Rio Karma...), affiche les informations de Wikipedia sur le groupe que vous écoutez... Bref, Amarok est un outil très puissant.
+Amarok peut lire quasiment n'importe quel type de fichiers audio (MP3, OGG, WMA, FLAC...), permet la création de playlists ce qui le transforme en Jukebox, gère l'édition des tags, grave les CD audio (à condition d'avoir K3B), récupère les pochettes de disques ou les paroles d'un morceau, permet d'uploader votre musique vers de nombreux baladeurs (iPod, Creative NOMAD ou ZEN, Rio Karma...), affiche les informations de Wikipedia sur le groupe que vous écoutez... Bref, Amarok est un outil très puissant.
 Il faut disposer d'un moteur de décodage tel que GStreamer ou Xine pour faire fonctionner Amarok : Amarok est en quelque sorte une interface utilisateur. 
 
 \subsubsection{Splayer}
@@ -132,7 +126,7 @@ Il y a maintenant quatre ou cinq ans, j'ai découvert les possibilités que pouv
 Troisième année a l'Epita, troisième spé, et enfin je commence le C. Après l'échec du projet cartographie, j'espère bien me rattraper avec cette fois ci un groupe soudé et motivé. n'ayant pratiquement aucune expérience concernant le son, que ça soit sa lecteur, sa production ou encore sa manipulation, ce projet promet de m'apporter de nombreuses connaissances sur le sujet, connaissances dont je suis toujours avide.
 
 	\subsection{Julien Szkudlarek}
-Après un premier projet consistant à réaliser une cartographie 3D avec un grand intérêt principalement lié à la visualisation, celui-ci sera donc un lecteur audio. Il s'annonce tout aussi passionnant car le principe même du projet est un outil très commun et de notre quotidien aujourd'hui. Il va également me permettre de pouvoir approfondir le C que je connais relativement peu. Pouvoir créer son propre lecteur audio est un objectif très stimulant d'autant plus que le sujet est plus libre que le précédent ce qui va permettre une meilleure créativité.
+Après un premier projet consistant à réaliser une cartographie 3D avec un grand intérêt principalement lié à la visualisation, celui-ci sera donc un lecteur audio. Il s'annonce tout aussi passionnant car le principe même du projet est un outil très commun et de notre quotidien aujourd'hui. Il va également me permettre de pouvoir approfondir le C que je connais relativement peu. Pouvoir créer son propre lecteur audio est un objectif très stimulant d'autant plus que le sujet est plus libre que le précédent ce qui va permettre une plus grande créativité.
 
 \section{Librairies utilisées}
 	\subsection{Fmod}
@@ -153,89 +147,88 @@ GTK+ est un projet libre (licence GNU LGPL 2.1) et multiplate-forme.
 
 Même si, au départ GTK+ est écrit en langage C et utilise pourtant le paradigme de la programmation orientée objet. Il est également possible d'utiliser GTK+ dans de nombreux autres langages de programmation: C++ (avec gtkmm), Ada (avec GtkAda), Fortran (avec gtk-fortran), Pascal, PHP, Perl, Ruby, Objective Ocaml, Java, Python, Vala, Seed (JavaScript) ou encore C\# avec la plateforme mono au travers du binding Gtk\#, etc.
 
-\chapter{Le planning}
-Pour pouvoir réaliser ce projet dans les temps, nous avons choisi de travailler en groupe au moins une fois par semaine, sur des plages d'horaires communes comme le Vendredi soir ou le jeudi matin. Le reste du travail sera réalisé individuellement par chaque membre de l'équipe en suivant un planning et une répartition organisée des tâches décrite plus bas. Le but de ces réunions hebdomadaires est tout simplement de mettre en commun nos idées et de faire le point sur l'avancée du travail de chacun. Ainsi, chaque semaine un planning pour la semaine suivante sera établi pour chaque membre de l'équipe.
+\chapter{Planning}
+Pour pouvoir réaliser ce projet dans les temps, nous avons choisi de travailler en groupe au moins une fois par semaine, sur des plages d'horaires communes comme le vendredi soir ou le jeudi matin. Le reste du travail a été réalisé individuellement par chaque membre de l'équipe en suivant un planning et une répartition organisée des tâches décrite plus bas. Le but de ces réunions hebdomadaires fut tout simplement de mettre en commun nos idées et de faire le point sur l'avancée du travail de chacun. Ainsi, chaque semaine un planning pour la semaine suivante a été établi pour chaque membre de l'équipe.
 
-\section{Organisation du travail}
+Cette organisation du travail a permis de finir le projet dans les temps et aucune nuit blanche ni heure supplémentaire n'aura été nécessaire pour cela.
 
-Pour pouvoir réaliser ce projet dans les temps, nous avons choisi de travailler en groupe au moins une fois par semaine, sur des plages d'horaires communes comme le Vendredi soir ou le jeudi matin. Le reste du travail sera réalisé individuellement par chaque membre de l'équipe en suivant un planning et une répartition organisée des tâches décrite plus bas. Le but de ces réunions hebdomadaires est tout simplement de mettre en commun nos idées et de faire le point sur l'avancée du travail de chacun. Ainsi, chaque semaine un planning pour la semaine suivante sera établi pour chaque membre de l'équipe.
+\section{Répartition des tâches}
 
-\section{répartition des tâches}
-
-Tout au long du semestre, nous nous sommes donnés des tâches précises à faire avancer chacun de notre coté. cependant, le temps avancant et la dead line approchant, chaque personne a quitté son travail pour aller aider un autre membre de l'équipe. Nous pouvons donc dire que tout le monde aura travaillé sur tout le projet.
-Dans le projet initial, Julien G devait s'occuper de mettre en place la librairie Fmod, Julien S de l'interfaçage entre le C et le Ocaml et enfin Maxime devait mettre en place 
-
- graphique.
+Tout au long du semestre, nous nous sommes donnés des tâches précises à faire avancer chacun de notre coté. Cependant, le temps avançant et la deadline approchant, chaque personne a mis sa partie en stand-by pour aller aider un autre membre de l'équipe. Nous pouvons donc dire que tout le monde aura travaillé sur l'ensemble du projet.
+Dans le projet initial, Julien G. devait s'occuper de mettre en place la librairie Fmod, Julien S. de l'interfaçage entre le C et le Ocaml et enfin Maxime T. devait mettre en place l'interface graphique. Mais cette dernière partie a pris tellement d'importance qu'il a fallu que toute l'équipe s'y consacre.
+Les dernières réunions se concentraient donc exclusivement sur l'aspect ergonomique du programme, et la résolution de bugs.
 
 \section{Le chef de projet}
 
-La personne qui s'occupera tout au long de l'année de la mise en place du projet et de l'organisation des travaux sera Maxime, choisi à l'unanimité. Il sera notre chef de projet, c'est-à-dire le principal intermédiaire entre le jury et le groupe de projet lors des soutenances.
+La personne qui s'est occupé tout au long de l'année de la mise en place du projet et de l'organisation des travaux sera Maxime, élu à l'unanimité. Il fut le chef de projet, c'est-à-dire le principal intermédiaire entre le jury et le groupe de projet lors des soutenances, et le coordinateur plus ou moins utile entre les membres, c'est-à-dire de la cohésion du groupe.
 
-\section{utilisation de git}
+\section{Utilisation de git}
 
 \begin{center}
 \includegraphics[scale =0.5]{git.png}
 \end{center}
 
-il nous fallait un outil fiable afin de partager notre avancé commune. Le gestionnaire de version décentralisé GIT semblait tout destine pour cette tache. Pour cela, nous avons donc créé un dépôt sur le site GitHub qui permet gratuitement d'héberger l'ensemble de nos sources.\\
+Il nous fallait un outil fiable afin de partager notre avancé commune. Le gestionnaire de version décentralisé GIT semblait tout destine pour cette tache. Pour cela, nous avons donc créé un dépôt sur le site GitHub qui permet gratuitement d'héberger l'ensemble de nos sources.\\
 Git est un logiciel de gestion de versions décentralisé. C'est un logiciel libre créé par Linus Torvalds, le créateur du noyau Linux, et distribué selon les termes de la licence publique générale GNU version 2.
 
 
-\chapter{Le developpement du projet}
-Notre projet s'est développé progressivement. Chaque soutenance était une étape avec de nouvelles améliorations, implémentations et d'autres choses plus ou moins visibles. 
+\chapter{Développement}
+Notre projet s'est développé progressivement. Chaque soutenance était une étape décisive avec chaque fois de nouvelles améliorations, implémentations et d'autres choses plus ou moins visibles de l'ordre de l'optimisation.
 Ces avancées seront développées avec précision dans les chapitres prévus à cet effet.
 
-\section{la première soutenance}
+\section{La première soutenance}
 
 \begin{center}
 \includegraphics[scale = 0.8]{interface1.png}
-\it{ première version du projet}
+\it{Première version du projet}
 
 \end{center}
-Lors de cette première soutenance nous nous sommes particulièrement concentré sur l'interfaçage entre le C et le Ocaml parce que cette partie était la plus importante:
-Sans elle nous ne pouvions effectuer aucun test! 
-Un premier tatonnement sur Fmod aura aussi été fait et l'interface aura été implémentée. 
+Lors de cette première soutenance nous nous sommes particulièrement concentré sur l'interfaçage entre le C et le Ocaml parce que cette partie était la plus importante : sans elle nous ne pouvions effectuer aucun test !
+Un premier tatonnement sur FMOD aura aussi été fait et l'interface aura été implémentée. 
 Au final, nous avions un lecteur audio ne pouvant jouer qu'une seule musique prédéfinie.
 
-\section{la deuxième soutenance}
+\section{La deuxième soutenance}
 
 \begin{center}
 \includegraphics[scale = 0.8]{interface2.png}
-\it{ seconde version du projet}
+\it{Seconde version du projet}
 \end{center}
 
 
-L'interfaçage entre C et Ocaml ayant été implementé pour la première soutenance,  nous pouvions nous concentrer sur le projet en lui-même, à savoir la mise en place de Fmod et son imprecation dans l'interface.
+L'interfaçage entre C et Ocaml ayant été implementé pour la première soutenance,  nous pouvions nous concentrer sur le projet en lui-même, à savoir la mise en place de FMOD et son imprecation dans l'interface.
 Nous avions donc un lecteur audio plus complexe permettant de charger une chanson, de la lire et de varier le volume.
 
-\section{la soutenance finale}
+\section{La soutenance finale}
 
 \begin{center}
 \includegraphics[scale = 0.4]{interface3.png}
-\it{visuel final}
+\it{Aperçu de la version finale avec un exemple}
 \end{center}
 
-\chapter{l'interface}
+Pour la finalisation du projet, nous avons eu tout notre temps à disposition. Ainsi, de nombreux ajouts et optimisations ont pu être effectués.
+La principale et indispensable nouveauté est bien évidemment la possibilité de créer ses propres listes de lecture. On peut ajouter et supprimer autant de fichier audio que l'on souhaite. L'utilisateur peut en pleine lecture choisir de lire la piste suivante, ou précédente.\\
+Ensuite, d'ordre visuel, la pochette de l'album peut s'afficher si l'utilisateur le souhaite en cliquant sur le bouton \emph{Cover}. Pour finir, une barre de défilement affiche la durée du fichier lu.
+
+\chapter{L'interface}
 
 En informatique, une interface graphique (anglais GUI pour graphical user interface) est un dispositif de dialogue homme-machine, dans lequel les objets à manipuler sont dessinés sous forme de pictogrammes à l'écran, que l'usager peut opérer en imitant la manipulation physique de ces objets avec un dispositif de pointage, le plus souvent une souris.\\
 
 Pour cette dernière version, le principe de base aura été de repartir à
 partir des bases posées dans la deuxième soutenance. Nous avons utilisé nos connaissances acquises dans nos recherches pour réaliser une interface qui correspondait beaucoup plus aux attentes du cahier des charges, Bien que les methodes employées pour la plupart des parties restent fondamentalement les memes, nous avons surtout ajouté des actions plus spécifiques, permettant ainsi une meilleure interconnexion entre les différentes parties du projet.
 
-Pour la fin nous avons mis en place les deux nouvelles fenêtres pour la pochette et la playlist.
+Pour la version finale, nous avons mis en place les deux nouvelles fenêtres pour la pochette et la playlist.
 
-\section{description des boutons}
+\section{Description des boutons}
 
 L'interface inclue toutes les fonctions que l'on peut attendre d'un lecteur
-audio fonctionnel : 
-Nous pouvons sélectionner le fichier à charger,lire ce dernier à l'aide du bouton play, un bouton stop pour arrêter la lecture, une barre de volume pour régler l'intensité du son.
+audio fonctionnel : nous pouvons sélectionner le fichier à charger, lire ce dernier à l'aide du bouton play, un bouton stop pour arrêter la lecture, une barre de volume pour régler l'intensité du son.
 
- Il y a aussi deux boutons pour changer de piste, bien qui sont fonctionnels pour cette nouvelle soutenance.
+Il y a aussi deux boutons pour changer de piste, bien qui sont fonctionnels pour cette nouvelle soutenance.
 
 Une des particularité du bouton de lecture est qu'il permet aussi de mettre
 en pause la lecture.
 
- Une fois pressé, il reste enfoncé et ainsi l'utilisateur sait que la piste est lue. S'il est de nouveau cliqué, il ressort et la lecture est mise en pause et peut être reprise au même point.
+Une fois pressé, il reste enfoncé et ainsi l'utilisateur sait que la piste est lue. S'il est de nouveau cliqué, il ressort et la lecture est mise en pause et peut être reprise au même point.
 
 La sélection du volume se fait par une barre coulissante, avec une indication
 numérique du volume actuel pour une plus grande précision. A la base,
@@ -247,7 +240,7 @@ le second bouton de l'interface permet d'afficher la pochette de l'album.
 
 En ce qui concerne les autres nouveautés, une barre de défilement a été ajoutée.
 
-\section{Architecture de l'interface}
+\section{Architecture}
 
 
 
@@ -256,15 +249,15 @@ En ce qui concerne les autres nouveautés, une barre de défilement a été ajou
 \end{center}
 
 
-Nous pouvons considérer l'interface GTK comme une sorte de Poupée Russe. Il s'agit d'une série de fenêtres et d'imbrications en tout genres.
+Nous pouvons considérer l'interface GTK comme une sorte de poupée russe. Il s'agit d'une série de fenêtres et d'imbrications en tout genres.
 Tout d'abord nous avons la fenêtre de base, la fenêtre de la playlist et enfin la fenêtre pour la couverture. Contrairement aux deux autres, la première est visible.
-Cette dernière contient une boite de boites,contenant elle même une une toolbar, une boite de boutons et une boite de Widgets.La toolbar contient une série d'items contenant chacun un bouton, ou une séparation.
-la bouton barre contient les quatres boutons de contrôle et encore une boite de widgets servant à afficher la barre de réglage de volume.
+Cette dernière contient une boite de boites,contenant elle-même une toolbar, une boite de boutons et une boite de widgets. La toolbar contient une série d'items contenant chacun un bouton, ou une séparation.
+La bouton barre contient les quatres boutons de contrôle et encore une boite de widgets servant à afficher la barre de réglage de volume.
 
-Le troisième élément de  la première boite contient la barre de progression.
-une fois cliqué sur le bouton pour afficher la couverture, s'affiche une seconde fenêtre contenant elle aussi un conteneur principal, contenant lui même une toolbar et une boite de fichiers. la toolbar contient une boite de boutons pour afficher le bouton quitter. l'autre boite contient l'image que l'on désire afficher.
+Le troisième élément de la première boite contient la barre de progression.
+une fois cliqué sur le bouton pour afficher la couverture, s'affiche une seconde fenêtre contenant elle aussi un conteneur principal, contenant lui même une toolbar et une boite de fichiers. La toolbar contient une boite de boutons pour afficher le bouton quitter. L'autre boite contient l'image que l'on désire afficher.
 
-Nous procedons de la même façon pour la playlist.
+Nous procédons de la même façon pour la playlist.
 
 
 \chapter{Moteur son}
@@ -325,7 +318,13 @@ Aujourd'hui le format MP3 a été adopté par la majorité des sites de vente de
 
 \section{Ce qui a été fait}
 
-\chapter{l'interface C/Ocaml}
+Ce projet a utilisé la librairie FMOD afin de mettre en place les différentes fonctionnalites du lecteur audio : ceci constitue la majeure partie de notre programme. Lors des premières soutenances, nous nous sommes attelés à faire jouer un son et à le mettre en pause. La barre de volume aura été implémentée dès la seconde soutenance.\\
+Le programme récupère le nom du fichier fourni par la partie Caml du code et ordonne à FMOD de charger ce son dans la mémoire.
+À la fin, nous avons voulu donner à l'utilisateur la possibilité de voir la pochette de l'album en cours de lecture. Il nous a donc été nécessaire de trouver une solution pour lire les metadonnées incluses dans le fichier lu.\\
+
+
+
+\chapter{L'interface C/Ocaml}
 
 \begin{center}
 \includegraphics[scale=0.5]{COcaml.jpg}
@@ -335,15 +334,22 @@ Ce projet est soumis a une condition principale, très nouvelle pour nous : fair
 
 Ceci a donc été la principale raison qui nous a pousse a faire l'interface de ce projet-ci en Caml. L'interface entièrement en OCaml doit donc appeler des fonctions, comme la lecture d'un fichier, en C.\\
 
-Tous les types OCaml sont exportés dans le monde C avec le type unique "value". On convertit ensuite les valeurs de ce type en données manipulables par le C, et on renvoie une valeur qui, elle aussi, doit être de type "value". Le code C et le code OCaml sont placés dans des fichiers séparés qui diffèrent par leur nom. En effet, a la compilation, deux fichiers .o seront générés ayant le même nom, un pour la version en Ocaml et l'autre en C. Ceci posera alors problème. On ne fait que appeler du C a partir du OCaml.\\
+Tous les types OCaml sont exportés dans le monde C avec le type unique "value". On convertit ensuite les valeurs de ce type en données manipulables par le C, et on renvoie une valeur qui, elle aussi, doit être de type "value". Le code C et le code OCaml sont placés dans des fichiers séparés qui diffèrent par leur nom. En effet, à la compilation, deux fichiers .o sont générés ayant le même nom, un pour la version en Ocaml et l'autre en C. Ceci posa alors problème. On ne fait que appeler du C à partir du OCaml.\\
 
 Comme il a été dit plus haut, c'est l'interface qui est codée en OCaml. C'est lorsque l'utilisateur veut lire une musique que le programme appelle une fonction en C. Le bouton "play" de l'interface, code en Ocaml, appelle une fonction en C dans un autre fichier qui va lire le fichier musical choisi.\\
 
-L'un des problèmes majeurs auquel nous avons été confronte fut la compilation. En effet, puisque nous utilisons une libraire externe, FMOD donc, nous n'avons pas pu faire le lien directement via les commandes de compilations habituelles, notamment l'utilisation des .o, car OCamlc ne peut utiliser en même temps les .o et les .so (produit par FMOD) pour produire les exécutables. Il a donc fallu mettre notre code C dans sa propre librairie qui sert de lien avec l'OCaml, la compilation intégrant notre librairie de liens.\\
+L'un des problèmes majeurs auquel nous avons été confrontés fut la compilation. En effet, puisque nous utilisons une libraire externe, FMOD donc, nous n'avons pas pu faire le lien directement via les commandes de compilations habituelles, notamment l'utilisation des .o, car OCamlc ne peut utiliser en même temps les .o et les .so (produit par FMOD) pour produire les exécutables. Il a donc fallu mettre notre code C dans sa propre librairie qui sert de lien avec l'OCaml, la compilation intégrant notre librairie de liens.\\
 
 Actuellement, les fonctions stop, pause, volume et de chargement de fichier utilisent enfin le dialogue C - OCaml. En effet, elles utilisent chacune des fonctions de FMOD qui ne sont disponibles qu'en C.
 
-\chapter{ La playlist}
+\begin{center}
+\includegraphics[scale=0.7]{c_caml.jpg}
+
+\it{interfaçage entre le C et Ocaml}
+\end{center}
+
+
+\chapter{La playlist}
 
 Une liste d'écoute, aussi appelée liste de lecture ou playlist, est un ensemble de morceaux musicaux ou de fichiers audio/vidéo compilés dans un agrégateur. Ils peuvent être joués séquentiellement, dans un ordre aléatoire ou selon une logique choisie par celui qui l'a composée.
 
@@ -352,7 +358,8 @@ Les termes de liste de lecture et de playlist sont utilisés de façon de plus e
 
 
 \begin{center}
-\includegraphics[scale=1]{playlist.png}
+\includegraphics[scale=0.5]{playlist.png}
+
 \it{interface de liste de lecture}
 \end{center}
 
