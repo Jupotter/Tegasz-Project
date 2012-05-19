@@ -76,8 +76,8 @@ let window =
 
 let show_cover =
   let wnd  = GWindow.window
-    ~height:300
-    ~width:300
+    ~height:400
+    ~width:400
     ~resizable:true
     ~position: `NONE
     ~show:false
@@ -191,14 +191,13 @@ let playlist_next () =
   |None -> ()
   |Some(row) ->
       begin
-        stopfunc ();
         if playlist#iter_next row then
           begin
+            stopfunc ();
             play#set_active true;
-            d#setPListCurrent (Some(row));
           end
         else
-          d#setPListCurrent (playlist#get_iter_first)
+          stopfunc ();
       end
   end
 
@@ -332,7 +331,7 @@ let close_cover =
 
 let btn_cover =
   let btn = GButton.button
-    ~label:"cover"
+    ~label:"Cover"
     ~packing: item3#add () in
     btn#connect#clicked ~callback: (fun () -> show_cover#show ();
 				      show_cover#move 640 500)
@@ -346,6 +345,7 @@ let select_playlist =
     ~width:500
     ~resizable:true
     ~position:`CENTER
+    ~deletable: false
     ~show:false
     ~title:"Playlist" () in
   wnd
@@ -378,9 +378,6 @@ let create_view ~model ~packing () =
   (* Column #1: nom *)
   ignore (view#append_column col);
     (* Column #2: emplacemement *)
-  let col = GTree.view_column ~title:"Emplacement"
-      ~renderer:(GTree.cell_renderer_text [], ["text", col_age]) () in
-  ignore (view#append_column col);
   ignore (view#selection#set_mode `SINGLE);
   view
 
@@ -464,25 +461,17 @@ let clear_bar () =
 
 let help_button =
   let dlg = GWindow.message_dialog
+    ~message:"<b><big> Please, follow the instructions </big>\n\n\
+  In order to listen just one file, clic on the first button on the left. Then, select the file you want, and it will automatically played.\n
+If you want to make a playlist, clic on the button Playlist. Then, in the window, clic on the first button to add the file you want. You can add every audio file you wish. You can also delete the file you want selecting it and then you clic on DEL. Then, clic on the button Quit, the playlist is now saved, you can listen it by clicking on Play.\n
+If the cover is not found, the picture \"cover not found\" is displayed. Else, PROJET finds the cover inside of the floder and display it.\n
+ </b>"
     ~parent:window
     ~destroy_with_parent:true
     ~use_markup:true
     ~message_type:`QUESTION
     ~position:`CENTER_ON_PARENT
     ~buttons:GWindow.Buttons.ok() in
-  let scroll = GBin.scrolled_window
-    ~hpolicy: `ALWAYS
-    ~vpolicy: `ALWAYS
-    ~packing: dlg#vbox#add() in
-  let text = GText.view
-    ~packing:scroll#add()
-    ~editable: false
-    in
-  let buffer = text#buffer in
-  buffer#set_text "<b><big> Please, follow the instructions </big>\n\n\
-  In order to listen just one file, clic on the first button on the left. Then, select the file you want, and it will automatically played.\n
-If you want to make a playlist, clic on the button Playlist. Then, in the window, clic on the first button to add the file you want. You can add every audio file you wish. You can also delete a file.\n\n\n\n\n
- </b>";
   let btn = GButton.button
     ~label: "HELP"
     ~packing:item4#add ()
@@ -494,10 +483,10 @@ If you want to make a playlist, clic on the button Playlist. Then, in the window
 let about_button =
   let dlg = GWindow.about_dialog
     ~authors:["Julien Garagnon, Julien Szkudlarek,
- Maxime Temple, "]
+ Maxime Temple"]
     ~copyright:"Copyright (c) 2012 "
     ~license:"Public License."
-    ~version:"0.64"
+    ~version:"1.00"
     ~website:"http///www.tegasz.com"
     ~website_label:"Visit our website"
     ~position:`CENTER_ON_PARENT
@@ -554,7 +543,10 @@ let loop () =
 let _ =
   hide#connect#clicked ~callback:cbox#misc#hide;
   window#event#connect#delete confirm;
+
 (*~callback: show_cover#misc#hide; *)
+  
+     
   window#show ();
   GMain.Idle.add loop;
   GMain.main ()
