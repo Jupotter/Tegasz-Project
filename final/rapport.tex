@@ -5,7 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{alltt}
 \usepackage{fancyhdr}
-\setlength{\headheight}{15.2pt}
+%\setlength{\headheight}{15.2pt}
 \pagestyle{fancy}
   
 \title{Rapport de soutenance finale} 
@@ -60,7 +60,8 @@ Maxime \textsc{Templé}\\
 \end{titlepage}
 \tableofcontents
 
-\chapter{Introduction}
+
+\chapter*{Introduction}
 
 Ceci est le rapport du projet réalisé par l'équipe \textbf{TeGaSz}. 
 Ce dernier se nomme \emph{P.R.O.J.E.T} (Programme Radiophonique Orienté Jouant Énormément sur les Tonalités) et est en définitive un lecteur audio programmé pour fonctionner sous Fedora. \\
@@ -95,12 +96,12 @@ Nous nous intéressons principalement aux lecteurs audio libres, puisque c'est �
 
 \subsubsection{The KMPlayer}
 
-Simple et épuré KMPlayer n'en est pas moins puissant. Ce lecteur Coréen a le vent en poupe et il se dit dans les forums qu'il commence à faire de l'ombre à VLC. Lecteur multimédia, KMPlayer est capable de lire pratiquement tous les formats audio et vidéo nativement. Il est doté d'une très belle interface vraiment simple à  utiliser. A découvrir... Il est gratuit et un patch français est disponible.
+Simple et épuré KMPlayer n'en est pas moins puissant. Ce lecteur Coréen a le vent en poupe et il se dit dans les forums qu'il commence à faire de l'ombre à VLC. Lecteur multimédia, KMPlayer est capable de lire pratiquement tous les formats audio et vidéo nativement. Il est doté d'une très belle interface vraiment simple à  utiliser. A découvrir\ldots Il est gratuit et un patch français est disponible.
 
 \subsubsection{Amarok}
 
 Amarok est un lecteur audio. Il était au départ conçu uniquement pour Linux, mais la migration vers les plateformes Windows et Mac OS X est en cours. C'est\`a ce jour l'un des meilleurs lecteurs audio. 
-Amarok peut lire quasiment n'importe quel type de fichiers audio (MP3, OGG, WMA, FLAC...), permet la création de playlists ce qui le transforme en Jukebox, gère l'édition des tags, grave les CD audio (à condition d'avoir K3B), récupère les pochettes de disques ou les paroles d'un morceau, permet d'uploader votre musique vers de nombreux baladeurs (iPod, Creative NOMAD ou ZEN, Rio Karma...), affiche les informations de Wikipedia sur le groupe que vous écoutez... Bref, Amarok est un outil très puissant.
+Amarok peut lire quasiment n'importe quel type de fichiers audio (MP3, OGG, WMA, FLAC\ldots), permet la création de playlists ce qui le transforme en Jukebox, gère l'édition des tags, grave les CD audio (à condition d'avoir K3B), récupère les pochettes de disques ou les paroles d'un morceau, permet d'uploader votre musique vers de nombreux baladeurs (iPod, Creative NOMAD ou ZEN, Rio Karma\ldots), affiche les informations de Wikipedia sur le groupe que vous écoutez... Bref, Amarok est un outil très puissant.
 Il faut disposer d'un moteur de décodage tel que GStreamer ou Xine pour faire fonctionner Amarok : Amarok est en quelque sorte une interface utilisateur. 
 
 \subsubsection{Splayer}
@@ -420,10 +421,10 @@ Nous récupérons les données incluses dans les métas données du fichier audi
 Si ce dernier contient le nom d'un album, nous envoyons ce dernier au code en Caml. 
 Nous recherchons ensuite le nom de l'album en dans le dossier. l'image trouvée, celle ci s'affiche dans la page.
 
-\chapter{site web}
+\chapter{Site Web}
 
 
-\chapter{Conclusion}
+\chapter*{Conclusion}
 
 
 \begin{center}
