@@ -76,8 +76,8 @@ let window =
 
 let show_cover =
   let wnd  = GWindow.window
-    ~height:150
-    ~width:150
+    ~height:300
+    ~width:300
     ~resizable:true
     ~position: `NONE
     ~show:false
@@ -149,13 +149,13 @@ let playfunc btn () =
               d#setChannel (play (s) (x));
               d#setPlaying true;
               let alb = album(s) in
-		(*  image(alb); *)
-	      print_string alb;
+		(*  image(alb);
+	      print_string alb;*)
 	      flush stdout;
 	      let img_alb =
 		String.concat "" (alb::".jpg"::[]) in
 	      image#set_file (img_alb);
-	      print_string(img_alb);
+	      (*print_string(img_alb);*)
 	      flush stdout;
               window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
             end
@@ -191,13 +191,14 @@ let playlist_next () =
   |None -> ()
   |Some(row) ->
       begin
+        stopfunc ();
         if playlist#iter_next row then
           begin
-            stopfunc ();
             play#set_active true;
+            d#setPListCurrent (Some(row));
           end
         else
-          stopfunc ();
+          d#setPListCurrent (playlist#get_iter_first)
       end
   end
 
@@ -463,21 +464,30 @@ let clear_bar () =
 
 let help_button =
   let dlg = GWindow.message_dialog
-
-~message:"<b><big> AIDE  </big>\n\n\
-  wesh si si bien la famille les poneys  </b>"
     ~parent:window
     ~destroy_with_parent:true
     ~use_markup:true
     ~message_type:`QUESTION
     ~position:`CENTER_ON_PARENT
-    ~buttons:GWindow.Buttons.ok()
- in
+    ~buttons:GWindow.Buttons.ok() in
+  let scroll = GBin.scrolled_window
+    ~hpolicy: `ALWAYS
+    ~vpolicy: `ALWAYS
+    ~packing: dlg#vbox#add() in
+  let text = GText.view
+    ~packing:scroll#add()
+    ~editable: false
+    in
+  let buffer = text#buffer in
+  buffer#set_text "<b><big> Please, follow the instructions </big>\n\n\
+  In order to listen just one file, clic on the first button on the left. Then, select the file you want, and it will automatically played.\n
+If you want to make a playlist, clic on the button Playlist. Then, in the window, clic on the first button to add the file you want. You can add every audio file you wish. You can also delete a file.\n\n\n\n\n
+ </b>";
   let btn = GButton.button
-~label: "Aide"
-~packing:item4#add ()
+    ~label: "HELP"
+    ~packing:item4#add ()
   in
-   GMisc.image ~stock:`HELP ~packing:btn#set_image ();
+  GMisc.image ~stock:`HELP ~packing:btn#set_image ();
   btn#connect#clicked (fun () -> ignore (dlg#run ()); dlg#misc#hide ());
   btn
 
@@ -494,7 +504,7 @@ let about_button =
     ~parent:window
     ~destroy_with_parent:true () in
   let btn = GButton.button
-~label: "A propos"
+~label: "About"
 ~packing:item5#add () in
    GMisc.image
      ~stock:`ABOUT
@@ -544,10 +554,7 @@ let loop () =
 let _ =
   hide#connect#clicked ~callback:cbox#misc#hide;
   window#event#connect#delete confirm;
-
 (*~callback: show_cover#misc#hide; *)
-  
-     
   window#show ();
   GMain.Idle.add loop;
   GMain.main ()
