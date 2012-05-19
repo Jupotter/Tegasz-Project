@@ -77,7 +77,7 @@ La plupart des lecteurs audio prennent également en charge la lecture simple de
 \begin{center}
 \includegraphics{vlc-interface1.jpg}
 
-\it{un lecteur audio reconnu : VLC}
+\it{Un lecteur audio reconnu : VLC}
 \end{center}
 
 \section{Les origines du projet}
@@ -241,8 +241,6 @@ En ce qui concerne les autres nouveautés, une barre de défilement a été ajou
 
 \section{Architecture}
 
-
-
 \begin{center}
 \includegraphics[scale =0.8]{archi.jpg}
 \end{center}
@@ -258,10 +256,8 @@ une fois cliqué sur le bouton pour afficher la couverture, s'affiche une second
 
 Nous procédons de la même façon pour la playlist.
 
-
 \chapter{Moteur son}
 \section{Le Son}
-
 
 Le son est une onde produite par la vibration mécanique d'un support fluide ou solide et propagée grâce à l'élasticité du milieu environnant sous forme d'ondes longitudinales. Par extension physiologique, le son désigne la sensation auditive à laquelle cette vibration est susceptible de donner naissance.\\
 \begin{center}
@@ -317,23 +313,24 @@ Aujourd'hui le format MP3 a été adopté par la majorité des sites de vente de
 
 \section{Ce qui a été fait}
 
-<<<<<<< HEAD
-Nous utilisons une librairie externe, FMOD, qui se charge de la décompressions des fichier audio et d'autre fonctions au niveau du système. Nous avons donc un "objet" principal, appelé un SoundSystem, qui gère tous les paramètres sonore. FMOD nous donne aussi des structures Sound, qui, comme on pourrais s'en douter, contiennent les informations sonores elle mêmes. On peut donc facilement associer le système et le sound afin de pouvoir jouer le son sur notre ordinateur.\\
+Ce projet a utilisé la librairie FMOD afin de mettre en place les différentes fonctionnalites du lecteur audio : ceci constitue la majeure partie de notre programme. Lors des premières soutenances, nous nous sommes attelés à faire jouer un son et à le mettre en pause. La barre de volume aura été implémentée dès la seconde soutenance.\\
+
+Le programme récupère le nom du fichier fourni par la partie Caml du code et ordonne à FMOD de charger ce son dans la mémoire.\\
+
+À la fin, nous avons voulu donner à l'utilisateur la possibilité de voir la pochette de l'album en cours de lecture. Il nous a donc été nécessaire de trouver une solution pour lire les metadonnées incluses dans le fichier lu.\\
+
+\section{Fonctionnement}
+
+Nous utilisons une librairie externe, FMOD, qui se charge de la décompressions des fichier audio et d'autre fonctions au niveau du système. Nous avons donc un "objet" principal, appelé un SoundSystem, qui gère tous les paramètres sonore.\\
+FMOD nous donne aussi des structures Sound, qui, comme on pourrais s'en douter, contiennent les informations sonores elle mêmes. On peut donc facilement associer le système et le sound afin de pouvoir jouer le son sur notre ordinateur.\\
+
+Une fois que un son est joué, on lui associe un Channel, qui contient les informations de la lecture en cours --- durée, volume, statut (pause, marche...) --- qui nous sert des que on veut modifier la lecture en cours.
 
 \begin{center}
 \includegraphics[scale=0.5]{fmod.png}
 \end{center}
 
 \chapter{L'Interface C/Ocaml}
-=======
-Ce projet a utilisé la librairie FMOD afin de mettre en place les différentes fonctionnalites du lecteur audio : ceci constitue la majeure partie de notre programme. Lors des premières soutenances, nous nous sommes attelés à faire jouer un son et à le mettre en pause. La barre de volume aura été implémentée dès la seconde soutenance.\\
-Le programme récupère le nom du fichier fourni par la partie Caml du code et ordonne à FMOD de charger ce son dans la mémoire.
-À la fin, nous avons voulu donner à l'utilisateur la possibilité de voir la pochette de l'album en cours de lecture. Il nous a donc été nécessaire de trouver une solution pour lire les metadonnées incluses dans le fichier lu.\\
-
-
-
-\chapter{L'interface C/Ocaml}
->>>>>>> 28b7514ddcbfd1f6cf8f6bd9dec9582cd86fcd74
 
 \begin{center}
 \includegraphics[scale=0.5]{COcaml.jpg}
@@ -349,18 +346,14 @@ Comme il a été dit plus haut, c'est l'interface qui est codée en OCaml. C'est
 
 L'un des problèmes majeurs auquel nous avons été confrontés fut la compilation. En effet, puisque nous utilisons une libraire externe, FMOD donc, nous n'avons pas pu faire le lien directement via les commandes de compilations habituelles, notamment l'utilisation des .o, car OCamlc ne peut utiliser en même temps les .o et les .so (produit par FMOD) pour produire les exécutables. Il a donc fallu mettre notre code C dans sa propre librairie qui sert de lien avec l'OCaml, la compilation intégrant notre librairie de liens.\\
 
-Actuellement, les fonctions stop, pause, volume et de chargement de fichier utilisent enfin le dialogue C - OCaml. En effet, elles utilisent chacune des fonctions de FMOD qui ne sont disponibles qu'en C.
+Actuellement, les fonctions stop, pause, volume et de chargement de fichier utilisent enfin le dialogue C - OCaml. En effet, elles utilisent chacune des fonctions de FMOD qui ne sont disponibles qu'en C.\\
 
-<<<<<<< HEAD
-=======
 \begin{center}
 \includegraphics[scale=0.7]{c_caml.jpg}
 
-\it{interfaçage entre le C et Ocaml}
+\it{Interfaçage entre le C et Ocaml}
 \end{center}
 
-
->>>>>>> 28b7514ddcbfd1f6cf8f6bd9dec9582cd86fcd74
 \chapter{La playlist}
 
 Une liste d'écoute, aussi appelée liste de lecture ou playlist, est un ensemble de morceaux musicaux ou de fichiers audio/vidéo compilés dans un agrégateur. Ils peuvent être joués séquentiellement, dans un ordre aléatoire ou selon une logique choisie par celui qui l'a composée.\\
@@ -372,11 +365,8 @@ Les termes de liste de lecture et de playlist sont utilisés de façon de plus e
 \begin{center}
 \includegraphics[scale=0.5]{playlist.png}
 
-<<<<<<< HEAD
 \it{Interface de liste de lecture}
-=======
-\it{interface de liste de lecture}
->>>>>>> 28b7514ddcbfd1f6cf8f6bd9dec9582cd86fcd74
+
 \end{center}
 
 \section{Utilisation}
@@ -385,7 +375,7 @@ La playlist permet à l'utilisateur de se créer une compilation de morceaux qui
 
 L'utilisateur peut en plus double-cliquer sur un élement afin de le lire directement. La playlist est affiché dans un format simple, dans l'ordre chronologique de lecture; l'utilisateur peut donc voir en un coup d'oeil l'ordre de ses morceaux.
 
-\section{Fonctionnement de la playlist}
+\section{Fonctionnement}
 
 La playlist est basée sur un élement fournis par GTK: les GTree. Le widget Tree sert a est utilisé pour gèrer et afficher des données hiérarchiques. La structure est utilisée a la fois pour des arbres et pour des listes. En effet, une liste est juste un cas particulier d'arbre, ou tout les élements n'ont que un seul fils. Il existe une classe particulère offrant une interface spécialisée pour utiliser la structure en tant que liste.\\
 
