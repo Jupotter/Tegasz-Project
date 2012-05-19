@@ -6,7 +6,7 @@ CAML = $(shell ocamlc -where)
 OBJ = FMOD_Err_Check.o FMOD_Wrap.o Caml_To_C.o
 ML = interface.ml
 
-PRG = tegasz
+PRG = projet
 CMLTOC = libCamlToC.so
 INCDIR = -I../fmod/inc -I$(CAML)
 LIBDIR = ../fmod/lib

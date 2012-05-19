@@ -342,6 +342,7 @@ let select_playlist =
     ~width:500
     ~resizable:true
     ~position:`CENTER
+    ~deletable: false
     ~show:false
     ~title:"Playlist" () in
   wnd
