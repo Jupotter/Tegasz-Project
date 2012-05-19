@@ -150,13 +150,9 @@ let playfunc btn () =
               d#setPlaying true;
               let alb = album(s) in
 		(*  image(alb); *)
-	      print_string alb;
-	      flush stdout;
 	      let img_alb =
 		String.concat "" (alb::".jpg"::[]) in
 	      image#set_file (img_alb);
-	      print_string(img_alb);
-	      flush stdout;
               window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
             end
         end
@@ -191,13 +187,14 @@ let playlist_next () =
   |None -> ()
   |Some(row) ->
       begin
+        stopfunc ();
         if playlist#iter_next row then
           begin
-            stopfunc ();
             play#set_active true;
+            d#setPListCurrent (Some(row));
           end
         else
-          stopfunc ();
+          d#setPListCurrent (playlist#get_iter_first)
       end
   end
 
@@ -544,10 +541,7 @@ let loop () =
 let _ =
   hide#connect#clicked ~callback:cbox#misc#hide;
   window#event#connect#delete confirm;
-
 (*~callback: show_cover#misc#hide; *)
-  
-     
   window#show ();
   GMain.Idle.add loop;
   GMain.main ()
