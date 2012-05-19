@@ -345,6 +345,7 @@ let select_playlist =
     ~width:500
     ~resizable:true
     ~position:`CENTER
+    ~deletable: false
     ~show:false
     ~title:"Playlist" () in
   wnd
@@ -377,9 +378,6 @@ let create_view ~model ~packing () =
   (* Column #1: nom *)
   ignore (view#append_column col);
     (* Column #2: emplacemement *)
-  let col = GTree.view_column ~title:"Emplacement"
-      ~renderer:(GTree.cell_renderer_text [], ["text", col_age]) () in
-  ignore (view#append_column col);
   ignore (view#selection#set_mode `SINGLE);
   view
 
