@@ -196,9 +196,11 @@ let playlist_next () =
           begin
             stopfunc ();
             play#set_active true;
+            d#setPListCurrent (Some(row));
           end
         else
           stopfunc ();
+          d#setPListCurrent (playlist#get_iter_first);
       end
   end
 
@@ -347,7 +349,7 @@ let select_playlist =
     ~width:500
     ~resizable:true
     ~position:`CENTER
-    ~deletable: false
+    ~deletable:false
     ~show:false
     ~title:"Playlist" () in
   wnd
