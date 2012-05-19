@@ -30,6 +30,7 @@ $(CMLTOC) : $(OBJ)
 
 install : $(PRG)
 	cp ./projet /usr/bin/
+	cp ./libCamlToC.so /usr/lib
 
 clean :
 	rm *.o

@@ -324,7 +324,13 @@ Aujourd'hui le format MP3 a été adopté par la majorité des sites de vente de
 
 \section{Ce qui a été fait}
 
-\chapter{l'interface C/Ocaml}
+Nous utilisons une librairie externe, FMOD, qui se charge de la décompressions des fichier audio et d'autre fonctions au niveau du système. Nous avons donc un "objet" principal, appelé un SoundSystem, qui gère tous les paramètres sonore. FMOD nous donne aussi des structures Sound, qui, comme on pourrais s'en douter, contiennent les informations sonores elle mêmes. On peut donc facilement associer le système et le sound afin de pouvoir jouer le son sur notre ordinateur.\\
+
+\begin{center}
+\includegraphics[scale=0.5]{fmod.png}
+\end{center}
+
+\chapter{L'Interface C/Ocaml}
 
 \begin{center}
 \includegraphics[scale=0.5]{COcaml.jpg}
@@ -342,26 +348,53 @@ L'un des problèmes majeurs auquel nous avons été confronte fut la compilation
 
 Actuellement, les fonctions stop, pause, volume et de chargement de fichier utilisent enfin le dialogue C - OCaml. En effet, elles utilisent chacune des fonctions de FMOD qui ne sont disponibles qu'en C.
 
-\chapter{ La playlist}
+\chapter{La playlist}
 
-Une liste d'écoute, aussi appelée liste de lecture ou playlist, est un ensemble de morceaux musicaux ou de fichiers audio/vidéo compilés dans un agrégateur. Ils peuvent être joués séquentiellement, dans un ordre aléatoire ou selon une logique choisie par celui qui l'a composée.
+Une liste d'écoute, aussi appelée liste de lecture ou playlist, est un ensemble de morceaux musicaux ou de fichiers audio/vidéo compilés dans un agrégateur. Ils peuvent être joués séquentiellement, dans un ordre aléatoire ou selon une logique choisie par celui qui l'a composée.\\
 
 Le terme est notamment utilisé dans le monde de la radio, pour désigner la liste de morceaux en rotation sur les ondes et par les DJ pour désigner leur sélection de morceaux (faisant souvent partie d'un mix) lors d'une prestation ou d'une diffusion.
 Les termes de liste de lecture et de playlist sont utilisés de façon de plus en plus fréquente pour désigner une liste de morceaux compilés sur un ordinateur personnel et destinés à être joués ou transférés sur un baladeur numérique.
 
 
 \begin{center}
-\includegraphics[scale=1]{playlist.png}
-\it{interface de liste de lecture}
+\includegraphics[scale=0.5]{playlist.png}
+
+\it{Interface de liste de lecture}
 \end{center}
 
-\section{utilisation}
-la playlist permet à l'utilisateur de se créer une compilation de morceaux qui s'enchaineront les uns après les autres. La fenêtre est composée de trois parties principales, la liste, permettant d'afficher les morceaux ajoutés pas l'utilisateur, un bouton "add" permettant d'ajouter une élément à la liste sans influencer la lecture en cours et un bouton "delete" pour enlever des éléments et ainsi gérer facilement la liste de lecture.
+\section{Utilisation}
 
-\section{création de la playlist}
+La playlist permet à l'utilisateur de se créer une compilation de morceaux qui s'enchaineront les uns après les autres. La fenêtre est composée de trois parties principales, la liste, permettant d'afficher les morceaux ajoutés pas l'utilisateur, un bouton "add" permettant d'ajouter une élément à la liste sans influencer la lecture en cours et un bouton "delete" pour enlever des éléments et ainsi gérer facilement la liste de lecture.\\
 
+L'utilisateur peut en plus double-cliquer sur un élement afin de le lire directement. La playlist est affiché dans un format simple, dans l'ordre chronologique de lecture; l'utilisateur peut donc voir en un coup d'oeil l'ordre de ses morceaux.
 
-\chapter{la pochette}
+\section{Fonctionnement de la playlist}
+
+La playlist est basée sur un élement fournis par GTK: les GTree. Le widget Tree sert a est utilisé pour gèrer et afficher des données hiérarchiques. La structure est utilisée a la fois pour des arbres et pour des listes. En effet, une liste est juste un cas particulier d'arbre, ou tout les élements n'ont que un seul fils. Il existe une classe particulère offrant une interface spécialisée pour utiliser la structure en tant que liste.\\
+
+Le GTree est basé sur l'architecture Modèle-Vue-Controlleur. Le modèle-vue-contrôleur (en abrégé MVC, de l'anglais Model-View-Controller) est un patron d'architecture et une méthode de conception qui organise l'interface homme-machine (IHM) d'une application logicielle. Ce paradigme divise l'IHM en un modèle (modèle de données), une vue (présentation, interface utilisateur) et un contrôleur (logique de contrôle, gestion des événements, synchronisation), chacun ayant un rôle précis dans l'interface. Cette méthode a été mise au point en 1979 par Trygve Reenskaug, qui travaillait alors sur Smalltalk dans les laboratoires de recherche Xerox PARC1.\\
+
+L'organisation globale d'une interface graphique est souvent délicate. L'architecture MVC ne résout pas tous les problèmes. Elle fournit souvent une première approche qui peut ensuite être adaptée. Elle offre aussi un cadre pour structurer une application.\\
+
+Ce patron d'architecture impose la séparation entre les données, la présentation et les traitements, ce qui donne trois parties fondamentales dans l'application finale : le modèle, la vue et le contrôleur. \\
+
+\subsubsection{Le Modèle}
+
+Le modèle représente le comportement de l'application : traitements des données, interactions avec la base de données, etc. Il décrit ou contient les données manipulées par l'application. Il assure la gestion de ces données et garantit leur intégrité. Dans le cas typique d'une base de données, c'est le modèle qui la contient. Le modèle offre des méthodes pour mettre à jour ces données (insertion, suppression, changement de valeur). Il offre aussi des méthodes pour récupérer ces données. Les résultats renvoyés par le modèle sont dénués de toute présentation.\\
+
+Dans le cas de données importantes, le modèle peut autoriser plusieurs vues partielles des données. Si par exemple le programme manipule une base de données pour les emplois du temps, le modèle peut avoir des méthodes pour avoir tous les cours d'une salle, tous les cours d'une personne ou tous les cours d'un groupe de TD.\\
+
+Dans notre cas, le modèle fonctionne d'une manière proche des listes disponibles par la STL en C++: un iterateur, une sorte de pointeur intelligent et lié a la liste, nous sert a parcourir la liste. Il est sauvergardé afin de toujours pouvoir accceder au morceau en cours. Avancer au morceau suivant consiste donc a avancer notre iterateur, en prenant bien garde a ne pas sortir de notre playlist. Si c'est le cas, on retourne au premier élement et on arrête la lecture. De même, revenir au morceau précédent reste simple.\\
+
+\subsubsection{La Vue}
+
+La vue correspond à l'interface avec laquelle l'utilisateur interagit. Sa première tâche est de présenter les résultats renvoyés par le modèle. Sa seconde tâche est de recevoir toutes les actions de l'utilisateur (clic de souris, sélection d'une entrée, boutons, etc). Ces différents événements sont envoyés au contrôleur. La vue n'effectue aucun traitement, elle se contente d'afficher les résultats des traitements effectués par le modèle et d'interagir avec l'utilisateur.\\
+
+Plusieurs vues, partielles ou non, peuvent afficher des informations d'un même modèle. Par exemple, une application de conversion de bases a un entier comme unique donnée. Ce même entier peut être affiché de multiples façons (en texte dans différentes bases, bit par bit avec des boutons à cocher, avec des curseurs). La vue peut aussi offrir la possibilité à l'utilisateur de changer de vue.\\
+
+Dans notre cas, la vue est un widget GTK qui est affiché dans sa propre fenêtre. Il nous permet, bien évidemment, d'afficher le contenu de la liste. Mais grace a lui, on peut aussi laisser l'utilisateur sélectionner un élement --- cette possibilité est utilisée pour la selection --- et de double cliquer sur un objet pour changer facilement de musique en cours.\\
+
+\chapter{La Pochette}
 
 Une pochette est l'emballage d'un album de musique. Selon le support de l'enregistrement, le terme peut se référer à une impression sur papier cartonné pour les disques vinyles (carré de 12,375 pouces pour les 33 tours), ou plus récemment à l'emballage en papier cartonné ou en matière plastique des CD.
 
