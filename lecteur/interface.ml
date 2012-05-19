@@ -32,6 +32,11 @@ class data =
 
     method setChannel x = channel <- x
     method getChannel () = channel
+
+    val mutable volume = 100.
+
+    method setVolume x = volume <- x
+    method getVolume () = volume
 end
 
 let d = new data
@@ -148,15 +153,11 @@ let playfunc btn () =
             begin
               d#setChannel (play (s) (x));
               d#setPlaying true;
+              volume (d#getVolume ()) (d#getChannel ());
               let alb = album(s) in
-		(*  image(alb);
-	      print_string alb;*)
-	      flush stdout;
-	      let img_alb =
-		String.concat "" (alb::".jpg"::[]) in
-	      image#set_file (img_alb);
-	      (*print_string(img_alb);*)
-	      flush stdout;
+              let img_alb =
+              String.concat "" (alb::".jpg"::[]) in
+              image#set_file (img_alb);
               window#set_title (String.concat  " " ("PROJET --"::(d#getName ())::[]))
             end
         end
@@ -195,9 +196,13 @@ let playlist_next () =
           begin
             stopfunc ();
             play#set_active true;
+            d#setPListCurrent (Some(row));
           end
         else
+          begin
           stopfunc ();
+          d#setPListCurrent (playlist#get_iter_first);
+          end
       end
   end
 
@@ -223,6 +228,14 @@ let playlist_del selection =
     playlist#remove row; ()
   in List.iter del selection#get_selected_rows
 
+let playlist_activate view path column = 
+  let model = view#model in
+  let row = model#get_iter path in
+  stopfunc ();
+  d#setPListCurrent (Some(row));
+  play#set_active true;
+  ()
+
 let stop =
   let btn = GButton.button
     ~packing: bbox#add()
@@ -243,7 +256,7 @@ let previous =
   btn#connect#clicked ~callback: playlist_prev
 (* fonction1#connect#clicked ~callback: fonction args*)
 
-let volume = 
+let btn_volume = 
   let btn = GRange.scale `HORIZONTAL
   ~packing: bbox#add()
   ~digits: 0
@@ -257,8 +270,9 @@ let volume =
     ~page_size: 0.
     ~value: 100.
   in btn#set_adjustment (adj ());
-  btn#connect#value_changed (fun () -> volume (btn#adjustment#value)
-  (d#getChannel ()))
+  btn#connect#value_changed (fun () -> 
+    volume (btn#adjustment#value) (d#getChannel ());
+    d#setVolume (btn#adjustment#value))
   
 
 (*========== corps de l'interface ==========*)
@@ -345,7 +359,7 @@ let select_playlist =
     ~width:500
     ~resizable:true
     ~position:`CENTER
-    ~deletable: false
+    ~deletable:false
     ~show:false
     ~title:"Playlist" () in
   wnd
@@ -379,6 +393,7 @@ let create_view ~model ~packing () =
   ignore (view#append_column col);
     (* Column #2: emplacemement *)
   ignore (view#selection#set_mode `SINGLE);
+  view#connect#row_activated ~callback:(playlist_activate view);
   view
 
 
@@ -542,11 +557,6 @@ let loop () =
 
 let _ =
   hide#connect#clicked ~callback:cbox#misc#hide;
-  window#event#connect#delete confirm;
-
-(*~callback: show_cover#misc#hide; *)
-  
-     
   window#show ();
   GMain.Idle.add loop;
   GMain.main ()

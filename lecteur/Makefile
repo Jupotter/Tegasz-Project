@@ -28,6 +28,9 @@ $(CMLTOC) : $(OBJ)
 %.o : %.c
 	$(GCC) -fPIC $(CFLAG) $(INCDIR) -c $<
 
+install : $(PRG)
+	cp ./projet /usr/bin/
+
 clean :
 	rm *.o
 	rm *.so
