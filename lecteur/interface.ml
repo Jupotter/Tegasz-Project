@@ -191,13 +191,14 @@ let playlist_next () =
   |None -> ()
   |Some(row) ->
       begin
+        stopfunc ();
         if playlist#iter_next row then
           begin
-            stopfunc ();
             play#set_active true;
+            d#setPListCurrent (Some(row));
           end
         else
-          stopfunc ();
+          d#setPListCurrent (playlist#get_iter_first)
       end
   end
 
@@ -553,10 +554,7 @@ let loop () =
 let _ =
   hide#connect#clicked ~callback:cbox#misc#hide;
   window#event#connect#delete confirm;
-
 (*~callback: show_cover#misc#hide; *)
-  
-     
   window#show ();
   GMain.Idle.add loop;
   GMain.main ()
