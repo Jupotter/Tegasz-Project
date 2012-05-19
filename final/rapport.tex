@@ -204,6 +204,8 @@ Nous avions donc un lecteur audio plus complexe permettant de charger une chanso
 
 \chapter{l'interface}
 
+En informatique, une interface graphique (anglais GUI pour graphical user interface) est un dispositif de dialogue homme-machine, dans lequel les objets à manipuler sont dessinés sous forme de pictogrammes à l'écran, que l'usager peut opérer en imitant la manipulation physique de ces objets avec un dispositif de pointage, le plus souvent une souris.\\
+
 Pour cette dernière version, le principe de base aura été de repartir à
 partir des bases posées dans la deuxième soutenance. Nous avons utilisé nos connaissances acquises dans nos recherches pour réaliser une interface qui correspondait beaucoup plus aux attentes du cahier des charges, Bien que les methodes employées pour la plupart des parties restent fondamentalement les memes, nous avons surtout ajouté des actions plus spécifiques, permettant ainsi une meilleure interconnexion entre les différentes parties du projet.
 
@@ -309,9 +311,54 @@ Dès le début des années 2000, des réseaux d'échange sur Internet via des lo
 Aujourd'hui le format MP3 a été adopté par la majorité des sites de vente de musique en ligne tel que la Fnac ou Amazon. Seul l'iTunes Store vend de la musique au format MPEG-2/4 Audio/AAC. Le MP3 a aussi trouvé sa place pour les flux audio des radios en ligne et autres sites d'écoute de musique ainsi que dans les flux vidéos diffusés au format Flash (FLV encodé en VP6). La majorité des jeux PC l'utilisent. Le MP3 s'est largement imposé face à ses concurrents directs que sont les formats de compression mp3PRO, WMA, OGG Vorbis et MPEG-2/4 Audio/AAC.\\
 
 \section{Ce qui a été fait}
-\chapter{l'interface c/Ocaml}
+
+\chapter{l'interface C/Ocaml}
+
+\begin{center}
+\includegraphics[scale=0.5]{COcaml.jpg}
+\end{center}
+
+Ce projet est soumis a une condition principale, très nouvelle pour nous : faire coexister le langage C avec le OCaml. Le partage entre les deux doit être relativement équitable tout au long du programme. En fait, lors du projet précédent nous avons déjà eu l'occasion de faire dialoguer les deux langages, via l'utilisation de GTK (écrit en C), notamment pour l'interface.\\
+
+Ceci a donc été la principale raison qui nous a pousse a faire l'interface de ce projet-ci en Caml. L'interface entièrement en OCaml doit donc appeler des fonctions, comme la lecture d'un fichier, en C.\\
+
+Tous les types OCaml sont exportés dans le monde C avec le type unique "value". On convertit ensuite les valeurs de ce type en données manipulables par le C, et on renvoie une valeur qui, elle aussi, doit être de type "value". Le code C et le code OCaml sont placés dans des fichiers séparés qui diffèrent par leur nom. En effet, a la compilation, deux fichiers .o seront générés ayant le même nom, un pour la version en Ocaml et l'autre en C. Ceci posera alors problème. On ne fait que appeler du C a partir du OCaml.\\
+
+Comme il a été dit plus haut, c'est l'interface qui est codée en OCaml. C'est lorsque l'utilisateur veut lire une musique que le programme appelle une fonction en C. Le bouton "play" de l'interface, code en Ocaml, appelle une fonction en C dans un autre fichier qui va lire le fichier musical choisi.\\
+
+L'un des problèmes majeurs auquel nous avons été confronte fut la compilation. En effet, puisque nous utilisons une libraire externe, FMOD donc, nous n'avons pas pu faire le lien directement via les commandes de compilations habituelles, notamment l'utilisation des .o, car OCamlc ne peut utiliser en même temps les .o et les .so (produit par FMOD) pour produire les exécutables. Il a donc fallu mettre notre code C dans sa propre librairie qui sert de lien avec l'OCaml, la compilation intégrant notre librairie de liens.\\
+
+Actuellement, les fonctions stop, pause, volume et de chargement de fichier utilisent enfin le dialogue C - OCaml. En effet, elles utilisent chacune des fonctions de FMOD qui ne sont disponibles qu'en C.
+
 \chapter{ La playlist}
+
+Une liste d'écoute, aussi appelée liste de lecture ou playlist, est un ensemble de morceaux musicaux ou de fichiers audio/vidéo compilés dans un agrégateur. Ils peuvent être joués séquentiellement, dans un ordre aléatoire ou selon une logique choisie par celui qui l'a composée.
+
+Le terme est notamment utilisé dans le monde de la radio, pour désigner la liste de morceaux en rotation sur les ondes et par les DJ pour désigner leur sélection de morceaux (faisant souvent partie d'un mix) lors d'une prestation ou d'une diffusion.
+Les termes de liste de lecture et de playlist sont utilisés de façon de plus en plus fréquente pour désigner une liste de morceaux compilés sur un ordinateur personnel et destinés à être joués ou transférés sur un baladeur numérique.
+
+
+\begin{center}
+\includegraphics[scale=1]{playlist.png}
+\it{interface de liste de lecture}
+\end{center}
+
+\section{utilisation}
+la playlist permet à l'utilisateur de se créer une compilation de morceaux qui s'enchaineront les uns après les autres. La fenêtre est composée de trois parties principales, la liste, permettant d'afficher les morceaux ajoutés pas l'utilisateur, un bouton "add" permettant d'ajouter une élément à la liste sans influencer la lecture en cours et un bouton "delete" pour enlever des éléments et ainsi gérer facilement la liste de lecture.
+
+\section{création de la playlist}
+
+
 \chapter{la pochette}
+
+Une pochette est l'emballage d'un album de musique. Selon le support de l'enregistrement, le terme peut se référer à une impression sur papier cartonné pour les disques vinyles (carré de 12,375 pouces pour les 33 tours), ou plus récemment à l'emballage en papier cartonné ou en matière plastique des CD.
+
+\begin{center}
+\includegraphics[scale=0.7]{cover.png}
+\it{interface de liste de lecture}
+\end{center}
+
+
 \chapter{site web}
 
 
