@@ -516,16 +516,8 @@ let about_button =
   btn#connect#clicked (fun () -> ignore (dlg#run ()); dlg#misc#hide ());
   btn
 
-let buttonquit =
-  let btn = GButton.button
-    ~stock:`QUIT
-    ~packing:item6#add () in
-  btn#connect#clicked
-  ~callback:GMain.quit;
-btn
 
-  (*========= FUNCTIONS ========== *)
-
+    
 let confirm _ =
   let dlg = GWindow.message_dialog
     ~message:"<b><big>Do you really want to leave?</big>\n\n\
@@ -538,8 +530,20 @@ let confirm _ =
     ~buttons:GWindow.Buttons.yes_no () in
   let res = dlg#run () = `NO in
   dlg#destroy ();
+    window#destroy ();
   res
 
+let buttonquit =
+  let btn = GButton.button
+    ~stock:`QUIT
+    ~packing:item6#add () in
+    btn#connect#clicked 
+      ~callback:(fun() -> confirm();()); 
+btn
+
+  (*========= FUNCTIONS ========== *)
+
+    
 (*========== APPEL ==========*)
 
 let loop () = 
@@ -558,6 +562,7 @@ let loop () =
 let _ =
   hide#connect#clicked ~callback:cbox#misc#hide;
     window#event#connect#delete confirm;
+
   window#show ();
   GMain.Idle.add loop;
   GMain.main ()
