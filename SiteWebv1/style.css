@@ -1,0 +1,237 @@
+body
+{
+	background:#000000 url('background1.jpg') center top no-repeat;
+	background-attachment: fixed; 
+	margin:0px;
+
+	padding:0px;
+}
+img
+{
+	border:0px;
+}
+a
+{
+	color:#333333;
+	text-decoration:none;
+}
+a:hover
+{
+	color:#000000;
+}
+.site
+{
+}
+.header
+{
+	height:314px;
+	background:url('header.png') bottom center no-repeat;
+	width:940px;
+	margin:auto;
+}
+.header span
+{
+	display:block;
+	font-size:50px;
+	font-family:Star Jedi Outline;
+	color:#ffffff;
+	padding-top:30px;
+	text-align:center;
+}
+.foot
+{
+	width:940px;
+	margin:auto;
+	text-align:center;
+	height:35px;
+	padding-top:15px;
+	background:url('foot.png') no-repeat center;
+	margin-bottom:20px;
+}
+.foot a,.foot
+{
+	color:#bbbbbb;
+}
+.foot:hover a,.foot:hover
+{
+	color:#dddddd;
+}
+.foot a:hover
+{
+	color:#ffffff;
+}
+.menu_v
+{
+	float:right;
+	width:240px;
+	padding-left:10px;
+}
+.menu_v_top
+{
+	padding-top:3px;
+	padding-left:10px;
+	font-size:18px;
+	font-weight:bold;
+	color:#000000;
+}
+.menu_v_ctn
+{
+	padding-left:10px;
+	padding-bottom:15px;
+}
+.corp
+{
+	width:940px;
+	padding-bottom:12px;
+	padding-top:5px;
+	color:black;
+	margin:auto;
+	background:url('contenu.png');
+	
+}
+.corp_ctn
+{
+	width:680px;
+}
+.clean
+{
+	clear:both;
+}
+h1,h2,h3,h4,h5,h6,p
+{
+	margin:0px;
+}
+h1,h2,h3
+{
+font-family:Star Jedi Outline;
+	color:#333333;
+	border-bottom:2px solid #555555;
+	margin-left:10px;
+	padding-top:5px;
+}
+h4,h5,h6
+{
+font-family:Star Jedi Outline;
+	color:#333333;
+	margin-left:10px;
+	padding-top:5px;
+}
+.paragraphe,p
+{
+
+font-family:Arial;
+font-size:14px;
+
+	padding-left:10px;
+	padding-bottom:5px;
+	padding-top:5px;
+}
+ul
+{
+   
+   list-style-image:url(o1.GIF);
+
+	margin:0px;
+	margin-top:15px;
+	margin-bottom:5px;
+	margin-left:30px;
+}
+
+
+
+caption /* Titre du tableau */
+{
+   margin: auto; 
+   font-family: Star Jedi Outline;
+   font-weight: bold;
+   font-size: 1.2em;
+   color: black;
+   margin-bottom: 20px; 
+}
+
+table /* Le tableau en lui-même */
+{
+   margin: auto; /* Centre le tableau */
+   border: 4px outset yellow; /* Bordure du tableau avec effet 3D (outset) */
+   border-collapse: collapse; /* Colle les bordures entre elles */
+}
+
+th /* Les cellules d'en-tête */
+{
+   background-color: Grey;
+   color: black;
+   font-size: 1.1em;
+   font-family: Star Jedi Outline;
+   border: 4px outset white;
+}
+
+td /* Les cellules normales */
+{
+   
+   background-color: Grey;
+   color: black;
+   border: 4px outset white;
+   
+   font-family: "Comic Sans MS", "Trebuchet MS", Times, "Times New Roman", serif;
+   text-align: center; /* Tous les textes des cellules seront centrés*/
+   padding: 5px; /* Petite marge intérieure aux cellules pour éviter que le texte touche les bordures */
+}
+dl, dt, dd{margin:0;padding:0; font-family: Star Jedi Outline;font-size:14px;}
+
+dd{
+	width:216px;
+	height:41px;
+	background:url(bg_bar.gif) no-repeat 0 0;
+	position:relative;
+}
+dd span{
+	position:absolute;
+	display:block;
+	width:200px;
+	height:25px;
+	background:url(bar.gif) no-repeat 0 0;
+	top:8px;
+	left:8px;
+	overflow:hidden;
+	text-indent:-8000px;
+}
+dd em{
+	position:absolute;
+	display:block;
+	width:200px;
+	height:25px;
+	background:url(bg_cover.gif) repeat-x;
+	top:0;
+}
+
+
+/* SINGLE PROGRESS BAR */
+
+.progressBar{
+	width:216px;
+	height:05px;
+	background:url(bg_bar.gif) no-repeat 0 0;
+	position:relative;
+}
+.progressBar span{
+	position:absolute;
+	display:block;
+	width:200px;
+	height:05px;
+	background:url(bar.gif) no-repeat 0 0;
+	top:8px;
+	left:8px;
+	overflow:hidden;
+	text-indent:-8000px;
+}
+.progressBar em{
+	position:absolute;
+	display:block;
+	width:200px;
+	height:05px;
+	background:url(bg_cover.gif) repeat-x 0 0;
+	top:0;
+}
+
+
+
