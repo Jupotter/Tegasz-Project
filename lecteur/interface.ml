@@ -528,8 +528,8 @@ btn
 
 let confirm _ =
   let dlg = GWindow.message_dialog
-    ~message:"<b><big>LOOOL</big>\n\n\
-      Attention :\nvous perdrez toutes les modifications que vous y avez apportées </b>\n"
+    ~message:"<b><big>Do you really want to leave?</big>\n\n\
+     Caution \n Your playlist will be lost </b>\n"
     ~parent:window
     ~destroy_with_parent:true
     ~use_markup:true
@@ -557,6 +557,7 @@ let loop () =
 
 let _ =
   hide#connect#clicked ~callback:cbox#misc#hide;
+    window#event#connect#delete confirm;
   window#show ();
   GMain.Idle.add loop;
   GMain.main ()
