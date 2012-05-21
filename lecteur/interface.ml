@@ -528,7 +528,7 @@ btn
 
 let confirm _ =
   let dlg = GWindow.message_dialog
-    ~message:"<b><big>Voulez-vous vraiment quitter ?</big>\n\n\
+    ~message:"<b><big>LOOOL</big>\n\n\
       Attention :\nvous perdrez toutes les modifications que vous y avez apportées </b>\n"
     ~parent:window
     ~destroy_with_parent:true
